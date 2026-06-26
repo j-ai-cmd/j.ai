@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
+const CALENDLY_URL = "https://calendly.com/jai-ai-zohomail";
+
+function openCalendly(e: React.MouseEvent) {
+  e.preventDefault();
+  const cal = (window as any).Calendly;
+  if (cal) {
+    cal.initPopupWidget({ url: CALENDLY_URL });
+  } else {
+    window.open(CALENDLY_URL, "_blank");
+  }
+}
+
 export default function Home() {
   useScrollReveal();
   const [scrolled, setScrolled] = useState(false);
@@ -25,7 +37,8 @@ export default function Home() {
         <div className="max-w-[900px] mx-auto px-6 h-[64px] flex items-center justify-between">
           <span className="font-syne font-extrabold text-[20px] text-white tracking-tight">j.ai</span>
           <a 
-            href="#cta"
+            href={CALENDLY_URL}
+            onClick={openCalendly}
             className="btn-active-scale border border-white text-white bg-transparent rounded-[4px] px-[20px] py-[8px] text-[14px] font-semibold transition-colors hover:bg-white/5"
           >
             Book a Call
@@ -50,7 +63,8 @@ export default function Home() {
           
           <div className="mt-10 reveal">
             <a 
-              href="#cta"
+              href={CALENDLY_URL}
+              onClick={openCalendly}
               className="btn-active-scale inline-block bg-jai-cobalt border-[2px] border-white/30 text-white font-semibold text-[15px] px-[32px] py-[14px] rounded-[4px] transition-colors hover:bg-white/5"
             >
               Book a Discovery Call
@@ -155,9 +169,8 @@ export default function Home() {
           
           <div className="mt-10 reveal">
             <a 
-              href="YOUR_CALENDLY_LINK"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={CALENDLY_URL}
+              onClick={openCalendly}
               className="btn-active-scale inline-block bg-jai-cobalt text-white font-semibold text-[15px] px-[36px] py-[16px] rounded-[4px] transition-transform"
             >
               Book a Discovery Call
