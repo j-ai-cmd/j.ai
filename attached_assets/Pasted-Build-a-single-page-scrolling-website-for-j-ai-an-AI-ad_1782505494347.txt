@@ -1,0 +1,35 @@
+Build a single-page scrolling website for "j.ai" -- an AI advisory and custom builds consultancy run by Jai Dhingra. The site should feel like a premium editorial product, not a template. Think Linear, Stripe, or Luno in terms of quality and feel.
+TECH STACK: HTML, CSS, vanilla JavaScript. Single file. No frameworks. Google Fonts loaded via link tag.
+FONTS: Display headings in "Syne" (Google Fonts, weight 800). Body text in "Inter" (Google Fonts, weights 400 and 600). Import both from Google Fonts.
+COLOUR SYSTEM:
+
+Cobalt blue: #2C3EE8
+Navy: #0F1729
+Off-white: #F7F8FF
+Pure white: #FFFFFF
+Muted white: rgba(255,255,255,0.6)
+Dark text on light: #1A1A2E
+Muted text on light: #555566
+
+SECTION ORDER AND BACKGROUNDS:
+
+Nav -- cobalt blue background
+Hero -- cobalt blue background
+Problem -- white background
+Services -- navy background
+Why j.ai -- off-white background
+Who I Work With -- cobalt blue background
+CTA -- navy background
+Footer -- #0A0A0A background
+
+ANIMATIONS: Every text block, heading, and button fades up on scroll using IntersectionObserver. Delay each child element by 100ms incrementally so they cascade up one after another. Smooth and subtle, not dramatic.
+NAV: Fixed to top. Cobalt blue background. Left side: "j.ai" in Syne Bold, white, 20px. Right side: single button "Book a Call" -- white border, white text, transparent background, border-radius 4px. Nav has a subtle bottom border rgba(255,255,255,0.15) that appears on scroll.
+HERO SECTION: Full viewport height, cobalt blue. Vertically centered content. Small pill tag at top reads "AI Advisory and Custom Builds" -- white border, muted white text, border-radius 20px, 10px 16px padding, font-size 11px, letter-spacing 0.08em, uppercase. Below that, a massive display headline in Syne 800, white, 56px on desktop, 36px mobile, line-height 1.1, letter-spacing -0.03em: "You're too busy running your business to figure out what AI can do for it." Below that, a subheadline in Inter 400, muted white, 18px: "That's exactly what I do for you." Below that, a button: white background, cobalt blue text, Inter 600, 14px, padding 14px 28px, border-radius 4px, label "Book a Discovery Call". Add a subtle animated scroll indicator at the bottom center -- a small white chevron that bobs up and down slowly.
+PROBLEM SECTION: White background. Padding 120px vertical. Max-width 760px centered. Small eyebrow label in cobalt blue, Inter 600, 11px, uppercase, letter-spacing 0.1em: "The Reality". Below that, a large heading in Syne 800, dark text, 40px: "AI is moving faster than any business owner can keep up with." Below that, three paragraphs in Inter 400, muted dark text, 17px, line-height 1.8: Paragraph 1: "New tools drop every week. Everyone's talking about automation, agents, workflows. And somewhere in all that noise is something that could genuinely save your team 10 hours a week, but you don't have time to find it, test it, or figure out if it even applies to your business." Paragraph 2: "Meanwhile your competitors already have. They're running leaner, moving faster, and delivering more." Paragraph 3: "Every week you don't, the gap widens."
+SERVICES SECTION: Navy background. Padding 120px vertical. Max-width 900px centered. Eyebrow label white muted, uppercase, 11px: "How We Work". Large heading Syne 800 white 40px: "Two ways to work together." Below that, two service blocks side by side on desktop, stacked on mobile. Each block has a thin cobalt blue top border 2px, padding top 32px. Service 1 title in Syne 700 white 22px: "j.ai Advisory". Body Inter 400 muted white 16px line-height 1.8: "You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you, with full attention on your business." Service 2 title: "j.ai Builds". Body: "When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped, priced, and built to deliver a specific outcome, not a generic template dropped into your operations."
+WHY J.AI SECTION: Off-white background #F7F8FF. Padding 120px vertical. Max-width 760px centered. Eyebrow label cobalt blue uppercase 11px: "Why j.ai". Large heading Syne 800 dark 40px: "You started your business to do the work you're good at." Then four paragraphs Inter 400 muted dark 17px line-height 1.8: "Not to spend hours on tasks that slow your growth, drain your team, and pull you away from what actually matters." / "AI can give you those hours back." / "Every business has work that runs on people instead of systems. Repetitive, manual, time-consuming work that your team is too good to be doing. That's what AI is made for, that's where it belongs, and that's exactly where we come in." / "j.ai finds it, builds it, and makes it work. Directly in your business. Around how you actually operate."
+WHO I WORK WITH SECTION: Cobalt blue background. Padding 120px vertical. Max-width 760px centered. Eyebrow muted white uppercase 11px: "Who This Is For". Large heading Syne 800 white 40px: "Founders and operators ready to actually implement." Body Inter 400 muted white 17px line-height 1.8: "Running businesses between 10 and 50 people who know their team is spending time on work that shouldn't be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about building a leaner, faster operation and ready to actually implement, we'll work well together."
+CTA SECTION: Navy background. Padding 140px vertical. Center aligned. Large heading Syne 800 white 48px: "Ready to see what AI can do for your business?" Body Inter 400 muted white 18px margin-top 24px: "Book a call. We'll look at how your business runs, where the biggest opportunities are, and how we can use AI to solve your problems." Button margin-top 40px: cobalt blue background #2C3EE8, white text, Inter 600 15px, padding 16px 36px, border-radius 4px, label "Book a Discovery Call". On hover button lightens slightly.
+FOOTER: #0A0A0A background. Padding 60px vertical. Max-width 900px centered. Left side: "j.ai" Syne 800 white 18px. Below it: "AI Advisory and Custom Builds for SMEs" Inter 400 muted white 13px. Right side: email link jai.ai@zohomail.in in muted white Inter 400 13px, LinkedIn icon link (use a simple SVG inline icon), and copyright line "2026 j.ai. All rights reserved." in muted white 12px. On mobile stack left and right centered.
+GLOBAL RULES: No border-radius above 4px anywhere except the pill tag in the hero. No gradients anywhere. No shadows. No decorative icons or illustrations. Every section has generous padding, minimum 100px top and bottom. Max content width never exceeds 900px, centered with auto margins. All buttons have a subtle scale(0.97) on active. Fully responsive down to 375px mobile. Smooth scroll behaviour on html element. Calendly link placeholder on all CTA buttons: href="YOUR_CALENDLY_LINK". Add a HTML comment at the top: replace YOUR_CALENDLY_LINK with real Calendly URL.
+
