@@ -41,11 +41,11 @@ export default function Home() {
           </div>
           
           <h1 className="font-syne font-extrabold text-white text-[36px] md:text-[56px] leading-[1.1] tracking-[-0.03em] max-w-[800px] reveal">
-            You're too busy running your business to figure out what AI can do for it.
+            You're too busy running your business to figure out what AI can do for you.
           </h1>
           
           <p className="font-sans text-jai-muted-white text-[18px] leading-[1.7] max-w-[540px] mt-6 reveal">
-            That's exactly what I do for you.
+            That's exactly what j.ai does for you.
           </p>
           
           <div className="mt-10 reveal">
@@ -62,9 +62,6 @@ export default function Home() {
       {/* PROBLEM SECTION */}
       <section className="w-full bg-jai-pure-white py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <span className="block text-jai-cobalt font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            the reality
-          </span>
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             AI is moving faster than any business owner can keep up with.
           </h2>
@@ -86,11 +83,8 @@ export default function Home() {
       {/* SERVICES SECTION */}
       <section className="w-full bg-jai-navy py-[120px]">
         <div className="max-w-[900px] mx-auto px-6 reveal-container">
-          <span className="block text-jai-muted-white font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            how we work
-          </span>
           <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
-            Two ways to work together.
+            Built around how your business actually runs.
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
@@ -114,9 +108,6 @@ export default function Home() {
       {/* WHY J.AI SECTION */}
       <section className="w-full bg-jai-off-white py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <span className="block text-jai-cobalt font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            why j.ai
-          </span>
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             You started your business to do the work you're good at.
           </h2>
@@ -141,9 +132,6 @@ export default function Home() {
       {/* WHO I WORK WITH SECTION */}
       <section className="w-full bg-jai-cobalt py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <span className="block text-jai-muted-white font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            who this is for
-          </span>
           <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             Founders and operators ready to actually implement.
           </h2>
@@ -196,7 +184,7 @@ export default function Home() {
             </a>
             
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/company/jai-ai" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-jai-muted-white hover:text-white transition-colors"
