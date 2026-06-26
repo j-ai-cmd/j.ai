@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* PROBLEM SECTION */}
-      <section className="w-full bg-jai-pure-white py-[120px]">
+      <section className="w-full bg-jai-pure-white py-[60px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             AI is moving faster than any business owner can keep up with.
@@ -106,7 +106,7 @@ export default function Home() {
       </section>
 
       {/* WHY J.AI SECTION */}
-      <section className="w-full bg-jai-off-white py-[120px]">
+      <section className="w-full bg-jai-off-white py-[60px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             You started your business to do the work you're good at.
@@ -136,7 +136,7 @@ export default function Home() {
             Founders and operators ready to actually implement.
           </h2>
           
-          <p className="text-jai-muted-white text-[17px] leading-[1.8] reveal">
+          <p className="text-[20px] leading-[1.8] reveal" style={{color: "rgba(255,255,255,0.75)"}}>
             Running businesses between 10 and 50 people who know their team is spending time on work that shouldn't be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about building a leaner, faster operation and ready to actually implement, we'll work well together.
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function Home() {
           </h2>
           
           <p className="text-jai-muted-white text-[18px] leading-[1.7] max-w-[600px] mx-auto mt-6 reveal">
-            Book a call. We'll look at how your business runs, where the biggest opportunities are, and how we can use AI to solve your problems.
+            Book a call. We'll discuss how your business runs, where the biggest opportunities are, and how we can use AI to solve your problems.
           </p>
           
           <div className="mt-10 reveal">
