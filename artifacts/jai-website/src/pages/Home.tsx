@@ -45,7 +45,7 @@ export default function Home() {
           </h1>
           
           <p className="font-sans text-jai-muted-white text-[18px] leading-[1.7] max-w-[540px] mt-6 reveal">
-            j.ai works with founders and operators to find where AI fits, build what actually helps, and make sure it sticks.
+            That's exactly what I do for you.
           </p>
           
           <div className="mt-10 reveal">
@@ -63,7 +63,7 @@ export default function Home() {
       <section className="w-full bg-jai-pure-white py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <span className="block text-jai-cobalt font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            The Reality
+            the reality
           </span>
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             AI is moving faster than any business owner can keep up with.
@@ -71,13 +71,13 @@ export default function Home() {
           
           <div className="space-y-6 text-jai-muted-text text-[17px] leading-[1.8]">
             <p className="reveal">
-              New tools drop every week. Everyone's talking about automation, agents, workflows. But most of it isn't built for businesses like yours. And the people selling it aren't operators — they're enthusiasts.
+              New tools drop every week. Everyone's talking about automation, agents, workflows. And somewhere in all that noise is something that could genuinely save your team 10 hours a week, but you don't have time to find it, test it, or figure out if it even applies to your business.
             </p>
             <p className="reveal">
-              The gap between what AI can do and what your business is actually using is costing you time, money, and competitive edge every single month.
+              Meanwhile your competitors already have. They're running leaner, moving faster, and delivering more.
             </p>
             <p className="reveal">
-              You don't need to become an AI expert. You need someone who already is one — and knows how to translate that into results for a business like yours.
+              Every week you don't, the gap widens.
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function Home() {
       <section className="w-full bg-jai-navy py-[120px]">
         <div className="max-w-[900px] mx-auto px-6 reveal-container">
           <span className="block text-jai-muted-white font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            How We Work
+            how we work
           </span>
           <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
             Two ways to work together.
@@ -97,14 +97,14 @@ export default function Home() {
             <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
               <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Advisory</h3>
               <p className="text-jai-muted-white text-[16px] leading-[1.8]">
-                You need someone who stays current so you don't have to. Monthly retainer. Regular sessions. Honest guidance on what's worth your attention and what isn't. No fluff, no upsells — just a reliable thinking partner for the AI decisions your business is facing.
+                You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you, with full attention on your business.
               </p>
             </div>
             
             <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
               <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Builds</h3>
               <p className="text-jai-muted-white text-[16px] leading-[1.8]">
-                You have a specific problem. We build the specific solution. Custom AI workflows, internal tools, automations, and systems that plug into how your business actually works. Scoped projects, clear deliverables, real outcomes.
+                When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped, priced, and built to deliver a specific outcome, not a generic template dropped into your operations.
               </p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function Home() {
       <section className="w-full bg-jai-off-white py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <span className="block text-jai-cobalt font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            Why j.ai
+            why j.ai
           </span>
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
             You started your business to do the work you're good at.
@@ -129,10 +129,10 @@ export default function Home() {
               AI can give you those hours back.
             </p>
             <p className="reveal">
-              Every business has a different set of bottlenecks. We find yours, figure out where AI can move the needle, and either guide you through it or build it for you.
+              Every business has work that runs on people instead of systems. Repetitive, manual, time-consuming work that your team is too good to be doing. That's what AI is made for, that's where it belongs, and that's exactly where we come in.
             </p>
             <p className="reveal">
-              No theory. No hype. Just a clear-eyed look at your business and what's actually possible right now.
+              j.ai finds it, builds it, and makes it work. Directly in your business. Around how you actually operate.
             </p>
           </div>
         </div>
@@ -142,14 +142,14 @@ export default function Home() {
       <section className="w-full bg-jai-cobalt py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <span className="block text-jai-muted-white font-semibold text-[11px] uppercase tracking-[0.1em] mb-4 reveal">
-            Who This Is For
+            who this is for
           </span>
           <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             Founders and operators ready to actually implement.
           </h2>
           
           <p className="text-jai-muted-white text-[17px] leading-[1.8] reveal">
-            Running businesses between 10 and 50 people who know their team is spending time on work that shouldn't be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about implementing, not just exploring, j.ai is built for you.
+            Running businesses between 10 and 50 people who know their team is spending time on work that shouldn't be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about building a leaner, faster operation and ready to actually implement, we'll work well together.
           </p>
         </div>
       </section>
