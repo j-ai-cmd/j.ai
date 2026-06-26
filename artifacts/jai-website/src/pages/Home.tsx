@@ -110,7 +110,7 @@ export default function Home() {
             </div>
             
             <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
-              <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Builds</h3>
+              <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Labs</h3>
               <p className="text-jai-muted-white text-[16px] leading-[1.8]">
                 When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped, priced, and built to deliver a specific outcome, not a generic template dropped into your operations.
               </p>
@@ -185,7 +185,7 @@ export default function Home() {
           
           <div className="text-center md:text-left flex flex-col items-center md:items-start gap-2">
             <span className="font-syne font-extrabold text-white text-[18px]">j.ai</span>
-            <span className="text-jai-muted-white text-[13px]">AI Advisory and Custom Builds for SMEs</span>
+            <span className="text-jai-muted-white text-[13px]">AI Advisory and Custom Tools for SMEs</span>
           </div>
           
           <div className="flex flex-col items-center md:items-end gap-3">
