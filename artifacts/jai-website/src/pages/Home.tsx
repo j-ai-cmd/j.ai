@@ -3,14 +3,36 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const CALENDLY_URL = "https://calendly.com/jai-ai-zohomail";
 
+let calendlyLoading = false;
+let calendlyLoaded = false;
+
+function loadCalendly(): Promise<void> {
+  return new Promise((resolve) => {
+    if (calendlyLoaded) { resolve(); return; }
+    if (calendlyLoading) {
+      const check = setInterval(() => {
+        if (calendlyLoaded) { clearInterval(check); resolve(); }
+      }, 100);
+      return;
+    }
+    calendlyLoading = true;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    document.head.appendChild(link);
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.onload = () => { calendlyLoaded = true; resolve(); };
+    document.head.appendChild(script);
+  });
+}
+
 function openCalendly(e: React.MouseEvent) {
   e.preventDefault();
-  const cal = (window as any).Calendly;
-  if (cal) {
-    cal.initPopupWidget({ url: CALENDLY_URL });
-  } else {
-    window.open(CALENDLY_URL, "_blank");
-  }
+  loadCalendly().then(() => {
+    (window as any).Calendly.initPopupWidget({ url: CALENDLY_URL });
+  });
 }
 
 export default function Home() {
@@ -77,7 +99,7 @@ export default function Home() {
       <section className="w-full bg-jai-pure-white py-[60px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
-            AI is moving faster than any business owner can keep up with.
+            AI is moving faster than you can keep up with.
           </h2>
           
           <div className="space-y-6 text-jai-muted-text text-[17px] leading-[1.8]">
@@ -112,7 +134,7 @@ export default function Home() {
             <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
               <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Labs</h3>
               <p className="text-jai-muted-white text-[16px] leading-[1.8]">
-                When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped, priced, and built to deliver a specific outcome, not a generic template dropped into your operations.
+                When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template dropped into your operations.
               </p>
             </div>
           </div>
