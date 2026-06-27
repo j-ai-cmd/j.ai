@@ -50,7 +50,7 @@ export default function Home() {
       <section className="relative w-full min-h-[100dvh] bg-jai-cobalt pt-[64px] flex items-center">
         <div className="max-w-[900px] mx-auto px-6 w-full reveal-container">
           <div className="inline-block border border-white text-jai-muted-white rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 reveal">
-            AI Advisory and Custom Builds
+            AI Advisory and Custom Tools
           </div>
           
           <h1 className="font-syne font-extrabold text-white text-[36px] md:text-[56px] leading-[1.1] tracking-[-0.03em] max-w-[800px] reveal">
