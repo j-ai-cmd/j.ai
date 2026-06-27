@@ -1,23 +1,58 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
-const CALENDLY_URL = "https://calendly.com/jai-ai-zohomail";
-const CALENDLY_EMBED_URL =
-  "https://calendly.com/jai-ai-zohomail?background_color=0f1729&text_color=ffffff&primary_color=2c3ee8&hide_event_type_details=1&hide_gdpr_banner=1";
+function initCalEmbed() {
+  if ((window as any).__calInitDone) return;
+  (window as any).__calInitDone = true;
 
-function injectCalendlyScript() {
-  if (document.getElementById("calendly-script")) return;
-  const script = document.createElement("script");
-  script.id = "calendly-script";
-  script.src = "https://assets.calendly.com/assets/external/widget.js";
-  script.async = true;
-  document.head.appendChild(script);
+  (function (C: any, A: string, L: string) {
+    const p = (a: any, ar: any) => a.q.push(ar);
+    const d = C.document;
+    C.Cal = C.Cal || function (...args: any[]) {
+      const cal = C.Cal;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (args[0] === L) {
+        const api: any = (...a: any[]) => p(api, a);
+        const namespace = args[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], args);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, args);
+        return;
+      }
+      p(cal, args);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  const Cal = (window as any).Cal;
+  Cal("init", "30min", { origin: "https://app.cal.com" });
+  Cal.config = Cal.config || {};
+  Cal.config.forwardQueryParams = true;
+
+  Cal.ns["30min"]("inline", {
+    elementOrSelector: "#my-cal-inline-30min",
+    config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark" },
+    calLink: "jai.ai/30min",
+  });
+
+  Cal.ns["30min"]("ui", {
+    theme: "dark",
+    cssVarsPerTheme: { dark: { "cal-brand": "#2C3EE8" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
 }
 
 export default function Home() {
   useScrollReveal();
   const [scrolled, setScrolled] = useState(false);
-  const triggerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -25,22 +60,8 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Pre-load Calendly script when user reaches the "Who I Work With" section
-  // so the inline embed is fully ready by the time they scroll to the CTA
   useEffect(() => {
-    const el = triggerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          injectCalendlyScript();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    initCalEmbed();
   }, []);
 
   return (
@@ -159,8 +180,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHO I WORK WITH SECTION — also acts as Calendly pre-load trigger */}
-      <section ref={triggerRef} className="w-full bg-jai-cobalt py-[120px]">
+      {/* WHO I WORK WITH SECTION */}
+      <section className="w-full bg-jai-cobalt py-[120px]">
         <div className="max-w-[760px] mx-auto px-6 reveal-container">
           <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             Founders and operators ready to actually implement.
@@ -184,11 +205,10 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Calendly inline embed */}
+          {/* Cal.com inline embed */}
           <div
-            className="calendly-inline-widget w-full rounded-[4px] overflow-hidden"
-            data-url={CALENDLY_EMBED_URL}
-            style={{ minWidth: 320, height: 700 }}
+            id="my-cal-inline-30min"
+            style={{ width: "100%", height: 700, overflow: "scroll" }}
           />
         </div>
       </section>
