@@ -32,19 +32,17 @@ function initCalEmbed() {
   })(window, "https://app.cal.com/embed/embed.js", "init");
 
   const Cal = (window as any).Cal;
-  Cal("init", "30min", { origin: "https://app.cal.com" });
+  Cal("init", "discovery-call", { origin: "https://app.cal.com" });
   Cal.config = Cal.config || {};
   Cal.config.forwardQueryParams = true;
 
-  Cal.ns["30min"]("inline", {
-    elementOrSelector: "#my-cal-inline-30min",
-    config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark" },
-    calLink: "jai.ai/30min",
+  Cal.ns["discovery-call"]("inline", {
+    elementOrSelector: "#my-cal-inline-discovery-call",
+    config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+    calLink: "jai.ai/discovery-call",
   });
 
-  Cal.ns["30min"]("ui", {
-    theme: "dark",
-    cssVarsPerTheme: { dark: { "cal-brand": "#2C3EE8" } },
+  Cal.ns["discovery-call"]("ui", {
     hideEventTypeDetails: false,
     layout: "month_view",
   });
@@ -207,7 +205,7 @@ export default function Home() {
 
           {/* Cal.com inline embed */}
           <div
-            id="my-cal-inline-30min"
+            id="my-cal-inline-discovery-call"
             style={{ width: "100%", height: 700, overflow: "scroll" }}
           />
         </div>
