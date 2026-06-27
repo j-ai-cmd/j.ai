@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#2C3EE8"/>
+
+  <!-- Bottom border strip -->
+  <rect y="610" width="1200" height="20" fill="#2438d0"/>
+
+  <!-- j.ai wordmark -->
+  <text
+    x="80"
+    y="200"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="96"
+    fill="#ffffff"
+    letter-spacing="-3"
+  >j.ai</text>
+
+  <!-- Divider line -->
+  <rect x="80" y="240" width="80" height="3" fill="rgba(255,255,255,0.35)"/>
+
+  <!-- Headline -->
+  <text
+    x="80"
+    y="330"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="48"
+    fill="#ffffff"
+    letter-spacing="-1"
+  >AI Advisory and Custom Tools</text>
+  <text
+    x="80"
+    y="390"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="48"
+    fill="#ffffff"
+    letter-spacing="-1"
+  >for growing businesses.</text>
+
+  <!-- Subtext -->
+  <text
+    x="80"
+    y="470"
+    font-family="Arial, Helvetica, sans-serif"
+    font-weight="400"
+    font-size="24"
+    fill="rgba(255,255,255,0.6)"
+  >Find where AI fits. Build what actually helps. Make it stick.</text>
+
+  <!-- Bottom CTA hint -->
+  <text
+    x="80"
+    y="572"
+    font-family="Arial, Helvetica, sans-serif"
+    font-weight="600"
+    font-size="16"
+    fill="rgba(255,255,255,0.4)"
+    letter-spacing="2"
+  >JAI.AI — BOOK A DISCOVERY CALL</text>
+</svg>
