@@ -223,10 +223,10 @@ export default function Legal() {
 
           <div className="flex flex-col items-center md:items-end gap-3">
             <a
-              href="mailto:admin@jdotai.com"
+              href="mailto:jai.ai@zohomail.in"
               className="text-jai-muted-white text-[13px] hover:underline decoration-white/30 underline-offset-4 transition-all"
             >
-              admin@jdotai.com
+              jai.ai@zohomail.in
             </a>
 
             <a
