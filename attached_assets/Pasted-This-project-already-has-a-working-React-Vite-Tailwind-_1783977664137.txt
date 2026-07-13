@@ -1,0 +1,60 @@
+This project already has a working React + Vite + Tailwind v4 site using wouter for routing. Reuse everything that already exists — do not rebuild it. Reference files: src/App.tsx, src/pages/Home.tsx, src/index.css.
+
+Design system already defined — reuse exactly, do not introduce new colors, fonts, or spacing conventions:
+- Colors: jai-cobalt (#2C3EE8), jai-navy (#0F1729), jai-off-white, jai-pure-white, jai-muted-white, jai-dark-text, jai-muted-text, jai-footer-bg (#0A0A0A)
+- Fonts: Syne (headings, font-weight 800), Inter (body) — keep Syne, do not change fonts
+- Existing scroll-reveal system: useScrollReveal hook + "reveal"/"reveal-container" classes — reuse these exactly for any new text on the new page
+- Existing card style: border-t-2 border-jai-cobalt, used in the Services section — reuse this for the new agent cards
+- Existing Cal.com inline embed logic used in Home.tsx's CTA section — reuse the same embed code/init function on the new page, don't reimplement it
+
+TASK 1 — Nav link (src/pages/Home.tsx)
+Add a plain text nav link labeled "Legal" between the "j.ai" logo and "Book a Call" button, using wouter's <Link> component (not a hash anchor), pointing to route "/legal".
+
+TASK 2 — New route (src/App.tsx)
+Add a new route in the existing <Switch>: <Route path="/legal" component={Legal} />, alongside the existing Home route. Import Legal from "@/pages/Legal".
+
+TASK 3 — New page (src/pages/Legal.tsx)
+A full standalone page, structured in three sections, with its own nav and footer matching Home.tsx's nav/footer exactly (same markup/classes), except:
+- The nav's right-side link says "Home" instead of "Legal", pointing back to "/"
+- Keep the same "Book a Call" button behavior
+
+SECTION 1 — Hero (bg-jai-cobalt, same hero style as Home.tsx: pill tag, large Syne heading, subtext, CTA button)
+Pill: "For Law Firms"
+Heading: "Built for law firms."
+Subheading: "AI agents that run in draft mode for 2–3 weeks with every new firm. Nothing sends to a client without a lawyer approving it first. Works with Smokeball and Clio."
+CTA button: "Book a Discovery Call" — scrolls to this page's own CTA section at the bottom (not back to Home)
+
+SECTION 2 — Agent grid (bg-jai-pure-white, grid-cols-1 md:grid-cols-2 lg:grid-cols-3, gap matching Services section spacing). 6 cards, each with agent name (bold, font-syne), one description line, then "Trigger" and "Output" as small labeled meta lines:
+
+Hermes — Past Client Reactivation
+Desc: "Reads your closed matter history and drafts a personalised re-engagement email for clients who haven't been contacted in over 12 months."
+Trigger: Runs daily | Output: Draft re-engagement email, one-click lawyer approval
+
+Athena — Pre-Meeting Brief Generator
+Desc: "Reads every intake form the moment it's submitted, pulls prior matter history, and generates a structured brief before the meeting even starts."
+Trigger: Intake form submitted | Output: Brief delivered within 90 seconds
+
+Hestia — New Client Welcome Email
+Desc: "Drafts a warm, personalised welcome email referencing the client's specific situation the moment a new client is confirmed."
+Trigger: New client confirmed | Output: Draft welcome email queued for approval
+
+Plutus — Unbilled Time & WIP Chaser
+Desc: "Scans every open matter for unbilled time and sends each fee earner a clean weekly summary of what's sitting unbilled."
+Trigger: Weekly, Monday 7am | Output: Internal nudge email per fee earner
+
+Charis — Post-Matter Referral & Review
+Desc: "Drafts a thank-you email with a natural review ask and referral line 7 days after a matter closes, while the relationship is still warm."
+Trigger: 7 days after matter closes | Output: Draft thank-you + review ask, queued for approval
+
+Apollo — Cross-Sell Intelligence
+Desc: "Matches every client's matter history against a service opportunity matrix and drafts targeted cross-sell outreach for the gaps it finds."
+Trigger: Weekly | Output: Draft cross-sell email per opportunity, queued for approval
+
+SECTION 3 — CTA (bg-jai-navy, same structure as Home.tsx's CTA section, reusing the same Cal.com embed)
+Heading: "Ready to put these agents to work in your firm?"
+Body: "Pick a time below. We'll walk through your workflows and which agents make sense to start with."
+
+CONSTRAINTS
+- Do not modify Home.tsx beyond adding the nav link in Task 1.
+- Do not add How It Works, Case Studies, Builds Showcase, or Testimonials anywhere — those are shelved.
+- Do not touch index.css structure beyond adding any new component-scoped classes strictly needed for the agent card grid, if Tailwind utilities alone aren't sufficient.

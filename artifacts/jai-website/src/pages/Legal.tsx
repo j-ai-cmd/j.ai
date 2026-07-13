@@ -38,7 +38,7 @@ function initCalEmbed() {
   Cal.config.forwardQueryParams = true;
 
   Cal.ns["discovery-call"]("inline", {
-    elementOrSelector: "#my-cal-inline-discovery-call",
+    elementOrSelector: "#legal-cal-inline-discovery-call",
     config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
     calLink: "jai.ai/discovery-call",
   });
@@ -49,7 +49,52 @@ function initCalEmbed() {
   });
 }
 
-export default function Home() {
+const agents = [
+  {
+    name: "Hermes",
+    subtitle: "Past Client Reactivation",
+    desc: "Reads your closed matter history and drafts a personalised re-engagement email for clients who haven't been contacted in over 12 months.",
+    trigger: "Runs daily",
+    output: "Draft re-engagement email, one-click lawyer approval",
+  },
+  {
+    name: "Athena",
+    subtitle: "Pre-Meeting Brief Generator",
+    desc: "Reads every intake form the moment it's submitted, pulls prior matter history, and generates a structured brief before the meeting even starts.",
+    trigger: "Intake form submitted",
+    output: "Brief delivered within 90 seconds",
+  },
+  {
+    name: "Hestia",
+    subtitle: "New Client Welcome Email",
+    desc: "Drafts a warm, personalised welcome email referencing the client's specific situation the moment a new client is confirmed.",
+    trigger: "New client confirmed",
+    output: "Draft welcome email queued for approval",
+  },
+  {
+    name: "Plutus",
+    subtitle: "Unbilled Time & WIP Chaser",
+    desc: "Scans every open matter for unbilled time and sends each fee earner a clean weekly summary of what's sitting unbilled.",
+    trigger: "Weekly, Monday 7am",
+    output: "Internal nudge email per fee earner",
+  },
+  {
+    name: "Charis",
+    subtitle: "Post-Matter Referral & Review",
+    desc: "Drafts a thank-you email with a natural review ask and referral line 7 days after a matter closes, while the relationship is still warm.",
+    trigger: "7 days after matter closes",
+    output: "Draft thank-you + review ask, queued for approval",
+  },
+  {
+    name: "Apollo",
+    subtitle: "Cross-Sell Intelligence",
+    desc: "Matches every client's matter history against a service opportunity matrix and drafts targeted cross-sell outreach for the gaps it finds.",
+    trigger: "Weekly",
+    output: "Draft cross-sell email per opportunity, queued for approval",
+  },
+];
+
+export default function Legal() {
   useScrollReveal();
   const [scrolled, setScrolled] = useState(false);
 
@@ -76,10 +121,10 @@ export default function Home() {
           <span className="font-syne font-extrabold text-[20px] text-white tracking-tight">j.ai</span>
           <div className="flex items-center gap-6">
             <Link
-              href="/legal"
+              href="/"
               className="text-white/70 text-[14px] hover:text-white transition-colors"
             >
-              Legal
+              Home
             </Link>
             <a
               href="#cta"
@@ -91,19 +136,19 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="relative w-full min-h-[100dvh] bg-jai-cobalt pt-[64px] flex items-center">
         <div className="max-w-[900px] mx-auto px-6 w-full reveal-container">
           <div className="inline-block border border-white text-jai-muted-white rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 reveal">
-            AI Advisory and Custom Tools
+            For Law Firms
           </div>
 
           <h1 className="font-syne font-extrabold text-white text-[36px] md:text-[56px] leading-[1.1] tracking-[-0.03em] max-w-[800px] reveal">
-            You're too busy running your business to figure out what AI can do for you.
+            Built for law firms.
           </h1>
 
-          <p className="font-sans text-jai-muted-white text-[18px] leading-[1.7] max-w-[540px] mt-6 reveal">
-            That's exactly what j.ai does for you.
+          <p className="font-sans text-jai-muted-white text-[18px] leading-[1.7] max-w-[600px] mt-6 reveal">
+            AI agents that run in draft mode for 2–3 weeks with every new firm. Nothing sends to a client without a lawyer approving it first. Works with Smokeball and Clio.
           </p>
 
           <div className="mt-10 reveal">
@@ -117,104 +162,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROBLEM SECTION */}
-      <section className="w-full bg-jai-pure-white py-[60px]">
-        <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
-            AI is moving faster than you can keep up with.
-          </h2>
-
-          <div className="space-y-6 text-jai-muted-text text-[17px] leading-[1.8]">
-            <p className="reveal">
-              New tools drop every week. Everyone's talking about automation, agents, workflows. And somewhere in all that noise is something that could genuinely save your team 10 hours a week, but you don't have time to find it, test it, or figure out if it even applies to your business.
-            </p>
-            <p className="reveal">
-              Meanwhile your competitors already have. They're running leaner, moving faster, and delivering more.
-            </p>
-            <p className="reveal">
-              Every week you don't, the gap widens.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section className="w-full bg-jai-navy py-[120px]">
+      {/* AGENT GRID */}
+      <section className="w-full bg-jai-pure-white py-[120px]">
         <div className="max-w-[900px] mx-auto px-6 reveal-container">
-          <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
-            Built around how your business actually runs.
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-            <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
-              <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Advisory</h3>
-              <p className="text-jai-muted-white text-[16px] leading-[1.8]">
-                You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you, with full attention on your business.
-              </p>
-            </div>
-
-            <div className="border-t-[2px] border-jai-cobalt pt-8 reveal">
-              <h3 className="font-syne font-extrabold text-white text-[22px] mb-4">j.ai Labs</h3>
-              <p className="text-jai-muted-white text-[16px] leading-[1.8]">
-                When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template dropped into your operations.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {agents.map((agent) => (
+              <div key={agent.name} className="border-t-[2px] border-jai-cobalt pt-8 reveal">
+                <h3 className="font-syne font-extrabold text-jai-dark-text text-[20px] leading-tight">
+                  {agent.name}
+                </h3>
+                <p className="text-jai-cobalt text-[13px] font-semibold tracking-wide uppercase mt-1 mb-4">
+                  {agent.subtitle}
+                </p>
+                <p className="text-jai-muted-text text-[15px] leading-[1.7] mb-6">
+                  {agent.desc}
+                </p>
+                <div className="space-y-2">
+                  <p className="text-[13px] text-jai-dark-text">
+                    <span className="font-semibold">Trigger</span>
+                    <span className="text-jai-muted-text"> — {agent.trigger}</span>
+                  </p>
+                  <p className="text-[13px] text-jai-dark-text">
+                    <span className="font-semibold">Output</span>
+                    <span className="text-jai-muted-text"> — {agent.output}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* WHY J.AI SECTION */}
-      <section className="w-full bg-jai-off-white py-[60px]">
-        <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <h2 className="font-syne font-extrabold text-jai-dark-text text-[40px] leading-[1.2] mb-8 reveal">
-            You started your business to do the work you're good at.
-          </h2>
-
-          <div className="space-y-6 text-jai-muted-text text-[17px] leading-[1.8]">
-            <p className="reveal">
-              Not to spend hours on tasks that slow your growth, drain your team, and pull you away from what actually matters.
-            </p>
-            <p className="reveal">
-              AI can give you those hours back.
-            </p>
-            <p className="reveal">
-              Every business has work that runs on people instead of systems. Repetitive, manual, time-consuming work that your team is too good to be doing. That's what AI is made for, that's where it belongs, and that's exactly where we come in.
-            </p>
-            <p className="reveal">
-              j.ai finds it, builds it, and makes it work. Directly in your business. Around how you actually operate.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* WHO I WORK WITH SECTION */}
-      <section className="w-full bg-jai-cobalt py-[120px]">
-        <div className="max-w-[760px] mx-auto px-6 reveal-container">
-          <h2 className="font-syne font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
-            Founders and operators ready to actually implement.
-          </h2>
-
-          <p className="text-[20px] leading-[1.8] reveal" style={{ color: "rgba(255,255,255,0.75)" }}>
-            Running businesses between 10 and 50 people who know their team is spending time on work that shouldn't be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about building a leaner, faster operation and ready to actually implement, we'll work well together.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA SECTION — inline Calendly embed */}
+      {/* CTA */}
       <section id="cta" className="w-full bg-jai-navy py-[100px]">
         <div className="max-w-[900px] mx-auto px-6">
           <div className="text-center mb-12 reveal-container">
             <h2 className="font-syne font-extrabold text-white text-[48px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[700px] reveal">
-              Ready to see what AI can do for your business?
+              Ready to put these agents to work in your firm?
             </h2>
             <p className="text-jai-muted-white text-[18px] leading-[1.7] max-w-[600px] mx-auto mt-6 reveal">
-              Pick a time below. We'll discuss how your business runs, where the biggest opportunities are, and how we can use AI to solve your problems.
+              Pick a time below. We'll walk through your workflows and which agents make sense to start with.
             </p>
           </div>
 
-          {/* Cal.com inline embed */}
           <div
-            id="my-cal-inline-discovery-call"
+            id="legal-cal-inline-discovery-call"
             style={{ width: "100%", height: 700, overflow: "scroll" }}
           />
         </div>
