@@ -231,14 +231,14 @@ export default function Home() {
 
           <div className="flex flex-col items-center md:items-end gap-3">
             <a
-              href="mailto:jai.ai@zohomail.in"
+              href="mailto:admin@jdotai.com"
               className="text-jai-muted-white text-[13px] hover:underline decoration-white/30 underline-offset-4 transition-all"
             >
-              jai.ai@zohomail.in
+              admin@jdotai.com
             </a>
 
             <a
-              href="https://www.linkedin.com/company/jai-ai"
+              href="https://www.linkedin.com/in/jai-dhingra/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-jai-muted-white hover:text-white transition-colors"
