@@ -32,7 +32,6 @@
 }
 
 @layer base {
-  * { @apply border-border; }
   html { scroll-behavior: smooth; }
   body { @apply font-sans antialiased bg-jai-off-white text-jai-dark-text; }
   h1, h2, h3 { font-family: 'Outfit', sans-serif; }
