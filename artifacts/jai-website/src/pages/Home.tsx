@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 
 const CAL_EMBED = `
@@ -18,7 +18,7 @@ function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("revealed"); }),
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
     return () => observer.disconnect();
@@ -28,9 +28,13 @@ function useScrollReveal() {
 export default function Home() {
   useScrollReveal();
   const [scrolled, setScrolled] = useState(false);
+  const [navCompressed, setNavCompressed] = useState(false);
 
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 20);
+    const h = () => {
+      setScrolled(window.scrollY > 20);
+      setNavCompressed(window.scrollY > 80);
+    };
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
@@ -39,7 +43,7 @@ export default function Home() {
     const script = document.createElement("script");
     script.innerHTML = CAL_EMBED;
     document.body.appendChild(script);
-    return () => { document.body.removeChild(script); };
+    return () => { try { document.body.removeChild(script); } catch {} };
   }, []);
 
   const industries = [
@@ -54,11 +58,13 @@ export default function Home() {
   return (
     <div className="min-h-[100dvh] w-full flex flex-col font-sans text-[#1A1A2E] bg-[#F7F8FF]">
 
-      {/* NAV */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 bg-[#2C3EE8] transition-all duration-300 ${scrolled ? "border-b border-white/15" : "border-b border-transparent"}`}>
-        <div className="max-w-[960px] mx-auto px-6 h-[64px] flex items-center justify-between">
-          <img src="/logo-white.png" alt="j.ai" className="h-10 w-auto" />
-          <div className="flex items-center gap-6">
+      {/* NAV — sticky, compresses on scroll */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2C3EE8]">
+        <div className={`max-w-[960px] mx-auto px-6 flex items-center justify-between transition-all duration-300 ${navCompressed ? "h-[48px]" : "h-[68px]"}`}>
+          <Link href="/">
+            <img src="/logo-white.png" alt="j.ai" className={`w-auto cursor-pointer transition-all duration-300 ${navCompressed ? "h-8" : "h-12"}`} />
+          </Link>
+          <div className="flex items-center gap-5">
             {industries.map(ind => (
               ind.live
                 ? <Link key={ind.label} href={ind.href} className="text-white text-[14px] font-semibold hover:text-white/80 transition-colors">{ind.label}</Link>
@@ -70,10 +76,11 @@ export default function Home() {
             <a href="#cta" className="border border-white text-white bg-transparent rounded px-5 py-2 text-[14px] font-semibold hover:bg-white/5 transition-colors">Book a Call</a>
           </div>
         </div>
+        <div className="border-b border-white/20" />
       </nav>
 
       {/* HERO */}
-      <section className="relative w-full min-h-[100dvh] bg-[#2C3EE8] pt-[64px] flex items-center">
+      <section className="relative w-full min-h-[100dvh] bg-[#2C3EE8] pt-[68px] flex items-center">
         <div className="max-w-[960px] mx-auto px-6 py-[80px] w-full">
           <h1 className="font-outfit font-extrabold text-white text-[38px] md:text-[58px] leading-[1.1] tracking-[-0.03em] max-w-[800px] reveal">
             You're too busy running your business to figure out what AI can do for you.
@@ -82,7 +89,7 @@ export default function Home() {
             That's exactly what j.ai does for you.
           </p>
           <div className="mt-10 reveal">
-            <a href="#cta" className="inline-block bg-transparent border-2 border-white/40 text-white font-semibold text-[15px] px-[32px] py-[14px] rounded hover:bg-white/5 transition-colors">
+            <a href="#cta" className="inline-block bg-transparent border-2 border-white/40 text-white font-semibold text-[15px] px-[32px] py-[14px] rounded transition-all duration-150 hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] active:translate-y-0 active:shadow-none">
               Book a Discovery Call
             </a>
           </div>
@@ -103,21 +110,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* SERVICES — dark navy with hover cards */}
       <section className="w-full bg-[#0F1729] py-[120px]">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
             Built around how your business actually runs.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-            <div className="border-t-[2px] border-[#2C3EE8] pt-8 reveal">
-              <h3 className="font-outfit font-extrabold text-white text-[22px] mb-4">j.ai Advisory</h3>
-              <p className="text-white/70 text-[16px] leading-[1.8]">You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you.</p>
-            </div>
-            <div className="border-t-[2px] border-[#2C3EE8] pt-8 reveal">
-              <h3 className="font-outfit font-extrabold text-white text-[22px] mb-4">j.ai Labs</h3>
-              <p className="text-white/70 text-[16px] leading-[1.8]">When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template.</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              { title: "j.ai Advisory", body: "You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you." },
+              { title: "j.ai Labs", body: "When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template." },
+            ].map(item => (
+              <div key={item.title} className="reveal bg-white/5 border border-white/10 rounded-xl p-8 transition-all duration-200 hover:-translate-y-[3px] hover:border-white/25 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] cursor-default">
+                <h3 className="font-outfit font-extrabold text-white text-[22px] mb-4">{item.title}</h3>
+                <p className="text-white/70 text-[16px] leading-[1.8]">{item.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -168,7 +176,7 @@ export default function Home() {
       <footer className="w-full bg-[#0A0A0A] py-[60px]">
         <div className="max-w-[960px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <img src="/logo-white.png" alt="j.ai" className="h-7 w-auto" />
+            <Link href="/"><img src="/logo-blue.png" alt="j.ai" className="h-7 w-auto cursor-pointer" /></Link>
             <span className="text-white/40 text-[13px]">AI Advisory and Custom Tools for SMEs</span>
           </div>
           <div className="flex flex-col items-center md:items-end gap-3">
