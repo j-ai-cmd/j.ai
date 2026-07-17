@@ -50,7 +50,7 @@ const agents: Record<string, any> = {
       { t: "Pulling meeting notes", d: "2 file notes found from prior consultation" },
       { t: "Analysing intake answers", d: "Divorce flagged · no current Will · blended family" },
     ],
-    draft: { head: "Brief ready · James Okafor · consultation 10am", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nMeeting notes from prior consultation: Client mentioned intention to update estate plan after property settled. Was referred by colleague.\n\nRed flags: Recent divorce · No current Will confirmed · Blended family mentioned\n\nConversation steer: Prioritise EPOA and super nominations. Existing ones may still name ex-spouse.", actions: false, wip: false },
+    draft: { head: "Brief ready · James Okafor · consultation 10am", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nMeeting notes: Client mentioned intention to update estate plan after property settled. Was referred by colleague.\n\nRed flags: Recent divorce · No current Will confirmed · Blended family mentioned\n\nConversation steer: Prioritise EPOA and super nominations. Existing ones may still name ex-spouse.", actions: false, wip: false },
     approved: { head: "Pre-meeting brief · James Okafor · approved", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nRed flags: Recent divorce · No Will confirmed · Blended family\n\nSteer: Prioritise EPOA and super nominations.", wip: false },
   },
   hestia: {
@@ -122,10 +122,7 @@ function Console() {
   const [approvedBody, setApprovedBody] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const sidebarItems = [
-    { key: "hermes" }, { key: "athena" }, { key: "hestia" },
-    { key: "plutus" }, { key: "charis" }, { key: "apollo" },
-  ];
+  const sidebarItems = ["hermes","athena","hestia","plutus","charis","apollo"];
 
   function pickAgent(key: string) {
     setCur(key); setOverlayOpen(false); setSteps(0);
@@ -171,14 +168,14 @@ function Console() {
           6 agents live
         </span>
       </div>
-      <div className="grid grid-cols-[220px_1fr] min-h-[580px]">
+      <div className="grid grid-cols-[220px_1fr] min-h-[600px]">
         <div className="bg-[#0F1729] border-r border-white/[0.07]">
           <div className="px-[14px] py-[11px] text-[10px] tracking-[0.1em] uppercase text-white/[0.28] border-b border-white/[0.05]">Agents</div>
-          {sidebarItems.map(item => {
-            const ag = agents[item.key];
+          {sidebarItems.map(key => {
+            const ag = agents[key];
             return (
-              <button key={item.key} onClick={() => pickAgent(item.key)}
-                className={`w-full px-[14px] py-[13px] text-left flex items-center gap-[9px] border-b border-white/[0.04] border-l-2 transition-colors ${cur === item.key ? "bg-[rgba(44,62,232,0.18)] border-l-[#2C3EE8]" : "border-l-transparent hover:bg-white/[0.04]"}`}>
+              <button key={key} onClick={() => pickAgent(key)}
+                className={`w-full px-[14px] py-[13px] text-left flex items-center gap-[9px] border-b border-white/[0.04] border-l-2 transition-colors ${cur === key ? "bg-[rgba(44,62,232,0.18)] border-l-[#2C3EE8]" : "border-l-transparent hover:bg-white/[0.04]"}`}>
                 <span className="w-[6px] h-[6px] rounded-full flex-shrink-0" style={{ background: ag.dot }} />
                 <div className="flex-1 min-w-0">
                   <span className="block text-[13px] font-semibold text-white/[0.85]">{ag.name}</span>
@@ -204,17 +201,13 @@ function Console() {
           <div className="p-[20px] flex-1 overflow-y-auto">
             {approved ? (
               <div>
-                <div className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-4">
-                  &#10003; Approved
-                </div>
+                <div className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-4">&#10003; Approved</div>
                 <div className="bg-white rounded-lg border border-black/[0.08] overflow-hidden">
                   <div className="px-[14px] py-[9px] border-b border-black/[0.06] flex justify-between text-[11px] text-[#555566]">
                     <span>{a.approved.head}</span>
                     <span className="text-[#4ade80]">&#9679; Approved</span>
                   </div>
-                  {a.approved.wip || approvedBody === "wip" ? (
-                    <WipRows />
-                  ) : (
+                  {a.approved.wip || approvedBody === "wip" ? <WipRows /> : (
                     <div className="p-[14px] text-[13px] text-[#555566] leading-relaxed">
                       <p className="font-semibold text-[#1A1A2E] mb-2">{a.approved.subj}</p>
                       <p className="whitespace-pre-line">{approvedBody || a.approved.body}</p>
@@ -253,21 +246,15 @@ function Console() {
                     </div>
                   </div>
                 ))}
-
                 {draftVisible && (
-                  <div className="flex gap-[11px] mb-[16px] opacity-100 translate-y-0">
+                  <div className="flex gap-[11px] mb-[16px]">
                     <div className="w-[26px] h-[26px] rounded-full bg-blue-100 border border-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-semibold flex-shrink-0 mt-[1px]">AI</div>
                     <div className="flex-1 pt-[2px]">
                       <div className="text-[13px] font-semibold text-[#1A1A2E] mb-2">{a.draft.head}</div>
                       <div className="bg-[#f7f8ff] border border-[#c5cdf7] rounded-lg overflow-hidden">
-                        {isWip ? (
-                          <WipRows />
-                        ) : editMode ? (
-                          <textarea
-                            className="w-full p-[14px] text-[13px] text-[#1A1A2E] leading-relaxed border-none bg-transparent resize-none outline-none min-h-[140px] font-sans"
-                            value={editText}
-                            onChange={e => setEditText(e.target.value)}
-                          />
+                        {isWip ? <WipRows /> : editMode ? (
+                          <textarea className="w-full p-[14px] text-[13px] text-[#1A1A2E] leading-relaxed border-none bg-transparent resize-none outline-none min-h-[140px] font-sans"
+                            value={editText} onChange={e => setEditText(e.target.value)} />
                         ) : (
                           <div className="p-[14px] text-[13px] text-[#555566] leading-relaxed">
                             <p className="font-semibold text-[#1A1A2E] mb-2">{a.draft.subj}</p>
@@ -302,19 +289,13 @@ function Console() {
 }
 
 function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "", email: "", firmName: "", firmSize: "", pms: "", agents: [] as string[], message: ""
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", firmName: "", firmSize: "", pms: "", agents: [] as string[], message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
   const agentOptions = ["Hermes", "Athena", "Hestia", "Plutus", "Charis", "Apollo", "Custom build"];
 
   function toggleAgent(agent: string) {
-    setFormData(prev => ({
-      ...prev,
-      agents: prev.agents.includes(agent) ? prev.agents.filter(a => a !== agent) : [...prev.agents, agent]
-    }));
+    setFormData(prev => ({ ...prev, agents: prev.agents.includes(agent) ? prev.agents.filter(a => a !== agent) : [...prev.agents, agent] }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -327,8 +308,8 @@ function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="bg-[#0F1729] rounded-xl p-12 text-center">
-        <div className="text-[42px] mb-4">&#10003;</div>
+      <div className="bg-[#0F1729] rounded-xl p-12 text-center h-full flex flex-col items-center justify-center">
+        <div className="text-[48px] mb-4 text-[#4ade80]">&#10003;</div>
         <h3 className="font-outfit font-extrabold text-white text-[28px] mb-3">Got it.</h3>
         <p className="text-white/70 text-[16px]">We will be in touch within 24 hours.</p>
       </div>
@@ -339,27 +320,23 @@ function ContactForm() {
   const labelClass = "block text-[13px] font-semibold text-white/80 mb-2";
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#0F1729] rounded-xl p-8 md:p-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <form onSubmit={handleSubmit} className="bg-[#0F1729] rounded-xl p-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         <div>
           <label className={labelClass}>Full name</label>
-          <input required className={inputClass} type="text" placeholder="Jane Smith"
-            value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} />
+          <input required className={inputClass} type="text" placeholder="Jane Smith" value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} />
         </div>
         <div>
           <label className={labelClass}>Email</label>
-          <input required className={inputClass} type="email" placeholder="jane@smithlaw.com"
-            value={formData.email} onChange={e => setFormData(p => ({ ...p, email: e.target.value }))} />
+          <input required className={inputClass} type="email" placeholder="jane@smithlaw.com" value={formData.email} onChange={e => setFormData(p => ({ ...p, email: e.target.value }))} />
         </div>
         <div>
           <label className={labelClass}>Firm name</label>
-          <input required className={inputClass} type="text" placeholder="Smith Family Law"
-            value={formData.firmName} onChange={e => setFormData(p => ({ ...p, firmName: e.target.value }))} />
+          <input required className={inputClass} type="text" placeholder="Smith Family Law" value={formData.firmName} onChange={e => setFormData(p => ({ ...p, firmName: e.target.value }))} />
         </div>
         <div>
           <label className={labelClass}>Firm size</label>
-          <select required className={inputClass + " appearance-none cursor-pointer"}
-            value={formData.firmSize} onChange={e => setFormData(p => ({ ...p, firmSize: e.target.value }))}>
+          <select required className={inputClass + " appearance-none cursor-pointer"} value={formData.firmSize} onChange={e => setFormData(p => ({ ...p, firmSize: e.target.value }))}>
             <option value="" disabled>Select staff count</option>
             <option value="1-5">1 to 5</option>
             <option value="6-10">6 to 10</option>
@@ -368,11 +345,9 @@ function ContactForm() {
           </select>
         </div>
       </div>
-
-      <div className="mb-6">
+      <div className="mb-5">
         <label className={labelClass}>Practice management system</label>
-        <select required className={inputClass + " appearance-none cursor-pointer"}
-          value={formData.pms} onChange={e => setFormData(p => ({ ...p, pms: e.target.value }))}>
+        <select required className={inputClass + " appearance-none cursor-pointer"} value={formData.pms} onChange={e => setFormData(p => ({ ...p, pms: e.target.value }))}>
           <option value="" disabled>Select your PMS</option>
           <option>Smokeball</option>
           <option>Clio</option>
@@ -381,26 +356,23 @@ function ContactForm() {
           <option>Other</option>
         </select>
       </div>
-
-      <div className="mb-6">
+      <div className="mb-5">
         <label className={labelClass}>Which agents interest you?</label>
         <div className="flex flex-wrap gap-2">
           {agentOptions.map(agent => (
             <button key={agent} type="button" onClick={() => toggleAgent(agent)}
-              className={`text-[13px] px-4 py-2 rounded-full border transition-colors ${formData.agents.includes(agent) ? "bg-[#2C3EE8] border-[#2C3EE8] text-white" : "border-white/20 text-white/60 hover:border-white/40 hover:text-white/80"}`}>
+              className={`text-[12.5px] px-3 py-2 rounded-full border transition-colors ${formData.agents.includes(agent) ? "bg-[#2C3EE8] border-[#2C3EE8] text-white" : "border-white/20 text-white/60 hover:border-white/40"}`}>
               {agent}
             </button>
           ))}
         </div>
       </div>
-
-      <div className="mb-8">
-        <label className={labelClass}>Tell us what you want to automate</label>
-        <textarea required className={inputClass + " resize-none min-h-[120px]"}
+      <div className="mb-7">
+        <label className={labelClass}>What do you want to automate?</label>
+        <textarea required className={inputClass + " resize-none min-h-[110px]"}
           placeholder="Describe the tasks taking up your team's time, or the specific workflow you have in mind..."
           value={formData.message} onChange={e => setFormData(p => ({ ...p, message: e.target.value }))} />
       </div>
-
       <button type="submit" disabled={submitting}
         className="w-full bg-[#2C3EE8] hover:opacity-90 disabled:opacity-50 text-white font-semibold text-[15px] py-4 rounded transition-opacity">
         {submitting ? "Sending..." : "Send enquiry"}
@@ -423,7 +395,7 @@ export default function Legal() {
     const script = document.createElement("script");
     script.innerHTML = CAL_EMBED;
     document.body.appendChild(script);
-    return () => { document.body.removeChild(script); };
+    return () => { try { document.body.removeChild(script); } catch {} };
   }, []);
 
   return (
@@ -441,11 +413,8 @@ export default function Legal() {
       </nav>
 
       {/* HERO */}
-      <section className="relative w-full bg-[#2C3EE8] pt-[64px] flex items-center min-h-[70vh]">
+      <section className="relative w-full bg-[#2C3EE8] pt-[64px] flex items-center min-h-[100dvh]">
         <div className="max-w-[960px] mx-auto px-6 py-[90px] w-full">
-          <div className="inline-block border border-white text-white rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 font-semibold reveal">
-            For Law Firms
-          </div>
           <h1 className="font-outfit font-extrabold text-white text-[40px] md:text-[58px] leading-[1.08] tracking-[-0.03em] max-w-[820px] reveal">
             If a task does not need your judgement, it should not need your time.
           </h1>
@@ -464,9 +433,7 @@ export default function Legal() {
         <div className="max-w-[1100px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-3 reveal">Watch any agent run</h2>
           <p className="text-[16px] text-[#555566] leading-[1.7] max-w-[520px] mb-10 reveal">Select an agent, click Run, and see exactly what it does.</p>
-          <div className="reveal">
-            <Console />
-          </div>
+          <div className="reveal"><Console /></div>
         </div>
       </section>
 
@@ -476,18 +443,9 @@ export default function Legal() {
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-16 reveal">Built around one idea.</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              {
-                n: "1", t: "We map what does not need you",
-                d: "Your firm runs on a mix of work that needs a lawyer's brain and work that does not. We sit with you, go through how your firm actually operates, and identify every task that is repeatable, predictable, and eating time it should not."
-              },
-              {
-                n: "2", t: "We build the agents that handle it",
-                d: "Whether it is a pre-built agent from our library or something custom-built for how your firm specifically works, we configure it, connect it to your practice management system, and run it until the output is exactly right."
-              },
-              {
-                n: "3", t: "Everything that needs you lands in your inbox. Nothing else does.",
-                d: "Every agent output arrives for your review before anything happens. You approve, edit, or skip. The rest runs itself. Nothing ever reaches a client without a human deciding."
-              },
+              { n: "1", t: "We map what does not need you", d: "Your firm runs on a mix of work that needs a lawyer's brain and work that does not. We sit with you, go through how your firm actually operates, and identify every task that is repeatable, predictable, and eating time it should not." },
+              { n: "2", t: "We build the agents that handle it", d: "Whether it is a pre-built agent from our library or something custom-built for how your firm specifically works, we configure it, connect it to your practice management system, and run it until the output is exactly right." },
+              { n: "3", t: "Everything that needs you lands in your inbox. Nothing else does.", d: "Every agent output arrives for your review before anything happens. You approve, edit, or skip. The rest runs itself. Nothing ever reaches a client without a human deciding." },
             ].map(item => (
               <div key={item.n} className="reveal">
                 <div className="font-outfit font-extrabold text-[48px] text-[#2C3EE8] opacity-15 leading-none mb-4">{item.n}</div>
@@ -505,25 +463,16 @@ export default function Legal() {
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.1] tracking-tight mb-16 reveal">What firms are saying.</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                quote: "We had 400 closed matters sitting untouched. Within the first month, Hermes surfaced three clients who came back for new work. One of them turned into a $6,000 estate planning matter.",
-                name: "Managing Partner", firm: "Estate Planning Firm, Sydney AU", placeholder: true
-              },
-              {
-                quote: "The pre-meeting brief alone is worth it. I walk into every consultation knowing exactly who I am meeting and what to watch out for. It used to take me 20 minutes. Now it is there before I have finished my coffee.",
-                name: "Principal Solicitor", firm: "Family Law Practice, London UK", placeholder: true
-              },
-              {
-                quote: "We were writing off around 2,000 a week in unbilled time without realising it. Plutus surfaced it every Monday. We have recovered most of it just by having someone look at the list.",
-                name: "Senior Associate", firm: "Conveyancing Practice, Melbourne AU", placeholder: true
-              },
+              { quote: "We had 400 closed matters sitting untouched. Within the first month, Hermes surfaced three clients who came back for new work. One of them turned into a $6,000 estate planning matter.", name: "Managing Partner", firm: "Estate Planning Firm, Sydney AU" },
+              { quote: "The pre-meeting brief alone is worth it. I walk into every consultation knowing exactly who I am meeting and what to watch out for. It used to take me 20 minutes. Now it is there before I have finished my coffee.", name: "Principal Solicitor", firm: "Family Law Practice, London UK" },
+              { quote: "We were writing off around 2,000 a week in unbilled time without realising it. Plutus surfaced it every Monday. We have recovered most of it just by having someone look at the list.", name: "Senior Associate", firm: "Conveyancing Practice, Melbourne AU" },
             ].map((t, i) => (
               <div key={i} className="reveal bg-white/5 border border-white/10 rounded-xl p-8">
                 <p className="text-white/80 text-[15px] leading-[1.75] mb-6">{t.quote}</p>
                 <div>
                   <div className="text-white font-semibold text-[14px]">{t.name}</div>
                   <div className="text-white/50 text-[12px] mt-1">{t.firm}</div>
-                  {t.placeholder && <div className="text-white/30 text-[10px] mt-1 uppercase tracking-wide">Placeholder · to be replaced</div>}
+                  <div className="text-white/25 text-[10px] mt-1 uppercase tracking-wide">Placeholder · to be replaced</div>
                 </div>
               </div>
             ))}
@@ -542,10 +491,10 @@ export default function Legal() {
         </div>
       </div>
 
-      {/* CUSTOM BUILDS */}
+      {/* CUSTOM BUILDS + FORM */}
       <section className="w-full bg-[#F7F8FF] py-[90px]">
         <div className="max-w-[960px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="reveal">
               <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[36px] leading-[1.1] tracking-tight mb-5">
                 Need something built specifically for your firm?
@@ -553,53 +502,29 @@ export default function Legal() {
               <p className="text-[16px] text-[#555566] leading-[1.75] mb-4">
                 Not every firm runs the same way. If you have a workflow, a process, or a problem that does not fit a standard agent, we will scope and build it from scratch.
               </p>
-              <p className="text-[16px] text-[#555566] leading-[1.75] mb-8">
+              <p className="text-[16px] text-[#555566] leading-[1.75]">
                 Connected to your existing systems. Designed around how you actually work. Delivered as an agent that runs itself.
               </p>
-              <a href="#cta" className="inline-block bg-[#2C3EE8] text-white font-semibold text-[15px] px-[28px] py-[13px] rounded hover:opacity-90 transition-opacity">
-                Tell us what you need
-              </a>
             </div>
-            <div className="reveal bg-white border border-black/[0.08] rounded-xl p-8">
-              <div className="space-y-5">
-                {["A conflicts checker built around your firm's specific categories", "An intake flow that creates matters and contacts automatically", "A billing reminder sequence tailored to your fee earners", "A document checklist generator per matter type"].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <span className="text-[#2C3EE8] font-bold text-[16px] mt-[1px]">&#10003;</span>
-                    <span className="text-[14.5px] text-[#555566] leading-[1.65]">{item}</span>
-                  </div>
-                ))}
-                <div className="pt-2 border-t border-black/[0.06]">
-                  <span className="text-[13px] text-[#888899]">and anything else that currently runs on someone's memory</span>
-                </div>
-              </div>
+            <div className="reveal">
+              <ContactForm />
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — Cal.com full width */}
       <section id="cta" className="w-full bg-[#0F1729] py-[100px]">
         <div className="max-w-[960px] mx-auto px-6">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-12 reveal">
             <h2 className="font-outfit font-extrabold text-white text-[44px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[720px]">
               Ready to stop doing work that should not need you?
             </h2>
             <p className="text-white/70 text-[18px] leading-[1.7] max-w-[560px] mx-auto mt-6">
-              Book a call or fill in the form below. We will map out what is worth automating in your firm and build it.
+              Pick a time below and we will map out what is worth automating in your firm.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="reveal">
-              <h3 className="font-outfit font-bold text-white text-[22px] mb-4">Book a call</h3>
-              <p className="text-white/60 text-[14px] mb-6">Pick a time that works. We will walk through your firm and figure out exactly what to build first.</p>
-              <div id="legal-cal-inline" style={{ width: "100%", height: 500, overflow: "scroll" }} />
-            </div>
-            <div className="reveal">
-              <h3 className="font-outfit font-bold text-white text-[22px] mb-4">Or send us a message</h3>
-              <p className="text-white/60 text-[14px] mb-6">Prefer to write it down first? Fill in the form and we will be in touch within 24 hours.</p>
-              <ContactForm />
-            </div>
-          </div>
+          <div id="legal-cal-inline" style={{ width: "100%", height: 700, overflow: "scroll" }} />
         </div>
       </section>
 
