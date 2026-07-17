@@ -1,103 +1,112 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
-function initCalEmbed() {
-  if ((window as any).__calLegalDone) return;
-  (window as any).__calLegalDone = true;
-  (function (C: any, A: string, L: string) {
-    const p = (a: any, ar: any) => a.q.push(ar);
-    const d = C.document;
-    C.Cal = C.Cal || function (...args: any[]) {
-      const cal = C.Cal;
-      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
-      if (args[0] === L) { const api: any = (...a: any[]) => p(api, a); const namespace = args[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], args); p(cal, ["initNamespace", namespace]); } else p(cal, args); return; }
-      p(cal, args);
-    };
-  })(window, "https://app.cal.com/embed/embed.js", "init");
-  const Cal = (window as any).Cal;
-  Cal("init", "discovery-call", { origin: "https://app.cal.com" });
-  Cal.config = Cal.config || {};
-  Cal.config.forwardQueryParams = true;
-  Cal.ns["discovery-call"]("inline", { elementOrSelector: "#legal-cal-inline-discovery-call", config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" }, calLink: "jai.ai/discovery-call" });
-  Cal.ns["discovery-call"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+const CAL_EMBED = `
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "discovery-call", {origin:"https://app.cal.com"});
+Cal.config = Cal.config || {};
+Cal.config.forwardQueryParams = true;
+Cal.ns["discovery-call"]("inline", {
+  elementOrSelector:"#legal-cal-inline",
+  config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+  calLink: "jai.ai/discovery-call",
+});
+Cal.ns["discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+`;
+
+function useScrollReveal() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("revealed"); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 }
 
 const agents: Record<string, any> = {
   hermes: {
-    name: "Hermes — Past client reactivation", sub: "Runs daily · 847 closed matters scanned · 3 qualified",
-    meta: ["Smokeball connected", "847 matters scanned", "3 drafts ready"],
+    name: "Hermes", role: "Past client reactivation", sub: "Runs daily · 847 closed matters scanned · 3 qualified",
+    meta: ["Connected to Smokeball", "847 matters scanned", "3 drafts ready"],
+    dot: "#4ade80", badge: "3 ready", badgeClass: "bg-green-100 text-green-800",
     steps: [
       { t: "Connected to Smokeball", d: "Authenticated · api.smokeball.com.au · token valid" },
       { t: "Scanning 847 closed matters", d: "Filtering: closed more than 12 months ago" },
       { t: "3 clients qualify", d: "Margaret Chen · Robert Okafor · Susan Park" },
       { t: "Fetching contact details", d: "Names and emails pulled from contacts API" },
-      { t: "Checking contact log", d: "None contacted in last 6 months — all clear" },
+      { t: "Checking contact log", d: "None contacted in last 6 months · all clear" },
     ],
-    draft: { head: "Draft ready · Margaret Chen · Wills & Trusts", subj: "Reviewing your estate plan — it's been a while", body: "Hi Margaret,\n\nIt's been over two years since we helped you put your Will and Powers of Attorney in place. Life changes quickly, and it's worth making sure everything still reflects your wishes.\n\nWe'd love to offer you a brief complimentary review. Would 20 minutes work sometime in the next few weeks?\n\nWarm regards,\nSutton Family Law", actions: true },
-    approved: { head: "Draft 1 of 3 · Margaret Chen · approved", subj: "Reviewing your estate plan — it's been a while", body: "Hi Margaret,\n\nIt's been over two years since we helped you put your Will and Powers of Attorney in place. Life changes quickly, and it's worth making sure everything still reflects your wishes.\n\nWe'd love to offer you a brief complimentary review. Would 20 minutes work sometime in the next few weeks?\n\nWarm regards,\nSutton Family Law", wip: false },
+    draft: { head: "Draft ready · Margaret Chen · Wills and Trusts", subj: "Reviewing your estate plan", body: "Hi Margaret,\n\nIt has been over two years since we helped you put your Will and Powers of Attorney in place. Life changes quickly, and it is worth making sure everything still reflects your wishes.\n\nWe would love to offer you a brief complimentary review. Would 20 minutes work sometime in the next few weeks?\n\nWarm regards,\nSutton Family Law", actions: true, wip: false },
+    approved: { head: "Draft 1 of 3 · Margaret Chen · approved", subj: "Reviewing your estate plan", body: "Hi Margaret,\n\nIt has been over two years since we helped you put your Will and Powers of Attorney in place. Life changes quickly, and it is worth making sure everything still reflects your wishes.\n\nWe would love to offer you a brief complimentary review. Would 20 minutes work sometime in the next few weeks?\n\nWarm regards,\nSutton Family Law", wip: false },
   },
   athena: {
-    name: "Athena — Pre-meeting brief", sub: "Fires on intake form submission · brief in 90 seconds",
+    name: "Athena", role: "Pre-meeting brief", sub: "Fires on intake form submission · brief in 90 seconds",
     meta: ["James Okafor", "Form received 2 min ago", "Prior matter found"],
+    dot: "#2C3EE8", badge: "Running", badgeClass: "bg-blue-100 text-blue-800",
     steps: [
       { t: "Intake form received", d: "James Okafor · submitted 2 minutes ago" },
-      { t: "Searching prior matters", d: "1 prior matter found — property purchase 2021" },
+      { t: "Searching prior matters", d: "1 prior matter found · property purchase 2021" },
+      { t: "Pulling meeting notes", d: "2 file notes found from prior consultation" },
       { t: "Analysing intake answers", d: "Divorce flagged · no current Will · blended family" },
     ],
-    draft: { head: "Brief ready · James Okafor · consultation 10am", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nRed flags: Recent divorce · No current Will confirmed · Blended family mentioned\n\nConversation steer: Prioritise EPOA and super nominations — existing ones may still name ex-spouse.", actions: false },
-    approved: { head: "Pre-meeting brief · James Okafor · approved", subj: "Pre-meeting brief · James Okafor", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nRed flags: Recent divorce · No Will confirmed · Blended family\n\nSteer: Prioritise EPOA and super nominations.", wip: false },
+    draft: { head: "Brief ready · James Okafor · consultation 10am", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nMeeting notes from prior consultation: Client mentioned intention to update estate plan after property settled. Was referred by colleague.\n\nRed flags: Recent divorce · No current Will confirmed · Blended family mentioned\n\nConversation steer: Prioritise EPOA and super nominations. Existing ones may still name ex-spouse.", actions: false, wip: false },
+    approved: { head: "Pre-meeting brief · James Okafor · approved", subj: "Pre-meeting brief", body: "Background: Returning client. Property purchase 2021. Enquiring about estate planning post-divorce.\n\nRed flags: Recent divorce · No Will confirmed · Blended family\n\nSteer: Prioritise EPOA and super nominations.", wip: false },
   },
   hestia: {
-    name: "Hestia — New client welcome", sub: "Fires when new client confirmed",
+    name: "Hestia", role: "New client welcome", sub: "Fires when new client confirmed",
     meta: ["Sarah Williams", "Confirmed today", "Draft ready"],
+    dot: "#4ade80", badge: "1 ready", badgeClass: "bg-green-100 text-green-800",
     steps: [
       { t: "New client confirmed", d: "Sarah Williams · property settlement" },
       { t: "Pulling matter details", d: "Matter type, responsible lawyer, firm name" },
     ],
-    draft: { head: "Draft ready · Sarah Williams", subj: "Welcome to Sutton Family Law, Sarah", body: "Hi Sarah,\n\nIt was great to meet you today. We're glad to be helping you with your property settlement and want to make this as straightforward as possible.\n\nWe'll be in touch shortly with your engagement letter. Don't hesitate to reach out in the meantime.\n\nWarm regards,\nSutton Family Law", actions: true },
-    approved: { head: "Welcome draft · Sarah Williams · approved", subj: "Welcome to Sutton Family Law, Sarah", body: "Hi Sarah,\n\nIt was great to meet you today. We're glad to be helping you with your property settlement.\n\nWe'll be in touch shortly with your engagement letter.\n\nWarm regards,\nSutton Family Law", wip: false },
+    draft: { head: "Draft ready · Sarah Williams", subj: "Welcome to Sutton Family Law, Sarah", body: "Hi Sarah,\n\nIt was great to meet you today. We are glad to be helping you with your property settlement and want to make this as straightforward as possible.\n\nWe will be in touch shortly with your engagement letter. Please do not hesitate to reach out in the meantime.\n\nWarm regards,\nSutton Family Law", actions: true, wip: false },
+    approved: { head: "Welcome draft · Sarah Williams · approved", subj: "Welcome to Sutton Family Law, Sarah", body: "Hi Sarah,\n\nIt was great to meet you today. We will be in touch shortly with your engagement letter.\n\nWarm regards,\nSutton Family Law", wip: false },
   },
   plutus: {
-    name: "Plutus — Unbilled time chaser", sub: "Runs Monday 7am · internal only",
-    meta: ["Last run: Monday", "3 matters found", "£3,520 surfaced"],
+    name: "Plutus", role: "Unbilled time chaser", sub: "Runs Monday 7am · internal only",
+    meta: ["Last run: Monday", "3 matters found", "3,520 surfaced"],
+    dot: "#f59e0b", badge: "Monday", badgeClass: "bg-yellow-100 text-yellow-800",
     steps: [
       { t: "Connected to billing data", d: "Pulling all open matters with time entries" },
       { t: "Finding unbilled WIP", d: "Entries older than 14 days · 3 matters found" },
     ],
-    draft: { head: "WIP summary ready · fee earner only", subj: "wip", body: "", actions: false },
+    draft: { head: "WIP summary ready · fee earner only", subj: "wip", body: "", actions: false, wip: true },
     approved: { head: "WIP summary · sent Monday · fee earner only", subj: "Your unbilled time this week", body: "wip", wip: true },
   },
   charis: {
-    name: "Charis — Post-matter referral", sub: "Fires 7 days after matter closes",
+    name: "Charis", role: "Post-matter referral", sub: "Fires 7 days after matter closes",
     meta: ["2 matters closed", "This week", "2 drafts ready"],
+    dot: "#4ade80", badge: "2 ready", badgeClass: "bg-green-100 text-green-800",
     steps: [
       { t: "Matter closed detected", d: "David Okafor · estate planning · closed 7 days ago" },
       { t: "Checking excluded matter types", d: "Estate planning not excluded · proceeding" },
     ],
-    draft: { head: "Draft ready · David Okafor", subj: "Thank you, David — it was a pleasure", body: "Hi David,\n\nNow that your matter is wrapped up, we just wanted to say thank you for trusting us with something this important. It was a genuine pleasure.\n\nIf you have a moment, a Google review would mean a lot to us. And if you know anyone who needs estate planning or family law advice, we'd love an introduction.\n\nWarmly,\nSutton Family Law", actions: true },
-    approved: { head: "Draft 1 of 2 · David Okafor · approved", subj: "Thank you, David — it was a pleasure", body: "Hi David,\n\nNow that your matter is wrapped up, we just wanted to say thank you. A Google review would mean a lot. And if you know anyone who needs help, we'd love an introduction.\n\nWarmly, Sutton Family Law", wip: false },
+    draft: { head: "Draft ready · David Okafor", subj: "Thank you, David", body: "Hi David,\n\nNow that your matter is wrapped up, we just wanted to say thank you for trusting us with something this important. It was a genuine pleasure.\n\nIf you have a moment, a Google review would mean a lot to us. And if you know anyone who needs estate planning or family law advice, we would love an introduction.\n\nWarmly,\nSutton Family Law", actions: true, wip: false },
+    approved: { head: "Draft 1 of 2 · David Okafor · approved", subj: "Thank you, David", body: "Hi David,\n\nThank you for trusting us. A Google review would mean a lot. And if you know anyone who needs help, we would love an introduction.\n\nWarmly, Sutton Family Law", wip: false },
   },
   apollo: {
-    name: "Apollo — Cross-sell intelligence", sub: "Runs weekly · reads full matter history",
+    name: "Apollo", role: "Cross-sell intelligence", sub: "Runs weekly · reads full matter history",
     meta: ["312 clients scanned", "3 gaps found", "Drafts ready"],
+    dot: "#2C3EE8", badge: "Running", badgeClass: "bg-blue-100 text-blue-800",
     steps: [
       { t: "Reading matter history", d: "312 clients · all matter types reviewed" },
       { t: "Matching against service matrix", d: "Comparing what each client has vs what they may need" },
       { t: "3 gaps identified", d: "Will without EPOA · property without estate plan · business without succession" },
     ],
-    draft: { head: "Cross-sell opportunities ready · 3 found", subj: "3 clients who may need your help again", body: "Margaret Chen — Has Will (2022), no EPOA on file.\n\nRobert Okafor — Property purchase 2021, no estate planning on record.\n\nSarah Williams — Business structure 2020, no succession plan on file.", actions: true },
-    approved: { head: "Cross-sell opportunities · this week · approved", subj: "3 clients who may need your help again", body: "Margaret Chen — Has Will (2022), no EPOA on file.\n\nRobert Okafor — Property purchase 2021, no estate planning.\n\nSarah Williams — Business structure 2020, no succession plan.", wip: false },
+    draft: { head: "Cross-sell opportunities ready · 3 found", subj: "3 clients who may need your help again", body: "Margaret Chen · Has Will (2022), no EPOA on file.\n\nRobert Okafor · Property purchase 2021, no estate planning on record.\n\nSarah Williams · Business structure 2020, no succession plan on file.", actions: true, wip: false },
+    approved: { head: "Cross-sell opportunities · this week · approved", subj: "3 clients who may need your help again", body: "Margaret Chen · Has Will (2022), no EPOA on file.\n\nRobert Okafor · Property purchase 2021, no estate planning.\n\nSarah Williams · Business structure 2020, no succession plan.", wip: false },
   },
 };
 
 function WipRows() {
   return (
-    <div>
-      <div className="flex justify-between py-2 border-b border-gray-100 text-[12.5px]"><span>Chen — Property Settlement (18d)</span><span className="font-semibold text-[#2C3EE8]">£1,840</span></div>
-      <div className="flex justify-between py-2 border-b border-gray-100 text-[12.5px]"><span>Okafor — Estate Planning (22d)</span><span className="font-semibold text-[#2C3EE8]">£960</span></div>
-      <div className="flex justify-between py-2 text-[12.5px]"><span>Williams — Family Law (14d)</span><span className="font-semibold text-[#2C3EE8]">£720</span></div>
-      <div className="flex justify-between py-2 mt-1 bg-[#f0f2fd] rounded px-2 text-[12.5px] font-semibold"><span>Total surfaced</span><span className="text-[#2C3EE8]">£3,520</span></div>
+    <div className="px-[14px] pb-2">
+      <div className="flex justify-between py-2 border-b border-gray-100 text-[12.5px]"><span>Chen · Property Settlement (18d)</span><span className="font-semibold text-[#2C3EE8]">1,840</span></div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-[12.5px]"><span>Okafor · Estate Planning (22d)</span><span className="font-semibold text-[#2C3EE8]">960</span></div>
+      <div className="flex justify-between py-2 text-[12.5px]"><span>Williams · Family Law (14d)</span><span className="font-semibold text-[#2C3EE8]">720</span></div>
+      <div className="flex justify-between mt-2 bg-[#f0f2fd] rounded px-2 py-2 text-[12.5px] font-semibold"><span>Total surfaced</span><span className="text-[#2C3EE8]">3,520</span></div>
     </div>
   );
 }
@@ -105,7 +114,7 @@ function WipRows() {
 function Console() {
   const [cur, setCur] = useState("hermes");
   const [overlayOpen, setOverlayOpen] = useState(false);
-  const [steps, setSteps] = useState<number>(-1);
+  const [steps, setSteps] = useState(0);
   const [draftVisible, setDraftVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editText, setEditText] = useState("");
@@ -114,112 +123,100 @@ function Console() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const sidebarItems = [
-    { key: "hermes", label: "Hermes", role: "Reactivation", dot: "#4ade80", badge: "3 ready", badgeClass: "bg-green-100 text-green-800" },
-    { key: "athena", label: "Athena", role: "Pre-meeting brief", dot: "#2C3EE8", badge: "Running", badgeClass: "bg-blue-100 text-blue-800" },
-    { key: "hestia", label: "Hestia", role: "Welcome email", dot: "#4ade80", badge: "1 ready", badgeClass: "bg-green-100 text-green-800" },
-    { key: "plutus", label: "Plutus", role: "Unbilled time", dot: "#f59e0b", badge: "Monday", badgeClass: "bg-yellow-100 text-yellow-800" },
-    { key: "charis", label: "Charis", role: "Referral & review", dot: "#4ade80", badge: "2 ready", badgeClass: "bg-green-100 text-green-800" },
-    { key: "apollo", label: "Apollo", role: "Cross-sell", dot: "#2C3EE8", badge: "Running", badgeClass: "bg-blue-100 text-blue-800" },
+    { key: "hermes" }, { key: "athena" }, { key: "hestia" },
+    { key: "plutus" }, { key: "charis" }, { key: "apollo" },
   ];
 
   function pickAgent(key: string) {
-    setCur(key);
-    setOverlayOpen(false);
-    setSteps(-1);
-    setDraftVisible(false);
-    setEditMode(false);
-    setApproved(false);
-    setApprovedBody("");
+    setCur(key); setOverlayOpen(false); setSteps(0);
+    setDraftVisible(false); setEditMode(false);
+    setApproved(false); setApprovedBody("");
   }
 
   function startRun() {
-    setOverlayOpen(true);
-    setSteps(0);
-    setDraftVisible(false);
-    setEditMode(false);
-    setApproved(false);
-    setApprovedBody("");
+    setOverlayOpen(true); setSteps(0);
+    setDraftVisible(false); setEditMode(false);
+    setApproved(false); setApprovedBody("");
     const a = agents[cur];
     a.steps.forEach((_: any, i: number) => {
       setTimeout(() => setSteps(i + 1), (i + 1) * 420);
     });
-    setTimeout(() => setDraftVisible(true), (a.steps.length + 1) * 420);
+    setTimeout(() => {
+      setDraftVisible(true);
+      setTimeout(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, 100);
+    }, (a.steps.length + 1) * 420);
   }
 
   function approveDraft() {
     const body = editMode ? editText : agents[cur].draft.body;
-    setApprovedBody(body);
-    setApproved(true);
-    setOverlayOpen(false);
+    setApprovedBody(body); setApproved(true); setOverlayOpen(false);
   }
 
-  function closeOverlay() {
-    setOverlayOpen(false);
-  }
+  function closeOverlay() { setOverlayOpen(false); }
 
   const a = agents[cur];
-  const isWip = a.draft.subj === "wip";
+  const isWip = a.draft.wip;
 
   return (
-    <div className="rounded-xl overflow-hidden border border-black/10 shadow-lg">
-      {/* topbar */}
+    <div className="rounded-xl overflow-hidden border border-black/10 shadow-xl">
       <div className="bg-[#0F1729] px-4 py-3 flex items-center gap-3">
         <div className="flex gap-[5px]">
           <span className="w-[9px] h-[9px] rounded-full bg-[#FF5F57]" />
           <span className="w-[9px] h-[9px] rounded-full bg-[#FEBC2E]" />
           <span className="w-[9px] h-[9px] rounded-full bg-[#28C840]" />
         </div>
-        <span className="text-[11px] text-white/30 tracking-[0.05em] flex-1 text-center">j.ai · Agent Console · Sutton Family Law</span>
-        <span className="text-[11px] text-[#4ade80] flex items-center gap-1">
-          <span className="w-[6px] h-[6px] rounded-full bg-[#4ade80] animate-pulse" />
+        <span className="text-[11px] text-white/30 tracking-[0.05em] flex-1 text-center">j.ai · Agent Console</span>
+        <span className="text-[11px] text-[#4ade80] flex items-center gap-[5px]">
+          <span className="w-[6px] h-[6px] rounded-full bg-[#4ade80] animate-pulse inline-block" />
           6 agents live
         </span>
       </div>
-
-      {/* body */}
-      <div className="grid grid-cols-[200px_1fr] min-h-[500px]">
-        {/* sidebar */}
+      <div className="grid grid-cols-[220px_1fr] min-h-[580px]">
         <div className="bg-[#0F1729] border-r border-white/[0.07]">
           <div className="px-[14px] py-[11px] text-[10px] tracking-[0.1em] uppercase text-white/[0.28] border-b border-white/[0.05]">Agents</div>
-          {sidebarItems.map(item => (
-            <button key={item.key} onClick={() => pickAgent(item.key)}
-              className={`w-full px-[14px] py-[12px] text-left flex items-center gap-[9px] border-b border-white/[0.04] border-l-2 transition-colors ${cur === item.key ? "bg-[rgba(44,62,232,0.18)] border-l-[#2C3EE8]" : "border-l-transparent hover:bg-white/[0.04]"}`}>
-              <span className="w-[6px] h-[6px] rounded-full flex-shrink-0" style={{ background: item.dot }} />
-              <div className="flex-1 min-w-0">
-                <span className="block text-[12.5px] font-semibold text-white/[0.82]">{item.label}</span>
-                <span className="block text-[10px] text-white/[0.32] mt-[1px]">{item.role}</span>
-              </div>
-              <span className={`text-[9.5px] px-[7px] py-[2px] rounded-full font-semibold flex-shrink-0 ${item.badgeClass}`}>{item.badge}</span>
-            </button>
-          ))}
+          {sidebarItems.map(item => {
+            const ag = agents[item.key];
+            return (
+              <button key={item.key} onClick={() => pickAgent(item.key)}
+                className={`w-full px-[14px] py-[13px] text-left flex items-center gap-[9px] border-b border-white/[0.04] border-l-2 transition-colors ${cur === item.key ? "bg-[rgba(44,62,232,0.18)] border-l-[#2C3EE8]" : "border-l-transparent hover:bg-white/[0.04]"}`}>
+                <span className="w-[6px] h-[6px] rounded-full flex-shrink-0" style={{ background: ag.dot }} />
+                <div className="flex-1 min-w-0">
+                  <span className="block text-[13px] font-semibold text-white/[0.85]">{ag.name}</span>
+                  <span className="block text-[10px] text-white/[0.32] mt-[1px]">{ag.role}</span>
+                </div>
+                <span className={`text-[9.5px] px-[7px] py-[2px] rounded-full font-semibold flex-shrink-0 ${ag.badgeClass}`}>{ag.badge}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* main */}
         <div className="flex flex-col relative bg-white">
-          {/* header */}
-          <div className="px-[18px] py-[14px] border-b border-black/[0.07] flex items-center justify-between">
+          <div className="px-[20px] py-[16px] border-b border-black/[0.07] flex items-center justify-between">
             <div>
-              <div className="text-[14px] font-semibold text-[#1A1A2E]">{a.name}</div>
-              <div className="text-[11px] text-[#555566] mt-[2px]">{a.sub}</div>
+              <div className="text-[15px] font-semibold text-[#1A1A2E]">{a.name} · {a.role}</div>
+              <div className="text-[11.5px] text-[#555566] mt-[2px]">{a.sub}</div>
             </div>
-            <button onClick={startRun} className="text-[12px] px-[16px] py-[7px] rounded bg-[#2C3EE8] text-white font-semibold hover:opacity-88 transition-opacity">▶ See it run</button>
+            <button onClick={startRun} className="text-[12.5px] px-[18px] py-[8px] rounded bg-[#2C3EE8] text-white font-semibold hover:opacity-90 transition-opacity">
+              &#9654; See it run
+            </button>
           </div>
 
-          {/* output */}
-          <div className="p-[16px] flex-1 overflow-y-auto transition-opacity duration-300">
+          <div className="p-[20px] flex-1 overflow-y-auto">
             {approved ? (
               <div>
-                <div className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-3">✓ Approved — ready to send</div>
+                <div className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-4">
+                  &#10003; Approved
+                </div>
                 <div className="bg-white rounded-lg border border-black/[0.08] overflow-hidden">
-                  <div className="px-[14px] py-[8px] border-b border-black/[0.06] flex justify-between text-[11px] text-[#555566]">
+                  <div className="px-[14px] py-[9px] border-b border-black/[0.06] flex justify-between text-[11px] text-[#555566]">
                     <span>{a.approved.head}</span>
-                    <span className="text-[#4ade80]">● Approved</span>
+                    <span className="text-[#4ade80]">&#9679; Approved</span>
                   </div>
                   {a.approved.wip || approvedBody === "wip" ? (
-                    <div className="p-[14px]"><WipRows /></div>
+                    <WipRows />
                   ) : (
                     <div className="p-[14px] text-[13px] text-[#555566] leading-relaxed">
-                      <p className="font-semibold text-[#1A1A2E] mb-1">{a.approved.subj}</p>
+                      <p className="font-semibold text-[#1A1A2E] mb-2">{a.approved.subj}</p>
                       <p className="whitespace-pre-line">{approvedBody || a.approved.body}</p>
                     </div>
                   )}
@@ -227,54 +224,53 @@ function Console() {
               </div>
             ) : (
               <div>
-                <div className="flex flex-wrap gap-2 mb-3">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {a.meta.map((m: string) => <span key={m} className="text-[11px] text-[#555566] bg-gray-100 px-3 py-1 rounded-full">{m}</span>)}
                 </div>
-                <div className="py-10 text-center text-[13px] text-[#888899]">
-                  Click <strong className="text-[#1A1A2E] font-semibold">▶ See it run</strong> to watch this agent work<br />and see what it would send to your lawyer for approval.
+                <div className="py-12 text-center text-[13.5px] text-[#888899] leading-relaxed">
+                  Click <strong className="text-[#1A1A2E] font-semibold">&#9654; See it run</strong> to watch this agent work and see what it does.
                 </div>
               </div>
             )}
           </div>
 
-          {/* overlay */}
           {overlayOpen && (
             <div className="absolute inset-0 bg-white z-10 flex flex-col">
-              <div className="px-[18px] py-[13px] border-b border-black/[0.07] flex justify-between items-center flex-shrink-0">
-                <div className="text-[13px] font-semibold text-[#1A1A2E]">Watching {a.name.split(" — ")[0]} run</div>
-                <button onClick={closeOverlay} className="text-[20px] text-[#888899] hover:text-[#1A1A2E] leading-none px-1">✕</button>
+              <div className="px-[20px] py-[14px] border-b border-black/[0.07] flex justify-between items-center flex-shrink-0">
+                <div className="text-[14px] font-semibold text-[#1A1A2E]">Watching {a.name} run</div>
+                <button onClick={closeOverlay} className="text-[20px] text-[#888899] hover:text-[#1A1A2E] leading-none">&#10005;</button>
               </div>
-              <div className="p-[16px] overflow-y-auto flex-1" ref={scrollRef}>
+              <div className="p-[20px] overflow-y-auto flex-1" ref={scrollRef}>
                 {a.steps.map((s: any, i: number) => (
-                  <div key={i} className={`flex gap-[10px] mb-[14px] transition-all duration-300 ${i < steps ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
+                  <div key={i} className={`flex gap-[11px] mb-[16px] transition-all duration-300 ${i < steps ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
                     <div className="flex flex-col items-center">
-                      <div className="w-[26px] h-[26px] rounded-full bg-green-100 border border-green-200 text-green-800 flex items-center justify-center text-[11px] flex-shrink-0">✓</div>
+                      <div className="w-[26px] h-[26px] rounded-full bg-green-100 border border-green-200 text-green-800 flex items-center justify-center text-[11px] flex-shrink-0">&#10003;</div>
                       {i < a.steps.length - 1 && <div className="w-px flex-1 min-h-[10px] bg-gray-200 my-[2px]" />}
                     </div>
                     <div className="pt-[2px] flex-1">
-                      <div className="text-[12.5px] font-semibold text-[#1A1A2E]">{s.t}</div>
+                      <div className="text-[13px] font-semibold text-[#1A1A2E]">{s.t}</div>
                       <div className="text-[11.5px] text-[#888899] mt-[2px]">{s.d}</div>
                     </div>
                   </div>
                 ))}
 
                 {draftVisible && (
-                  <div className={`flex gap-[10px] mb-[14px] transition-all duration-300 opacity-100 translate-y-0`}>
+                  <div className="flex gap-[11px] mb-[16px] opacity-100 translate-y-0">
                     <div className="w-[26px] h-[26px] rounded-full bg-blue-100 border border-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-semibold flex-shrink-0 mt-[1px]">AI</div>
                     <div className="flex-1 pt-[2px]">
-                      <div className="text-[12.5px] font-semibold text-[#1A1A2E] mb-1">{a.draft.head}</div>
+                      <div className="text-[13px] font-semibold text-[#1A1A2E] mb-2">{a.draft.head}</div>
                       <div className="bg-[#f7f8ff] border border-[#c5cdf7] rounded-lg overflow-hidden">
                         {isWip ? (
-                          <div className="p-[14px]"><WipRows /></div>
+                          <WipRows />
                         ) : editMode ? (
                           <textarea
-                            className="w-full p-[14px] text-[13px] text-[#1A1A2E] leading-relaxed border-none bg-transparent resize-none outline-none min-h-[130px] font-sans"
+                            className="w-full p-[14px] text-[13px] text-[#1A1A2E] leading-relaxed border-none bg-transparent resize-none outline-none min-h-[140px] font-sans"
                             value={editText}
                             onChange={e => setEditText(e.target.value)}
                           />
                         ) : (
                           <div className="p-[14px] text-[13px] text-[#555566] leading-relaxed">
-                            <p className="font-semibold text-[#1A1A2E] mb-1">{a.draft.subj}</p>
+                            <p className="font-semibold text-[#1A1A2E] mb-2">{a.draft.subj}</p>
                             <p className="whitespace-pre-line">{a.draft.body}</p>
                           </div>
                         )}
@@ -305,54 +301,169 @@ function Console() {
   );
 }
 
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "", email: "", firmName: "", firmSize: "", pms: "", agents: [] as string[], message: ""
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const agentOptions = ["Hermes", "Athena", "Hestia", "Plutus", "Charis", "Apollo", "Custom build"];
+
+  function toggleAgent(agent: string) {
+    setFormData(prev => ({
+      ...prev,
+      agents: prev.agents.includes(agent) ? prev.agents.filter(a => a !== agent) : [...prev.agents, agent]
+    }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitting(true);
+    await new Promise(r => setTimeout(r, 800));
+    setSubmitted(true);
+    setSubmitting(false);
+  }
+
+  if (submitted) {
+    return (
+      <div className="bg-[#0F1729] rounded-xl p-12 text-center">
+        <div className="text-[42px] mb-4">&#10003;</div>
+        <h3 className="font-outfit font-extrabold text-white text-[28px] mb-3">Got it.</h3>
+        <p className="text-white/70 text-[16px]">We will be in touch within 24 hours.</p>
+      </div>
+    );
+  }
+
+  const inputClass = "w-full bg-white/10 border border-white/20 rounded text-white placeholder-white/40 px-4 py-3 text-[14px] focus:outline-none focus:border-white/50 transition-colors";
+  const labelClass = "block text-[13px] font-semibold text-white/80 mb-2";
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-[#0F1729] rounded-xl p-8 md:p-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label className={labelClass}>Full name</label>
+          <input required className={inputClass} type="text" placeholder="Jane Smith"
+            value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} />
+        </div>
+        <div>
+          <label className={labelClass}>Email</label>
+          <input required className={inputClass} type="email" placeholder="jane@smithlaw.com"
+            value={formData.email} onChange={e => setFormData(p => ({ ...p, email: e.target.value }))} />
+        </div>
+        <div>
+          <label className={labelClass}>Firm name</label>
+          <input required className={inputClass} type="text" placeholder="Smith Family Law"
+            value={formData.firmName} onChange={e => setFormData(p => ({ ...p, firmName: e.target.value }))} />
+        </div>
+        <div>
+          <label className={labelClass}>Firm size</label>
+          <select required className={inputClass + " appearance-none cursor-pointer"}
+            value={formData.firmSize} onChange={e => setFormData(p => ({ ...p, firmSize: e.target.value }))}>
+            <option value="" disabled>Select staff count</option>
+            <option value="1-5">1 to 5</option>
+            <option value="6-10">6 to 10</option>
+            <option value="11-15">11 to 15</option>
+            <option value="15+">15 or more</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label className={labelClass}>Practice management system</label>
+        <select required className={inputClass + " appearance-none cursor-pointer"}
+          value={formData.pms} onChange={e => setFormData(p => ({ ...p, pms: e.target.value }))}>
+          <option value="" disabled>Select your PMS</option>
+          <option>Smokeball</option>
+          <option>Clio</option>
+          <option>LEAP</option>
+          <option>Actionstep</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div className="mb-6">
+        <label className={labelClass}>Which agents interest you?</label>
+        <div className="flex flex-wrap gap-2">
+          {agentOptions.map(agent => (
+            <button key={agent} type="button" onClick={() => toggleAgent(agent)}
+              className={`text-[13px] px-4 py-2 rounded-full border transition-colors ${formData.agents.includes(agent) ? "bg-[#2C3EE8] border-[#2C3EE8] text-white" : "border-white/20 text-white/60 hover:border-white/40 hover:text-white/80"}`}>
+              {agent}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <label className={labelClass}>Tell us what you want to automate</label>
+        <textarea required className={inputClass + " resize-none min-h-[120px]"}
+          placeholder="Describe the tasks taking up your team's time, or the specific workflow you have in mind..."
+          value={formData.message} onChange={e => setFormData(p => ({ ...p, message: e.target.value }))} />
+      </div>
+
+      <button type="submit" disabled={submitting}
+        className="w-full bg-[#2C3EE8] hover:opacity-90 disabled:opacity-50 text-white font-semibold text-[15px] py-4 rounded transition-opacity">
+        {submitting ? "Sending..." : "Send enquiry"}
+      </button>
+    </form>
+  );
+}
+
 export default function Legal() {
   useScrollReveal();
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { const h = () => setScrolled(window.scrollY > 20); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
-  useEffect(() => { initCalEmbed(); }, []);
+
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.innerHTML = CAL_EMBED;
+    document.body.appendChild(script);
+    return () => { document.body.removeChild(script); };
+  }, []);
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-jai-dark-text bg-jai-off-white selection:bg-jai-cobalt selection:text-white">
+    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-[#1A1A2E] bg-[#F7F8FF]">
 
       {/* NAV */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-jai-cobalt ${scrolled ? "border-b border-white/15" : "border-b border-transparent"}`}>
-        <div className="max-w-[900px] mx-auto px-6 h-[64px] flex items-center justify-between">
-          <img src="/logo-white.png" alt="j.ai" className="h-7 w-auto" />
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-[#2C3EE8] transition-all duration-300 ${scrolled ? "border-b border-white/15" : "border-b border-transparent"}`}>
+        <div className="max-w-[960px] mx-auto px-6 h-[64px] flex items-center justify-between">
+          <img src="/logo-white.png" alt="j.ai" className="h-10 w-auto" />
           <div className="flex items-center gap-6">
-            <Link href="/" className="text-white/70 text-[14px] hover:text-white transition-colors">Home</Link>
-            <a href="#cta" className="btn-active-scale border border-white text-white bg-transparent rounded-[4px] px-[20px] py-[8px] text-[14px] font-semibold transition-colors hover:bg-white/5">Book a Call</a>
+            <Link href="/" className="text-white text-[14px] font-semibold hover:text-white/80 transition-colors">Home</Link>
+            <a href="#cta" className="border border-white text-white bg-transparent rounded px-5 py-2 text-[14px] font-semibold hover:bg-white/5 transition-colors">Book a Call</a>
           </div>
         </div>
       </nav>
 
       {/* HERO */}
-      <section className="relative w-full bg-jai-cobalt pt-[64px] flex items-center min-h-[60vh]">
-        <div className="max-w-[900px] mx-auto px-6 py-[80px] w-full reveal-container">
-          <div className="inline-block border border-white text-jai-muted-white rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 reveal">For Law Firms</div>
-          <h1 className="font-outfit font-extrabold text-white text-[36px] md:text-[52px] leading-[1.08] tracking-[-0.03em] max-w-[760px] reveal">
-            Your past clients need legal help again.<br />They just haven't heard from you.
-          </h1>
-          <p className="font-sans text-jai-muted-white text-[18px] leading-[1.7] max-w-[580px] mt-6 reveal">
-            Six AI agents that surface the revenue your firm already earned the right to, and land every output in your inbox for approval before anything sends.
-          </p>
-          <div className="flex flex-wrap gap-8 mt-10 reveal">
-            <div><div className="font-outfit font-extrabold text-white text-[28px] tracking-tight">£230k</div><div className="text-[12px] text-jai-muted-white mt-1">average unbilled revenue<br />per attorney per year</div></div>
-            <div><div className="font-outfit font-extrabold text-white text-[28px] tracking-tight">68%</div><div className="text-[12px] text-jai-muted-white mt-1">of past clients who need<br />legal help go to another firm</div></div>
-            <div><div className="font-outfit font-extrabold text-white text-[28px] tracking-tight">30%</div><div className="text-[12px] text-jai-muted-white mt-1">higher conversion rate<br />for referred leads</div></div>
+      <section className="relative w-full bg-[#2C3EE8] pt-[64px] flex items-center min-h-[70vh]">
+        <div className="max-w-[960px] mx-auto px-6 py-[90px] w-full">
+          <div className="inline-block border border-white text-white rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 font-semibold reveal">
+            For Law Firms
           </div>
-          <div className="flex gap-3 mt-10 reveal">
-            <a href="#console" className="btn-active-scale inline-block bg-white text-jai-cobalt font-semibold text-[15px] px-[32px] py-[14px] rounded-[4px] transition-opacity hover:opacity-90">See the agents run</a>
-            <a href="#cta" className="btn-active-scale inline-block bg-jai-cobalt border-[2px] border-white/30 text-white font-semibold text-[15px] px-[28px] py-[13px] rounded-[4px] transition-colors hover:bg-white/5">Book a call</a>
+          <h1 className="font-outfit font-extrabold text-white text-[40px] md:text-[58px] leading-[1.08] tracking-[-0.03em] max-w-[820px] reveal">
+            If a task does not need your judgement, it should not need your time.
+          </h1>
+          <p className="font-sans text-white text-[18px] leading-[1.7] max-w-[600px] mt-6 reveal">
+            j.ai connects to Smokeball, Clio, LEAP, Actionstep and more. We map every repeatable task in your firm and build agents that handle it, so your time goes only to the work that actually needs a lawyer.
+          </p>
+          <div className="flex flex-wrap gap-4 mt-10 reveal">
+            <a href="#console" className="inline-block bg-white text-[#2C3EE8] font-semibold text-[15px] px-[32px] py-[14px] rounded hover:opacity-90 transition-opacity">See the agents run</a>
+            <a href="#cta" className="inline-block bg-transparent border-2 border-white/40 text-white font-semibold text-[15px] px-[28px] py-[13px] rounded hover:bg-white/5 transition-colors">Book a call</a>
           </div>
         </div>
       </section>
 
       {/* CONSOLE */}
-      <section id="console" className="w-full bg-jai-off-white py-[80px]">
-        <div className="max-w-[960px] mx-auto px-6">
-          <div className="text-[11px] tracking-[0.1em] uppercase text-jai-muted-text mb-3 reveal">Live demo</div>
-          <h2 className="font-outfit font-extrabold text-jai-dark-text text-[36px] leading-[1.1] tracking-tight mb-3 reveal">Watch any agent run</h2>
-          <p className="text-[16px] text-jai-muted-text leading-[1.7] max-w-[520px] mb-10 reveal">Select an agent, click Run, and see exactly what lands in the lawyer's inbox — then approve or edit it right here.</p>
+      <section id="console" className="w-full bg-[#F7F8FF] py-[90px]">
+        <div className="max-w-[1100px] mx-auto px-6">
+          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-3 reveal">Watch any agent run</h2>
+          <p className="text-[16px] text-[#555566] leading-[1.7] max-w-[520px] mb-10 reveal">Select an agent, click Run, and see exactly what it does.</p>
           <div className="reveal">
             <Console />
           </div>
@@ -360,20 +471,60 @@ export default function Legal() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="w-full bg-jai-pure-white py-[80px]">
-        <div className="max-w-[900px] mx-auto px-6 reveal-container">
-          <div className="text-[11px] tracking-[0.1em] uppercase text-jai-muted-text mb-3 reveal">How it works</div>
-          <h2 className="font-outfit font-extrabold text-jai-dark-text text-[36px] leading-[1.1] tracking-tight mb-12 reveal">Set up once. Runs forever.</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <section className="w-full bg-white py-[90px]">
+        <div className="max-w-[960px] mx-auto px-6">
+          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-16 reveal">Built around one idea.</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { n: "1", t: "One onboarding call", d: "We connect to your Smokeball or Clio account, configure each agent to match your firm's practice areas and tone, and run the first test in draft mode together." },
-              { n: "2", t: "Agents run in the background", d: "Each agent fires on its own trigger — daily, weekly, or on a specific event like a matter closing or an intake form arriving. No manual input needed." },
-              { n: "3", t: "You approve, then send", d: "Every output lands in the lawyer's inbox as a draft. Approve in one click, edit if needed, or skip entirely. Nothing ever sends to a client without a human deciding." },
+              {
+                n: "1", t: "We map what does not need you",
+                d: "Your firm runs on a mix of work that needs a lawyer's brain and work that does not. We sit with you, go through how your firm actually operates, and identify every task that is repeatable, predictable, and eating time it should not."
+              },
+              {
+                n: "2", t: "We build the agents that handle it",
+                d: "Whether it is a pre-built agent from our library or something custom-built for how your firm specifically works, we configure it, connect it to your practice management system, and run it until the output is exactly right."
+              },
+              {
+                n: "3", t: "Everything that needs you lands in your inbox. Nothing else does.",
+                d: "Every agent output arrives for your review before anything happens. You approve, edit, or skip. The rest runs itself. Nothing ever reaches a client without a human deciding."
+              },
             ].map(item => (
               <div key={item.n} className="reveal">
-                <div className="font-outfit font-extrabold text-[42px] text-jai-cobalt opacity-15 leading-none mb-3">{item.n}</div>
-                <div className="font-outfit font-bold text-[17px] text-jai-dark-text mb-3">{item.t}</div>
-                <div className="text-[14.5px] text-jai-muted-text leading-[1.7]">{item.d}</div>
+                <div className="font-outfit font-extrabold text-[48px] text-[#2C3EE8] opacity-15 leading-none mb-4">{item.n}</div>
+                <div className="font-outfit font-bold text-[18px] text-[#1A1A2E] mb-3">{item.t}</div>
+                <div className="text-[15px] text-[#555566] leading-[1.75]">{item.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="w-full bg-[#0F1729] py-[90px]">
+        <div className="max-w-[960px] mx-auto px-6">
+          <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.1] tracking-tight mb-16 reveal">What firms are saying.</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "We had 400 closed matters sitting untouched. Within the first month, Hermes surfaced three clients who came back for new work. One of them turned into a $6,000 estate planning matter.",
+                name: "Managing Partner", firm: "Estate Planning Firm, Sydney AU", placeholder: true
+              },
+              {
+                quote: "The pre-meeting brief alone is worth it. I walk into every consultation knowing exactly who I am meeting and what to watch out for. It used to take me 20 minutes. Now it is there before I have finished my coffee.",
+                name: "Principal Solicitor", firm: "Family Law Practice, London UK", placeholder: true
+              },
+              {
+                quote: "We were writing off around 2,000 a week in unbilled time without realising it. Plutus surfaced it every Monday. We have recovered most of it just by having someone look at the list.",
+                name: "Senior Associate", firm: "Conveyancing Practice, Melbourne AU", placeholder: true
+              },
+            ].map((t, i) => (
+              <div key={i} className="reveal bg-white/5 border border-white/10 rounded-xl p-8">
+                <p className="text-white/80 text-[15px] leading-[1.75] mb-6">{t.quote}</p>
+                <div>
+                  <div className="text-white font-semibold text-[14px]">{t.name}</div>
+                  <div className="text-white/50 text-[12px] mt-1">{t.firm}</div>
+                  {t.placeholder && <div className="text-white/30 text-[10px] mt-1 uppercase tracking-wide">Placeholder · to be replaced</div>}
+                </div>
               </div>
             ))}
           </div>
@@ -381,44 +532,90 @@ export default function Legal() {
       </section>
 
       {/* SAFETY BAR */}
-      <div className="bg-jai-cobalt py-6">
-        <div className="max-w-[900px] mx-auto px-6 flex flex-wrap gap-8 justify-center">
-          {["Works with Smokeball and Clio", "Draft mode for the first 2–3 weeks", "Nothing sends without lawyer approval", "Set up in one 60-minute call"].map(item => (
-            <div key={item} className="flex items-center gap-2 text-white text-[14px]">
-              <span className="opacity-70">✓</span>{item}
+      <div className="bg-[#2C3EE8] py-6">
+        <div className="max-w-[960px] mx-auto px-6 flex flex-wrap gap-8 justify-center">
+          {["Works with Smokeball, Clio, LEAP and Actionstep", "Nothing sends without lawyer approval", "Custom builds available for any workflow"].map(item => (
+            <div key={item} className="flex items-center gap-2 text-white text-[14px] font-semibold">
+              <span>&#10003;</span>{item}
             </div>
           ))}
         </div>
       </div>
 
+      {/* CUSTOM BUILDS */}
+      <section className="w-full bg-[#F7F8FF] py-[90px]">
+        <div className="max-w-[960px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="reveal">
+              <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[36px] leading-[1.1] tracking-tight mb-5">
+                Need something built specifically for your firm?
+              </h2>
+              <p className="text-[16px] text-[#555566] leading-[1.75] mb-4">
+                Not every firm runs the same way. If you have a workflow, a process, or a problem that does not fit a standard agent, we will scope and build it from scratch.
+              </p>
+              <p className="text-[16px] text-[#555566] leading-[1.75] mb-8">
+                Connected to your existing systems. Designed around how you actually work. Delivered as an agent that runs itself.
+              </p>
+              <a href="#cta" className="inline-block bg-[#2C3EE8] text-white font-semibold text-[15px] px-[28px] py-[13px] rounded hover:opacity-90 transition-opacity">
+                Tell us what you need
+              </a>
+            </div>
+            <div className="reveal bg-white border border-black/[0.08] rounded-xl p-8">
+              <div className="space-y-5">
+                {["A conflicts checker built around your firm's specific categories", "An intake flow that creates matters and contacts automatically", "A billing reminder sequence tailored to your fee earners", "A document checklist generator per matter type"].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-[#2C3EE8] font-bold text-[16px] mt-[1px]">&#10003;</span>
+                    <span className="text-[14.5px] text-[#555566] leading-[1.65]">{item}</span>
+                  </div>
+                ))}
+                <div className="pt-2 border-t border-black/[0.06]">
+                  <span className="text-[13px] text-[#888899]">and anything else that currently runs on someone's memory</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section id="cta" className="w-full bg-jai-navy py-[100px]">
-        <div className="max-w-[900px] mx-auto px-6">
-          <div className="text-center mb-12 reveal-container">
-            <h2 className="font-outfit font-extrabold text-white text-[44px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[680px] reveal">
-              Most firms find their first recovered matter within 60 days.
+      <section id="cta" className="w-full bg-[#0F1729] py-[100px]">
+        <div className="max-w-[960px] mx-auto px-6">
+          <div className="text-center mb-16 reveal">
+            <h2 className="font-outfit font-extrabold text-white text-[44px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[720px]">
+              Ready to stop doing work that should not need you?
             </h2>
-            <p className="text-jai-muted-white text-[18px] leading-[1.7] max-w-[560px] mx-auto mt-6 reveal">
-              Pick a time below. We'll walk through your workflows and which agents make sense to start with.
+            <p className="text-white/70 text-[18px] leading-[1.7] max-w-[560px] mx-auto mt-6">
+              Book a call or fill in the form below. We will map out what is worth automating in your firm and build it.
             </p>
           </div>
-          <div id="legal-cal-inline-discovery-call" style={{ width: "100%", height: 700, overflow: "scroll" }} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div className="reveal">
+              <h3 className="font-outfit font-bold text-white text-[22px] mb-4">Book a call</h3>
+              <p className="text-white/60 text-[14px] mb-6">Pick a time that works. We will walk through your firm and figure out exactly what to build first.</p>
+              <div id="legal-cal-inline" style={{ width: "100%", height: 500, overflow: "scroll" }} />
+            </div>
+            <div className="reveal">
+              <h3 className="font-outfit font-bold text-white text-[22px] mb-4">Or send us a message</h3>
+              <p className="text-white/60 text-[14px] mb-6">Prefer to write it down first? Fill in the form and we will be in touch within 24 hours.</p>
+              <ContactForm />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="w-full bg-jai-footer-bg py-[60px]">
-        <div className="max-w-[900px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-0">
-          <div className="text-center md:text-left flex flex-col items-center md:items-start gap-2">
-            <img src="/logo-white.png" alt="j.ai" className="h-6 w-auto" />
-            <span className="text-jai-muted-white text-[13px]">Revenue agents for small law firms</span>
+      <footer className="w-full bg-[#0A0A0A] py-[60px]">
+        <div className="max-w-[960px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <img src="/logo-white.png" alt="j.ai" className="h-7 w-auto" />
+            <span className="text-white/40 text-[13px]">Revenue agents for small law firms</span>
           </div>
           <div className="flex flex-col items-center md:items-end gap-3">
-            <a href="mailto:admin@jaidotai.com" className="text-jai-muted-white text-[13px] hover:underline decoration-white/30 underline-offset-4 transition-all">admin@jaidotai.com</a>
-            <a href="https://www.linkedin.com/in/jai-dhingra/" target="_blank" rel="noopener noreferrer" className="text-jai-muted-white hover:text-white transition-colors" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <a href="mailto:admin@jdotai.com" className="text-white/45 text-[13px] hover:text-white/70 transition-colors">admin@jdotai.com</a>
+            <a href="https://www.linkedin.com/in/jai-dhingra/" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white/70 transition-colors" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </a>
-            <span className="text-jai-muted-white text-[12px] mt-1">&copy; 2026 j.ai. All rights reserved.</span>
+            <span className="text-white/25 text-[12px]">&#169; 2026 j.ai. All rights reserved.</span>
           </div>
         </div>
       </footer>
