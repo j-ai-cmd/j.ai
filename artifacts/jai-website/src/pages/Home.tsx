@@ -64,7 +64,7 @@ export default function Home() {
                 ? <Link key={ind.label} href={ind.href} className="text-white text-[14px] font-semibold hover:text-white/80 transition-colors">{ind.label}</Link>
                 : <span key={ind.label} className="text-white/40 text-[14px] font-semibold cursor-default relative group">
                     {ind.label}
-                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#0F1729] text-white text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Coming soon</span>
+                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-[#0F1729] text-white text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">Coming soon</span>
                   </span>
             ))}
             <a href="#cta" className="border border-white text-white bg-transparent rounded px-5 py-2 text-[14px] font-semibold hover:bg-white/5 transition-colors">Book a Call</a>
@@ -75,9 +75,6 @@ export default function Home() {
       {/* HERO */}
       <section className="relative w-full min-h-[100dvh] bg-[#2C3EE8] pt-[64px] flex items-center">
         <div className="max-w-[960px] mx-auto px-6 py-[80px] w-full">
-          <div className="inline-block border border-white text-white font-semibold rounded-[20px] px-[16px] py-[10px] text-[11px] tracking-[0.08em] uppercase mb-8 reveal">
-            AI Advisory and Custom Tools
-          </div>
           <h1 className="font-outfit font-extrabold text-white text-[38px] md:text-[58px] leading-[1.1] tracking-[-0.03em] max-w-[800px] reveal">
             You're too busy running your business to figure out what AI can do for you.
           </h1>
