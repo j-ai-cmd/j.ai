@@ -336,7 +336,7 @@ export default function Legal() {
             <a href="#cta" className="border border-white text-white bg-transparent rounded px-5 py-2 text-[14px] font-semibold hover:bg-white/5 transition-colors">Book a Call</a>
           </div>
         </div>
-        <div className="border-b border-white/20" />
+
       </nav>
 
       {/* HERO — cobalt */}
@@ -356,7 +356,7 @@ export default function Legal() {
       </section>
 
       {/* AGENT OVERVIEW GRID — white */}
-      <section className="w-full bg-white py-[70px]">
+      <section className="w-full bg-white py-[70px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[32px] leading-[1.1] tracking-tight mb-3 reveal">Six agents. One job.</h2>
           <p className="text-[15px] text-[#555566] mb-10 reveal">Click any agent to see it run.</p>
@@ -378,7 +378,7 @@ export default function Legal() {
       </section>
 
       {/* CONSOLE — light grey */}
-      <section id="console" className="w-full bg-[#F7F8FF] py-[90px]" ref={consoleRef}>
+      <section id="console" className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center" ref={consoleRef}>
         <div className="max-w-[1100px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-3 reveal">Watch any agent run</h2>
           <p className="text-[16px] text-[#555566] leading-[1.7] max-w-[520px] mb-10 reveal">Select an agent, click Run, and see exactly what it does.</p>
@@ -387,7 +387,7 @@ export default function Legal() {
       </section>
 
       {/* HOW IT WORKS — dark navy */}
-      <section className="w-full bg-[#0F1729] py-[90px]">
+      <section className="w-full bg-[#0F1729] py-[90px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.1] tracking-tight mb-16 reveal">Built around one idea.</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -407,7 +407,7 @@ export default function Legal() {
       </section>
 
       {/* TESTIMONIALS — light grey with dark card */}
-      <section className="w-full bg-[#F7F8FF] py-[90px] overflow-hidden">
+      <section className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center overflow-hidden">
         <div className="max-w-[960px] mx-auto px-6 mb-10">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight reveal">What firms are saying.</h2>
         </div>
@@ -419,7 +419,7 @@ export default function Legal() {
       </section>
 
       {/* CUSTOM BUILDS + FORM — cobalt */}
-      <section className="w-full bg-[#2C3EE8] py-[90px]">
+      <section className="w-full bg-[#2C3EE8] py-[90px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="reveal">
@@ -433,7 +433,7 @@ export default function Legal() {
       </section>
 
       {/* CTA — dark navy */}
-      <section id="cta" className="w-full bg-[#0F1729] py-[100px]">
+      <section id="cta" className="w-full bg-[#0F1729] py-[100px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="text-center mb-12 reveal">
             <h2 className="font-outfit font-extrabold text-white text-[44px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[720px]">Ready to stop doing work that should not need you?</h2>
