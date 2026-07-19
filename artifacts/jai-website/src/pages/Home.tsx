@@ -76,7 +76,7 @@ export default function Home() {
             <a href="#cta" className="border border-white text-white bg-transparent rounded px-5 py-2 text-[14px] font-semibold hover:bg-white/5 transition-colors">Book a Call</a>
           </div>
         </div>
-        <div className="border-b border-white/20" />
+
       </nav>
 
       {/* HERO */}
@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* PROBLEM */}
-      <section className="w-full bg-white py-[90px]">
+      <section className="w-full bg-white py-[90px] min-h-[100dvh] flex items-center">
         <div className="max-w-[760px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.2] mb-8 reveal">
             AI is moving faster than you can keep up with.
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* SERVICES — dark navy with hover cards */}
-      <section className="w-full bg-[#0F1729] py-[120px]">
+      <section className="w-full bg-[#0F1729] py-[120px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
             Built around how your business actually runs.
@@ -131,7 +131,7 @@ export default function Home() {
       </section>
 
       {/* WHY */}
-      <section className="w-full bg-[#F7F8FF] py-[90px]">
+      <section className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center">
         <div className="max-w-[760px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.2] mb-8 reveal">
             You started your business to do the work you're good at.
@@ -146,7 +146,7 @@ export default function Home() {
       </section>
 
       {/* WHO */}
-      <section className="w-full bg-[#2C3EE8] py-[120px]">
+      <section className="w-full bg-[#2C3EE8] py-[120px] min-h-[100dvh] flex items-center">
         <div className="max-w-[760px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             Founders and operators ready to actually implement.
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section id="cta" className="w-full bg-[#0F1729] py-[100px]">
+      <section id="cta" className="w-full bg-[#0F1729] py-[100px] min-h-[100dvh] flex items-center">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-outfit font-extrabold text-white text-[48px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[700px] reveal">
