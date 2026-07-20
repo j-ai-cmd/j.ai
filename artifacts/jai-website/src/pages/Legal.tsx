@@ -3,18 +3,7 @@ import { Link } from "wouter";
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5";
 
-const CAL_EMBED = `
-(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", "discovery-call", {origin:"https://app.cal.com"});
-Cal.config = Cal.config || {};
-Cal.config.forwardQueryParams = true;
-Cal.ns["discovery-call"]("inline", {
-  elementOrSelector:"#legal-cal-inline",
-  config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-  calLink: "jai.ai/discovery-call",
-});
-Cal.ns["discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-`;
+
 
 function useScrollReveal() {
   useEffect(() => {
@@ -35,6 +24,19 @@ const agentData = [
   { key: "charis", name: "Charis", role: "Post-matter referral", dot: "#4ade80", badge: "2 ready", badgeClass: "bg-green-100 text-green-800", desc: "Drafts a thank-you with a soft review ask and referral line 7 days after a matter closes.", meta: ["2 matters closed", "This week", "2 drafts ready"], steps: [{ t: "Matter closed detected", d: "David Okafor · estate planning · closed 7 days ago" }, { t: "Checking excluded matter types", d: "Estate planning not excluded · proceeding" }], draft: { head: "Draft ready · David Okafor", subj: "Thank you, David", body: "Hi David,\n\nNow that your matter is wrapped up, we just wanted to say thank you for trusting us. It was a genuine pleasure.\n\nIf you have a moment, a Google review would mean a lot to us. And if you know anyone who needs estate planning or family law advice, we would love an introduction.\n\nWarmly,\nSutton Family Law", actions: true, wip: false }, approved: { head: "Draft 1 of 2 · David Okafor · approved", subj: "Thank you, David", body: "Hi David,\n\nThank you for trusting us. A Google review would mean a lot. And if you know anyone who needs help, we would love an introduction.\n\nWarmly, Sutton Family Law", wip: false } },
   { key: "apollo", name: "Apollo", role: "Cross-sell intelligence", dot: "#2C3EE8", badge: "Running", badgeClass: "bg-blue-100 text-blue-800", desc: "Reads client matter history against your service matrix and flags cross-sell gaps weekly.", meta: ["312 clients scanned", "3 gaps found", "Drafts ready"], steps: [{ t: "Reading matter history", d: "312 clients · all matter types reviewed" }, { t: "Matching against service matrix", d: "Comparing what each client has vs what they may need" }, { t: "3 gaps identified", d: "Will without EPOA · property without estate plan · business without succession" }], draft: { head: "Cross-sell opportunities ready · 3 found", subj: "3 clients who may need your help again", body: "Margaret Chen · Has Will (2022), no EPOA on file.\n\nRobert Okafor · Property purchase 2021, no estate planning on record.\n\nSarah Williams · Business structure 2020, no succession plan on file.", actions: true, wip: false }, approved: { head: "Cross-sell opportunities · this week · approved", subj: "3 clients who may need your help again", body: "Margaret Chen · Has Will (2022), no EPOA on file.\n\nRobert Okafor · Property purchase 2021, no estate planning.\n\nSarah Williams · Business structure 2020, no succession plan.", wip: false } },
 ];
+
+
+function FlipCardStyle() {
+  return (
+    <style>{`
+      .agent-flip-card { perspective: 1000px; height: 190px; cursor: pointer; }
+      .agent-flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(.4,.2,.2,1); }
+      .agent-flip-card.flipped .agent-flip-inner { transform: rotateY(180deg); }
+      .agent-flip-face { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; padding: 20px; border-radius: 10px; }
+      .agent-flip-back { transform: rotateY(180deg); background: #2C3EE8; }
+    `}</style>
+  );
+}
 
 function WipRows() {
   return (
@@ -100,7 +102,7 @@ function Console({ initialAgent }: { initialAgent: string }) {
           <span className="w-[6px] h-[6px] rounded-full bg-[#4ade80] animate-pulse inline-block" />6 agents live
         </span>
       </div>
-      <div className="grid grid-cols-[220px_1fr] min-h-[600px]">
+      <div className="grid grid-cols-[220px_1fr] min-h-[700px]">
         <div className="bg-[#0F1729] border-r border-white/[0.1]">
           <div className="px-[14px] py-[11px] text-[10px] tracking-[0.1em] uppercase text-white border-b border-white/[0.1]">Agents</div>
           {agentData.map(ag => (
@@ -300,6 +302,31 @@ function ContactForm() {
   );
 }
 
+
+function AgentFlipCard({ agent, onSelect }: { agent: any; onSelect: (key: string) => void }) {
+  const [flipped, setFlipped] = useState(false);
+  return (
+    <div className={`agent-flip-card bg-[#12153a] border border-white/10 rounded-xl transition-all duration-200 hover:border-[#5b6bff] hover:shadow-[0_16px_40px_rgba(50,65,232,0.25)] ${flipped ? "flipped" : ""}`}
+      onClick={() => setFlipped(f => !f)}>
+      <div className="agent-flip-inner">
+        <div className="agent-flip-face" style={{ padding: "26px" }}>
+          <span className="w-[8px] h-[8px] rounded-full mb-4 block" style={{ background: agent.dot }} />
+          <div className="font-outfit font-extrabold text-white text-[17px] mb-1">{agent.name}</div>
+          <div className="text-[12px] text-[#aab0d8] mb-4">{agent.role}</div>
+          <div className="text-[11px] text-[#5b6bff] mt-auto">Click to see what it handles</div>
+        </div>
+        <div className="agent-flip-face agent-flip-back" style={{ padding: "26px" }}>
+          <p className="text-[13.5px] text-[#e4e6ff] leading-[1.65] mb-4">{agent.desc}</p>
+          <button onClick={(e) => { e.stopPropagation(); onSelect(agent.key); }}
+            className="text-[12px] font-semibold text-white border border-white/40 rounded px-3 py-1 hover:bg-white/10 transition-colors">
+            See it run &#8594;
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Legal() {
   useScrollReveal();
   const [navCompressed, setNavCompressed] = useState(false);
@@ -313,10 +340,22 @@ export default function Legal() {
   }, []);
 
   useEffect(() => {
+    if ((window as any).__calLegalLoaded) {
+      try { (window as any).Cal?.ns?.["discovery-call"]?.("inline", { elementOrSelector:"#legal-cal-inline", config: {"layout":"month_view"}, calLink: "jai.ai/discovery-call" }); } catch {}
+      return;
+    }
+    (window as any).__calLegalLoaded = true;
     const script = document.createElement("script");
-    script.innerHTML = CAL_EMBED;
-    document.body.appendChild(script);
-    return () => { try { document.body.removeChild(script); } catch {} };
+    script.src = "https://app.cal.com/embed/embed.js";
+    script.async = true;
+    script.onload = () => {
+      const Cal = (window as any).Cal;
+      if (!Cal) return;
+      Cal("init", "discovery-call", {origin:"https://app.cal.com"});
+      Cal.ns["discovery-call"]("inline", { elementOrSelector:"#legal-cal-inline", config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"}, calLink: "jai.ai/discovery-call" });
+      Cal.ns["discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    };
+    document.head.appendChild(script);
   }, []);
 
   function selectAgent(key: string) {
@@ -325,7 +364,7 @@ export default function Legal() {
   }
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-[#1A1A2E] bg-[#F7F8FF]">
+    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-[#f5f6ff] bg-[#0b0d1f]">
 
       {/* NAV — sticky + compresses */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2C3EE8]">
@@ -349,37 +388,29 @@ export default function Legal() {
             j.ai connects to Smokeball, Clio, LEAP, Actionstep and more. We map every repeatable task in your firm and build agents that handle it, so your time goes only to the work that actually needs a lawyer.
           </p>
           <div className="flex flex-wrap gap-4 mt-10 reveal">
-            <a href="#console" className="inline-block bg-white text-[#2C3EE8] font-semibold text-[15px] px-[32px] py-[14px] rounded transition-all duration-150 hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] active:translate-y-0 active:shadow-none">See the agents run</a>
+            <a href="#console" className="inline-block bg-white text-[#2C3EE8] font-semibold text-[15px] px-[32px] py-[14px] rounded-lg transition-all duration-150 hover:-translate-y-[2px] hover:scale-[1.02] hover:bg-[#5b6bff] hover:text-white hover:shadow-[0_8px_24px_rgba(50,65,232,0.4)] active:translate-y-0 active:scale-100 active:shadow-none">See the agents run</a>
             <a href="#cta" className="inline-block bg-transparent border-2 border-white/40 text-white font-semibold text-[15px] px-[28px] py-[13px] rounded hover:bg-white/5 transition-colors">Book a call</a>
           </div>
         </div>
       </section>
 
-      {/* AGENT OVERVIEW GRID — white */}
-      <section className="w-full bg-white py-[70px] min-h-[100dvh] flex items-center">
-        <div className="max-w-[960px] mx-auto px-6">
-          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[32px] leading-[1.1] tracking-tight mb-3 reveal">Six agents. One job.</h2>
-          <p className="text-[15px] text-[#555566] mb-10 reveal">Click any agent to see it run.</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 reveal">
+      {/* AGENT OVERVIEW GRID — dark */}
+      <section className="w-full bg-[#0b0d1f] py-[120px]">
+        <div className="max-w-[960px] mx-auto px-6 w-full">
+          <FlipCardStyle />
+          <h2 className="font-outfit font-extrabold text-white text-[32px] leading-[1.1] tracking-tight mb-3 reveal">Six agents. One job.</h2>
+          <p className="text-[15px] text-[#aab0d8] mb-10 reveal">Click any card to see what it handles.</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5 reveal">
             {agentData.map(ag => (
-              <button key={ag.key} onClick={() => selectAgent(ag.key)}
-                className="text-left bg-white border border-black/[0.08] rounded-xl p-5 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(44,62,232,0.12)] hover:border-[#2C3EE8] group">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-[7px] h-[7px] rounded-full flex-shrink-0" style={{ background: ag.dot }} />
-                  <span className="font-outfit font-extrabold text-[15px] text-[#1A1A2E]">{ag.name}</span>
-                </div>
-                <div className="text-[11px] text-[#888899] mb-3">{ag.role}</div>
-                <div className="text-[12.5px] text-[#555566] leading-[1.55]">{ag.desc}</div>
-                <div className="mt-3 text-[11px] text-[#2C3EE8] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">See it run &#8594;</div>
-              </button>
+              <AgentFlipCard key={ag.key} agent={ag} onSelect={selectAgent} />
             ))}
           </div>
         </div>
       </section>
 
       {/* CONSOLE — light grey */}
-      <section id="console" className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center" ref={consoleRef}>
-        <div className="max-w-[1100px] mx-auto px-6">
+      <section id="console" className="w-full bg-white py-[80px]" ref={consoleRef}>
+        <div className="max-w-[1200px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight mb-3 reveal">Watch any agent run</h2>
           <p className="text-[16px] text-[#555566] leading-[1.7] max-w-[520px] mb-10 reveal">Select an agent, click Run, and see exactly what it does.</p>
           <div className="reveal"><Console initialAgent={activeAgent} /></div>
@@ -387,7 +418,7 @@ export default function Legal() {
       </section>
 
       {/* HOW IT WORKS — dark navy */}
-      <section className="w-full bg-[#0F1729] py-[90px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#0F1729] py-[100px]">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.1] tracking-tight mb-16 reveal">Built around one idea.</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -397,7 +428,7 @@ export default function Legal() {
               { n: "3", t: "Everything that needs you lands in your inbox. Nothing else does.", d: "Every agent output arrives for your review before anything happens. You approve, edit, or skip. The rest runs itself. Nothing ever reaches a client without a human deciding." },
             ].map(item => (
               <div key={item.n} className="reveal">
-                <div className="font-outfit font-extrabold text-[48px] text-white opacity-15 leading-none mb-4">{item.n}</div>
+                <div className="font-outfit font-extrabold text-[56px] text-[#2C3EE8] opacity-40 leading-none mb-4">{item.n}</div>
                 <div className="font-outfit font-bold text-[18px] text-white mb-3">{item.t}</div>
                 <div className="text-[15px] text-white/60 leading-[1.75]">{item.d}</div>
               </div>
@@ -407,19 +438,17 @@ export default function Legal() {
       </section>
 
       {/* TESTIMONIALS — light grey with dark card */}
-      <section className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center overflow-hidden">
+      <section className="w-full bg-[#0b0d1f] py-[120px] overflow-hidden">
         <div className="max-w-[960px] mx-auto px-6 mb-10">
-          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.1] tracking-tight reveal">What firms are saying.</h2>
+          <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.1] tracking-tight reveal">What firms are saying.</h2>
         </div>
         <div className="pl-6 md:pl-[calc((100vw-960px)/2+24px)]">
-          <div className="bg-[#0F1729] rounded-2xl p-8 md:p-12">
-            <TestimonialCarousel />
-          </div>
+          <TestimonialCarousel />
         </div>
       </section>
 
       {/* CUSTOM BUILDS + FORM — cobalt */}
-      <section className="w-full bg-[#2C3EE8] py-[90px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#2C3EE8] py-[120px]">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="reveal">
@@ -433,7 +462,7 @@ export default function Legal() {
       </section>
 
       {/* CTA — dark navy */}
-      <section id="cta" className="w-full bg-[#0F1729] py-[100px] min-h-[100dvh] flex items-center">
+      <section id="cta" className="w-full bg-[#0F1729] py-[100px]">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="text-center mb-12 reveal">
             <h2 className="font-outfit font-extrabold text-white text-[44px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[720px]">Ready to stop doing work that should not need you?</h2>
