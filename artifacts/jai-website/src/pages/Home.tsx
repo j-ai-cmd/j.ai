@@ -1,18 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 
-const CAL_EMBED = `
-(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", "discovery-call", {origin:"https://app.cal.com"});
-Cal.config = Cal.config || {};
-Cal.config.forwardQueryParams = true;
-Cal.ns["discovery-call"]("inline", {
-  elementOrSelector:"#home-cal-inline",
-  config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-  calLink: "jai.ai/discovery-call",
-});
-Cal.ns["discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-`;
+
 
 function useScrollReveal() {
   useEffect(() => {
@@ -40,10 +29,22 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if ((window as any).__calHomeLoaded) {
+      try { (window as any).Cal?.ns?.["discovery-call"]?.("inline", { elementOrSelector:"#home-cal-inline", config: {"layout":"month_view"}, calLink: "jai.ai/discovery-call" }); } catch {}
+      return;
+    }
+    (window as any).__calHomeLoaded = true;
     const script = document.createElement("script");
-    script.innerHTML = CAL_EMBED;
-    document.body.appendChild(script);
-    return () => { try { document.body.removeChild(script); } catch {} };
+    script.src = "https://app.cal.com/embed/embed.js";
+    script.async = true;
+    script.onload = () => {
+      const Cal = (window as any).Cal;
+      if (!Cal) return;
+      Cal("init", "discovery-call", {origin:"https://app.cal.com"});
+      Cal.ns["discovery-call"]("inline", { elementOrSelector:"#home-cal-inline", config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"}, calLink: "jai.ai/discovery-call" });
+      Cal.ns["discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    };
+    document.head.appendChild(script);
   }, []);
 
   const industries = [
@@ -56,7 +57,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-[#1A1A2E] bg-[#F7F8FF]">
+    <div className="min-h-[100dvh] w-full flex flex-col font-sans text-white bg-[#0b0d1f]">
 
       {/* NAV — sticky, compresses on scroll */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2C3EE8]">
@@ -89,7 +90,7 @@ export default function Home() {
             That's exactly what j.ai does for you.
           </p>
           <div className="mt-10 reveal">
-            <a href="#cta" className="inline-block bg-transparent border-2 border-white/40 text-white font-semibold text-[15px] px-[32px] py-[14px] rounded transition-all duration-150 hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] active:translate-y-0 active:shadow-none">
+            <a href="#cta" className="inline-block bg-white text-[#2C3EE8] font-semibold text-[15px] px-[32px] py-[14px] rounded-lg transition-all duration-150 hover:-translate-y-[2px] hover:scale-[1.02] hover:bg-[#5b6bff] hover:text-white hover:shadow-[0_8px_24px_rgba(50,65,232,0.4)] active:translate-y-0 active:scale-100 active:shadow-none">
               Book a Discovery Call
             </a>
           </div>
@@ -97,12 +98,12 @@ export default function Home() {
       </section>
 
       {/* PROBLEM */}
-      <section className="w-full bg-white py-[90px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#0b0d1f] py-[120px]">
         <div className="max-w-[760px] mx-auto px-6">
-          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.2] mb-8 reveal">
+          <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             AI is moving faster than you can keep up with.
           </h2>
-          <div className="space-y-6 text-[#555566] text-[17px] leading-[1.8]">
+          <div className="space-y-6 text-[#aab0d8] text-[17px] leading-[1.8]">
             <p className="reveal">New tools drop every week. Everyone's talking about automation, agents, workflows. And somewhere in all that noise is something that could genuinely save your team 10 hours a week, but you don't have time to find it, test it, or figure out if it even applies to your business.</p>
             <p className="reveal">Meanwhile your competitors already have. They're running leaner, moving faster, and delivering more.</p>
             <p className="reveal">Every week you don't, the gap widens.</p>
@@ -111,18 +112,19 @@ export default function Home() {
       </section>
 
       {/* SERVICES — dark navy with hover cards */}
-      <section className="w-full bg-[#0F1729] py-[120px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#0F1729] py-[120px]">
         <div className="max-w-[960px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-16 reveal">
             Built around how your business actually runs.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { title: "j.ai Advisory", body: "You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you." },
-              { title: "j.ai Labs", body: "When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template." },
-            ].map(item => (
-              <div key={item.title} className="reveal bg-white/5 border border-white/10 rounded-xl p-8 transition-all duration-200 hover:-translate-y-[3px] hover:border-white/25 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] cursor-default">
-                <h3 className="font-outfit font-extrabold text-white text-[22px] mb-4">{item.title}</h3>
+              { title: "j.ai Advisory", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/></svg>', body: "You need someone who stays on top of the AI market so you don't have to. Every month I map what's changed, what applies to your business, and exactly what to do about it. Strategy, tool selection, workflow mapping, direct from me to you." },
+              { title: "j.ai Labs", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/></svg>', body: "When the right solution doesn't exist off the shelf, I build it. Custom automations, AI agents, and workflow tools designed around how your business actually runs. Scoped and built to deliver a specific outcome, not a generic template." },
+            ].map((item: any) => (
+              <div key={item.title} className="reveal bg-[#12153a] border border-white/10 rounded-xl p-8 transition-all duration-200 hover:-translate-y-[5px] hover:border-[#5b6bff] hover:shadow-[0_16px_40px_rgba(50,65,232,0.25)] cursor-default">
+                <div className="w-8 h-8 text-[#5b6bff] mb-4" dangerouslySetInnerHTML={{__html: item.icon}} />
+                <h3 className="font-outfit font-extrabold text-white text-[22px] mb-3">{item.title}</h3>
                 <p className="text-white/70 text-[16px] leading-[1.8]">{item.body}</p>
               </div>
             ))}
@@ -131,12 +133,12 @@ export default function Home() {
       </section>
 
       {/* WHY */}
-      <section className="w-full bg-[#F7F8FF] py-[90px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#0b0d1f] py-[120px]">
         <div className="max-w-[760px] mx-auto px-6">
-          <h2 className="font-outfit font-extrabold text-[#1A1A2E] text-[40px] leading-[1.2] mb-8 reveal">
+          <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             You started your business to do the work you're good at.
           </h2>
-          <div className="space-y-6 text-[#555566] text-[17px] leading-[1.8]">
+          <div className="space-y-6 text-[#aab0d8] text-[17px] leading-[1.8]">
             <p className="reveal">Not to spend hours on tasks that slow your growth, drain your team, and pull you away from what actually matters.</p>
             <p className="reveal">AI can give you those hours back.</p>
             <p className="reveal">Every business has work that runs on people instead of systems. Repetitive, manual, time-consuming work that your team is too good to be doing. That's what AI is made for, and that's exactly where we come in.</p>
@@ -146,19 +148,19 @@ export default function Home() {
       </section>
 
       {/* WHO */}
-      <section className="w-full bg-[#2C3EE8] py-[120px] min-h-[100dvh] flex items-center">
+      <section className="w-full bg-[#2C3EE8] py-[120px]">
         <div className="max-w-[760px] mx-auto px-6">
           <h2 className="font-outfit font-extrabold text-white text-[40px] leading-[1.2] mb-8 reveal">
             Founders and operators ready to actually implement.
           </h2>
-          <p className="text-white text-[20px] leading-[1.8] reveal">
+          <p className="text-[#aab0d8] text-[20px] leading-[1.8] reveal">
             Running businesses between 10 and 50 people who know their team is spending time on work that should not be manual anymore. You don't need to understand AI. You need the outcome. If you're serious about building a leaner, faster operation and ready to actually implement, we'll work well together.
           </p>
         </div>
       </section>
 
       {/* CTA */}
-      <section id="cta" className="w-full bg-[#0F1729] py-[100px] min-h-[100dvh] flex items-center">
+      <section id="cta" className="w-full bg-[#0F1729] py-[120px]">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-outfit font-extrabold text-white text-[48px] leading-[1.1] tracking-[-0.02em] mx-auto max-w-[700px] reveal">
