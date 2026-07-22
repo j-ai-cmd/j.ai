@@ -4,91 +4,12 @@ import { Link } from "wouter";
 const BLUE = "#2C3EE8";
 const NAVY = "#0F1729";
 
-function FloatingShapes({ bg }: { bg: "blue" | "navy" | "white" }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: -1000, y: -1000 });
-  const shapes = useRef<any[]>([]);
-
-  const strokeColor = bg === "white"
-    ? (a: number) => `rgba(44,62,232,${a})`
-    : (a: number) => `rgba(255,255,255,${a})`;
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
-    let W = 0, H = 0, raf = 0;
-
-    function resize() {
-      W = canvas!.width = canvas!.offsetWidth;
-      H = canvas!.height = canvas!.offsetHeight;
-    }
-    resize();
-
-    shapes.current = Array.from({ length: 16 }, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      r: 10 + Math.random() * 40,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      type: Math.random() > 0.4 ? "circle" : "cross",
-      angle: Math.random() * Math.PI,
-    }));
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      shapes.current.forEach(s => {
-        s.x += s.vx; s.y += s.vy;
-        if (s.x < -50 || s.x > W + 50) s.vx *= -1;
-        if (s.y < -50 || s.y > H + 50) s.vy *= -1;
-        const dist = Math.hypot(mouse.current.x - s.x, mouse.current.y - s.y);
-        const pull = Math.max(0, 1 - dist / 180);
-        s.x += (mouse.current.x - s.x) * pull * 0.018;
-        s.y += (mouse.current.y - s.y) * pull * 0.018;
-        const alpha = 0.08 + pull * 0.28;
-        ctx.strokeStyle = strokeColor(alpha);
-        ctx.lineWidth = 0.8 + pull * 1.5;
-        if (s.type === "circle") {
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r + pull * 12, 0, Math.PI * 2);
-          ctx.stroke();
-        } else {
-          const size = s.r + pull * 10;
-          ctx.beginPath();
-          ctx.moveTo(s.x - size, s.y); ctx.lineTo(s.x + size, s.y);
-          ctx.moveTo(s.x, s.y - size); ctx.lineTo(s.x, s.y + size);
-          ctx.stroke();
-        }
-      });
-      raf = requestAnimationFrame(draw);
-    }
-
-    draw();
-    window.addEventListener("resize", resize);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-
-  function onMouseMove(e: React.MouseEvent) {
-    const r = canvasRef.current?.getBoundingClientRect();
-    if (!r) return;
-    mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top };
-  }
-
-  return (
-    <canvas
-      ref={canvasRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={() => { mouse.current = { x: -1000, y: -1000 }; }}
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "all" }}
-    />
-  );
-}
 
 function Section({ bg, children }: { bg: "blue" | "navy" | "white"; children: React.ReactNode }) {
   const bgColor = bg === "blue" ? BLUE : bg === "navy" ? NAVY : "#FFFFFF";
   const textColor = bg === "white" ? "#1A1A2E" : "#FFFFFF";
   return (
     <section style={{ background: bgColor, color: textColor, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
-      <FloatingShapes bg={bg} />
       <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 960, margin: "0 auto", padding: "80px 24px" }}>
         {children}
       </div>
@@ -155,7 +76,6 @@ export default function Home() {
 
       {/* 1 — HERO — blue */}
       <section style={{ background: BLUE, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center", paddingTop: h }}>
-        <FloatingShapes bg="blue" />
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h1 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(36px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#fff", maxWidth: 800, margin: "0 0 24px" }}>
             You're too busy running your business to figure out what AI can do for you.
@@ -217,19 +137,8 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 5 — WHO — white */}
-      <Section bg="white">
-        <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(32px,4vw,40px)", lineHeight: 1.2, color: "#1A1A2E", margin: "0 0 24px" }}>
-          Founders and operators ready to actually implement.
-        </h2>
-        <p style={{ color: "#555566", fontSize: 20, lineHeight: 1.8, maxWidth: 700, margin: 0 }}>
-          Running businesses between 10 and 50 people who know their team is spending time on work that should not be manual anymore. You don't need to understand AI. You need the outcome.
-        </p>
-      </Section>
-
-      {/* 6 — CTA — navy */}
+      {/* 5 — CTA — navy */}
       <section id="cta" style={{ background: NAVY, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
-        <FloatingShapes bg="navy" />
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(32px,4vw,48px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff", maxWidth: 700, margin: "0 auto 24px", textAlign: "center" }}>
             Ready to see what AI can do for your business?
