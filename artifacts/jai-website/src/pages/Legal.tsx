@@ -5,70 +5,12 @@ const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5"
 const BLUE = "#2C3EE8";
 const NAVY = "#0F1729";
 
-function FloatingShapes({ bg }: { bg: "blue" | "navy" | "white" }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: -1000, y: -1000 });
-  const shapes = useRef<any[]>([]);
-  const strokeColor = bg === "white"
-    ? (a: number) => `rgba(44,62,232,${a})`
-    : (a: number) => `rgba(255,255,255,${a})`;
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
-    let W = 0, H = 0, raf = 0;
-    function resize() { W = canvas!.width = canvas!.offsetWidth; H = canvas!.height = canvas!.offsetHeight; }
-    resize();
-    shapes.current = Array.from({ length: 16 }, () => ({
-      x: Math.random() * 1200, y: Math.random() * 800,
-      r: 10 + Math.random() * 40, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-      type: Math.random() > 0.4 ? "circle" : "cross",
-    }));
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      shapes.current.forEach(s => {
-        s.x += s.vx; s.y += s.vy;
-        if (s.x < -50 || s.x > W + 50) s.vx *= -1;
-        if (s.y < -50 || s.y > H + 50) s.vy *= -1;
-        const dist = Math.hypot(mouse.current.x - s.x, mouse.current.y - s.y);
-        const pull = Math.max(0, 1 - dist / 180);
-        s.x += (mouse.current.x - s.x) * pull * 0.018;
-        s.y += (mouse.current.y - s.y) * pull * 0.018;
-        ctx.strokeStyle = strokeColor(0.08 + pull * 0.28);
-        ctx.lineWidth = 0.8 + pull * 1.5;
-        if (s.type === "circle") {
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r + pull * 12, 0, Math.PI * 2); ctx.stroke();
-        } else {
-          const sz = s.r + pull * 10;
-          ctx.beginPath();
-          ctx.moveTo(s.x - sz, s.y); ctx.lineTo(s.x + sz, s.y);
-          ctx.moveTo(s.x, s.y - sz); ctx.lineTo(s.x, s.y + sz);
-          ctx.stroke();
-        }
-      });
-      raf = requestAnimationFrame(draw);
-    }
-    draw();
-    window.addEventListener("resize", resize);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-
-  return (
-    <canvas ref={canvasRef}
-      onMouseMove={e => { const r = canvasRef.current?.getBoundingClientRect(); if (r) mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top }; }}
-      onMouseLeave={() => { mouse.current = { x: -1000, y: -1000 }; }}
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "all" }}
-    />
-  );
-}
 
 function Section({ bg, children, id }: { bg: "blue" | "navy" | "white"; children: React.ReactNode; id?: string }) {
   const bgColor = bg === "blue" ? BLUE : bg === "navy" ? NAVY : "#FFFFFF";
   const textColor = bg === "white" ? "#1A1A2E" : "#FFFFFF";
   return (
     <section id={id} style={{ background: bgColor, color: textColor, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
-      <FloatingShapes bg={bg} />
       <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
         {children}
       </div>
@@ -389,7 +331,6 @@ export default function Legal() {
 
       {/* 1 — HERO — blue */}
       <section style={{ background: BLUE, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center", paddingTop: navH }}>
-        <FloatingShapes bg="blue" />
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h1 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(36px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#fff", maxWidth: 820, margin: "0 0 24px" }}>
             If a task does not need your judgement, it should not need your time.
@@ -415,7 +356,6 @@ export default function Legal() {
 
       {/* 3 — CONSOLE — navy */}
       <section id="console" ref={consoleRef} style={{ background: NAVY, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
-        <FloatingShapes bg="navy" />
         <div style={{ position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#fff", margin: "0 0 8px" }}>Watch any agent run</h2>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 16, margin: "0 0 40px" }}>Select an agent, click Run, and see exactly what it does.</p>
@@ -463,7 +403,6 @@ export default function Legal() {
 
       {/* 7 — CTA — blue */}
       <section id="cta" style={{ background: BLUE, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
-        <FloatingShapes bg="blue" />
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(30px,4vw,44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff", maxWidth: 720, margin: "0 auto 24px", textAlign: "center" }}>
             Ready to stop doing work that should not need you?
