@@ -5,6 +5,100 @@ const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5"
 const BLUE = "#2C3EE8";
 const NAVY = "#0F1729";
 
+// ── Animation helpers ─────────────────────────────────────────────────────────
+
+const ANIM_CSS = `
+  .rl-word { display:inline-block; margin-right:0.28em; opacity:0; transform:translateY(16px); transition:opacity 0.45s ease, transform 0.45s ease; }
+  .rl-word.vis { opacity:1; transform:translateY(0); }
+  .rev-el { opacity:0; transform:translateY(18px); transition:opacity 0.5s ease, transform 0.5s ease; }
+  .rev-el.vis { opacity:1; transform:translateY(0); }
+  .stag-item { opacity:0; transform:translateY(20px); transition:opacity 0.45s ease, transform 0.45s ease; }
+  .stag-item.vis { opacity:1; transform:translateY(0); }
+  .slide-l { opacity:0; transform:translateX(-36px); transition:opacity 0.5s ease, transform 0.5s ease; }
+  .slide-r { opacity:0; transform:translateX(36px); transition:opacity 0.5s ease, transform 0.5s ease; }
+  .slide-l.vis, .slide-r.vis { opacity:1; transform:translateX(0); }
+`;
+
+function WordReveal({ text, color = "#fff", style = {} }: { text: string; color?: string; style?: React.CSSProperties }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [triggered, setTriggered] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setTriggered(true); obs.disconnect(); } }, { threshold: 0.15 });
+    obs.observe(el); return () => obs.disconnect();
+  }, []);
+  return (
+    <div ref={ref} style={style}>
+      {text.split(" ").map((w, i) => (
+        <span key={i} className={"rl-word" + (triggered ? " vis" : "")}
+          style={{ color, transitionDelay: triggered ? i * 68 + "ms" : "0ms" }}>{w}</span>
+      ))}
+    </div>
+  );
+}
+
+function RevEl({ children, delay = 0, style = {} }: { children: React.ReactNode; delay?: number; style?: React.CSSProperties }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setTimeout(() => el.classList.add("vis"), delay); obs.disconnect(); }
+    }, { threshold: 0.1 });
+    obs.observe(el); return () => obs.disconnect();
+  }, []);
+  return <div ref={ref} className="rev-el" style={style}>{children}</div>;
+}
+
+function StagGrid({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        Array.from(el.children).forEach((c, i) => setTimeout(() => (c as HTMLElement).classList.add("vis"), i * 90));
+        obs.disconnect();
+      }
+    }, { threshold: 0.08 });
+    obs.observe(el); return () => obs.disconnect();
+  }, []);
+  return <div ref={ref} style={style}>{children}</div>;
+}
+
+function SlideSection({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        Array.from(el.children).forEach((c, i) => setTimeout(() => (c as HTMLElement).classList.add("vis"), i * 130));
+        obs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    obs.observe(el); return () => obs.disconnect();
+  }, []);
+  return <div ref={ref} style={style}>{children}</div>;
+}
+
+function CountUp({ end, prefix = "", suffix = "", color = "#2C3EE8", style = {} }: { end: number; prefix?: string; suffix?: string; color?: string; style?: React.CSSProperties }) {
+  const [val, setVal] = React.useState(0);
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const started = React.useRef(false);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const dur = 1400; const step = 16; const steps = dur / step; let cur = 0;
+        const id = setInterval(() => { cur++; setVal(Math.round((cur/steps)*end)); if (cur>=steps){setVal(end);clearInterval(id);} }, step);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    obs.observe(el); return () => obs.disconnect();
+  }, [end]);
+  return <span ref={ref} style={{ ...style, color }}>{prefix}{val}{suffix}</span>;
+}
+
+
 
 function Section({ bg, children, id }: { bg: "blue" | "navy" | "white"; children: React.ReactNode; id?: string }) {
   const bgColor = bg === "blue" ? BLUE : bg === "navy" ? NAVY : "#FFFFFF";
@@ -208,17 +302,29 @@ function TestimonialCarousel() {
   ];
   const scrollRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+
   useEffect(() => {
     const el = scrollRef.current; if (!el) return;
-    const h = () => setActive(Math.round(el.scrollLeft / (el.scrollWidth / items.length)));
+    const h = () => {
+      const idx = Math.round(el.scrollLeft / (el.offsetWidth * 0.88));
+      setActive(Math.min(idx, items.length - 1));
+    };
     el.addEventListener("scroll", h, { passive: true });
     return () => el.removeEventListener("scroll", h);
   }, []);
+
+  function scrollTo(i: number) {
+    const el = scrollRef.current; if (!el) return;
+    const card = el.children[i] as HTMLElement;
+    if (card) card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    setActive(i);
+  }
+
   return (
     <div>
-      <div ref={scrollRef} style={{ display: "flex", overflowX: "auto", gap: 20, scrollSnapType: "x mandatory", scrollbarWidth: "none" }}>
+      <div ref={scrollRef} style={{ display: "flex", overflowX: "auto", gap: 20, scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}>
         {items.map((t, i) => (
-          <div key={i} style={{ flexShrink: 0, width: "min(400px, 85vw)", scrollSnapAlign: "center", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div key={i} style={{ flexShrink: 0, width: "min(420px, 85vw)", scrollSnapAlign: "center", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <p style={{ color: "#fff", fontSize: 15, lineHeight: 1.8, marginBottom: 24, marginTop: 0 }}>{t.quote}</p>
             <div>
               <div style={{ color: "#fff", fontWeight: 600, fontSize: 14 }}>{t.name}</div>
@@ -228,10 +334,17 @@ function TestimonialCarousel() {
           </div>
         ))}
       </div>
-      <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
-        {items.map((_, i) => (
-          <button key={i} onClick={() => { const el = scrollRef.current; if (el) { const card = el.children[i] as HTMLElement; card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); } setActive(i); }} style={{ height: 3, width: i === active ? 32 : 12, borderRadius: 2, background: i === active ? "#fff" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.3s, background 0.3s" }} />
-        ))}
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 28 }}>
+        <button onClick={() => scrollTo(Math.max(0, active - 1))} disabled={active === 0}
+          style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.25)", background: "transparent", color: "#fff", cursor: active === 0 ? "default" : "pointer", opacity: active === 0 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, transition: "opacity 0.2s", flexShrink: 0 }} aria-label="Previous">&#8592;</button>
+        <div style={{ display: "flex", gap: 8, flex: 1 }}>
+          {items.map((_, i) => (
+            <button key={i} onClick={() => scrollTo(i)}
+              style={{ height: 3, flex: i === active ? 2 : 1, borderRadius: 2, background: i === active ? "#fff" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "flex 0.3s, background 0.3s" }} />
+          ))}
+        </div>
+        <button onClick={() => scrollTo(Math.min(items.length - 1, active + 1))} disabled={active === items.length - 1}
+          style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.25)", background: "transparent", color: "#fff", cursor: active === items.length - 1 ? "default" : "pointer", opacity: active === items.length - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, transition: "opacity 0.2s", flexShrink: 0 }} aria-label="Next">&#8594;</button>
       </div>
     </div>
   );
@@ -318,6 +431,7 @@ export default function Legal() {
 
   return (
     <div style={{ minHeight: "100dvh", fontFamily: "'DM Sans', sans-serif" }}>
+      <style>{ANIM_CSS}</style>
 
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, background: BLUE }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px", height: navH, display: "flex", alignItems: "center", justifyContent: "space-between", transition: "height 0.3s" }}>
@@ -332,9 +446,8 @@ export default function Legal() {
       {/* 1 — HERO — blue */}
       <section style={{ background: BLUE, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center", paddingTop: navH }}>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
-          <h1 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(36px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#fff", maxWidth: 820, margin: "0 0 24px" }}>
-            If a task does not need your judgement, it should not need your time.
-          </h1>
+          <WordReveal text="If a task does not need your judgement, it should not need your time."
+            style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(36px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.03em", maxWidth: 820, marginBottom: 24 }} />
           <p style={{ color: "#fff", fontSize: 18, lineHeight: 1.7, maxWidth: 600, margin: "0 0 40px" }}>
             j.ai connects to Smokeball, Clio, LEAP, Actionstep and more. We map every repeatable task in your firm and build agents that handle it.
           </p>
@@ -345,7 +458,7 @@ export default function Legal() {
         </div>
       </section>
 
-      {/* 2 — AGENT GRID — white */}
+      {/* 2 — AGENT GRID — white with dark flip cards */}
       <Section bg="white">
         <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,36px)", color: "#1A1A2E", margin: "0 0 8px" }}>Six agents. One job.</h2>
         <p style={{ color: "#555566", fontSize: 15, margin: "0 0 40px" }}>Click any card to flip it. Hit "See it run" to watch the agent live.</p>
@@ -357,15 +470,15 @@ export default function Legal() {
       {/* 3 — CONSOLE — navy */}
       <section id="console" ref={consoleRef} style={{ background: NAVY, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
-          <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#fff", margin: "0 0 8px" }}>Watch any agent run</h2>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 16, margin: "0 0 40px" }}>Select an agent, click Run, and see exactly what it does.</p>
+          <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#1A1A2E", margin: "0 0 8px", textAlign: "center" }}>Watch any agent run</h2>
+          <p style={{ color: "#555566", fontSize: 16, margin: "0 0 40px", textAlign: "center" }}>Select an agent, click Run, and see exactly what it does.</p>
           <Console initialAgent={activeAgent} />
         </div>
       </section>
 
       {/* 4 — HOW IT WORKS — blue */}
       <Section bg="blue">
-        <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#fff", margin: "0 0 48px" }}>Built around one idea.</h2>
+        <WordReveal text="Built around one idea." style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", marginBottom: 48 }} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
           {[
             { n: "1", t: "We map what does not need you", d: "Your firm runs on a mix of work that needs a lawyer's brain and work that does not. We sit with you, identify every task that is repeatable, predictable, and eating time it should not." },
@@ -383,7 +496,7 @@ export default function Legal() {
 
       {/* 5 — TESTIMONIALS — white */}
       <Section bg="white">
-        <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#1A1A2E", margin: "0 0 40px" }}>What firms are saying.</h2>
+        <WordReveal text="What firms are saying." color="#1A1A2E" style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", marginBottom: 40 }} />
         <div style={{ background: NAVY, borderRadius: 20, padding: 48 }}>
           <TestimonialCarousel />
         </div>
@@ -393,7 +506,7 @@ export default function Legal() {
       <Section bg="navy">
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48, alignItems: "start" }}>
           <div>
-            <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(26px,3vw,36px)", color: "#fff", margin: "0 0 20px", lineHeight: 1.1 }}>Need something built specifically for your firm?</h2>
+            <WordReveal text="Need something built specifically for your firm?" style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(26px,3vw,36px)", lineHeight: 1.1, marginBottom: 20 }} />
             <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 16, lineHeight: 1.75, margin: "0 0 16px" }}>Not every firm runs the same way. If you have a workflow, a process, or a problem that does not fit a standard agent, we will scope and build it from scratch.</p>
             <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 16, lineHeight: 1.75, margin: 0 }}>Connected to your existing systems. Designed around how you actually work. Delivered as an agent that runs itself.</p>
           </div>
@@ -402,7 +515,7 @@ export default function Legal() {
       </Section>
 
       {/* 7 — CTA — blue */}
-      <section id="cta" style={{ background: BLUE, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
+      <section id="cta" style={{ background: "#FFFFFF", minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(30px,4vw,44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff", maxWidth: 720, margin: "0 auto 24px", textAlign: "center" }}>
             Ready to stop doing work that should not need you?
