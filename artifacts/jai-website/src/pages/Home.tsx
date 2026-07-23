@@ -74,22 +74,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const script = document.createElement("script");
-      script.src = "https://app.cal.com/embed/embed.js";
-      script.async = true;
-      script.onload = () => {
-        const Cal = (window as any).Cal;
-        if (!Cal) return;
-        Cal("init", "home-dc", { origin: "https://app.cal.com" });
-        Cal.ns["home-dc"]("inline", { elementOrSelector: "#home-cal-inline", config: { layout: "month_view" }, calLink: "jai.ai/discovery-call" });
-        Cal.ns["home-dc"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
-      };
-      document.head.appendChild(script);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, []);
+
 
   const navH = navCompressed ? 48 : 68;
   const industries = [
@@ -253,7 +238,7 @@ export default function Home() {
               Pick a time below. We'll discuss how your business runs, where the biggest opportunities are, and how we can use AI to solve your problems.
             </p>
           </RevealEl>
-          <div id="home-cal-inline" style={{ width: "100%", height: 700, overflow: "scroll" }} />
+          <iframe src="https://cal.com/jai.ai/discovery-call?embed=true&layout=month_view&theme=light" style={{ width: "100%", height: 700, border: "none", borderRadius: 12 }} />
         </div>
       </section>
 
