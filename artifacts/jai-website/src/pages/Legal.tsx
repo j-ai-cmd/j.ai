@@ -125,11 +125,11 @@ function WipRows() {
   return (
     <div style={{ padding: "0 14px 8px" }}>
       {[["Chen · Property Settlement (18d)", "1,840"], ["Okafor · Estate Planning (22d)", "960"], ["Williams · Family Law (14d)", "720"]].map(([m, a]) => (
-        <div key={m} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid #eee", fontSize: 12.5 }}>
+        <div key={m} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid rgba(255,255,255,0.1)", fontSize: 12.5, color: "rgba(255,255,255,0.8)" }}>
           <span>{m}</span><span style={{ fontWeight: 600, color: BLUE }}>{a}</span>
         </div>
       ))}
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, background: "#f0f2fd", borderRadius: 4, padding: "8px", fontSize: 12.5, fontWeight: 600 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, background: "rgba(44,62,232,0.3)", borderRadius: 4, padding: "8px", fontSize: 12.5, fontWeight: 600, color: "#fff" }}>
         <span>Total surfaced</span><span style={{ color: BLUE }}>3,520</span>
       </div>
     </div>
@@ -194,65 +194,65 @@ function Console({ initialAgent }: { initialAgent: string }) {
         </span>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "220px 1fr", minHeight: 650 }}>
-        <div style={{ background: NAVY, borderRight: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ padding: "11px 14px", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>Agents</div>
+        <div style={{ background: "#FFFFFF", borderRight: "1px solid rgba(0,0,0,0.08)" }}>
+          <div style={{ padding: "11px 14px", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888899", borderBottom: "1px solid rgba(0,0,0,0.07)" }}>Agents</div>
           {agentList.map(ag => (
             <button key={ag.key} onClick={() => pick(ag.key)} style={{ width: "100%", padding: "13px 14px", background: cur === ag.key ? "rgba(44,62,232,0.25)" : "transparent", border: "none", borderLeft: `2px solid ${cur === ag.key ? BLUE : "transparent"}`, borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", textAlign: "left", display: "flex", alignItems: "center", gap: 9 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: ag.dot, display: "block", flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>{ag.name}</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.65)", marginTop: 1 }}>{ag.role}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: "#1A1A2E" }}>{ag.name}</div>
+                <div style={{ fontSize: 10, color: "#888899", marginTop: 1 }}>{ag.role}</div>
               </div>
               <span style={{ fontSize: 9.5, padding: "2px 7px", borderRadius: 8, fontWeight: 600, flexShrink: 0 }} className={ag.badgeClass}>{ag.badge}</span>
             </button>
           ))}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", position: "relative", background: "#fff" }}>
-          <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", flexDirection: "column", position: "relative", background: NAVY }}>
+          <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: "#1A1A2E" }}>{a.name} · {a.role}</div>
-              <div style={{ fontSize: 11.5, color: "#555566", marginTop: 2 }}>{a.meta.join(" · ")}</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "#fff" }}>{a.name} · {a.role}</div>
+              <div style={{ fontSize: 11.5, color: "rgba(255,255,255,0.5)", marginTop: 2 }}>{a.meta.join(" · ")}</div>
             </div>
             <button onClick={run} style={{ fontSize: 12.5, padding: "8px 18px", background: BLUE, color: "#fff", border: "none", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>▶ See it run</button>
           </div>
-          <div style={{ padding: 20, flex: 1, overflowY: "auto" }}>
+          <div style={{ padding: 20, flex: 1, overflowY: "auto", background: NAVY }}>
             {approved ? (
               <div>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 4, background: "#dcfce7", color: "#166534", fontSize: 11, fontWeight: 600, padding: "3px 12px", borderRadius: 10, marginBottom: 16 }}>✓ Approved</div>
-                <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(0,0,0,0.08)", overflow: "hidden" }}>
-                  <div style={{ padding: "8px 14px", borderBottom: "1px solid rgba(0,0,0,0.06)", display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555566" }}>
+                <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, border: "1px solid rgba(255,255,255,0.15)", overflow: "hidden" }}>
+                  <div style={{ padding: "8px 14px", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgba(255,255,255,0.5)" }}>
                     <span>{a.approved.head}</span><span style={{ color: "#4ade80" }}>● Approved</span>
                   </div>
-                  {a.approved.wip ? <WipRows /> : <div style={{ padding: 14, fontSize: 13, color: "#555566", lineHeight: 1.6 }}><p style={{ fontWeight: 600, color: "#1A1A2E", marginBottom: 8, marginTop: 0 }}>{a.approved.subj}</p><p style={{ whiteSpace: "pre-line", margin: 0 }}>{approvedBody || a.approved.body}</p></div>}
+                  {a.approved.wip ? <WipRows /> : <div style={{ padding: 14, fontSize: 13, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}><p style={{ fontWeight: 600, color: "#fff", marginBottom: 8, marginTop: 0 }}>{a.approved.subj}</p><p style={{ whiteSpace: "pre-line", margin: 0 }}>{approvedBody || a.approved.body}</p></div>}
                 </div>
               </div>
             ) : (
               <div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-                  {a.meta.map((m: string) => <span key={m} style={{ fontSize: 11, color: "#555566", background: "#f3f4f8", padding: "3px 12px", borderRadius: 10 }}>{m}</span>)}
+                  {a.meta.map((m: string) => <span key={m} style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", background: "rgba(255,255,255,0.1)", padding: "3px 12px", borderRadius: 10 }}>{m}</span>)}
                 </div>
-                <div style={{ padding: "48px 0", textAlign: "center", fontSize: 13.5, color: "#888899", lineHeight: 1.7 }}>
-                  Click <strong style={{ color: "#1A1A2E" }}>▶ See it run</strong> to watch this agent work and see what it does.
+                <div style={{ padding: "48px 0", textAlign: "center", fontSize: 13.5, color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>
+                  Click <strong style={{ color: "#fff" }}>▶ See it run</strong> to watch this agent work and see what it does.
                 </div>
               </div>
             )}
           </div>
           {overlayOpen && (
-            <div style={{ position: "absolute", inset: 0, background: "#fff", zIndex: 10, display: "flex", flexDirection: "column" }}>
-              <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(0,0,0,0.07)", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "#1A1A2E" }}>Watching {a.name} run</div>
-                <button onClick={() => setOverlayOpen(false)} style={{ background: "none", border: "none", fontSize: 20, color: "#888", cursor: "pointer" }}>✕</button>
+            <div style={{ position: "absolute", inset: 0, background: NAVY, zIndex: 10, display: "flex", flexDirection: "column" }}>
+              <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>Watching {a.name} run</div>
+                <button onClick={() => setOverlayOpen(false)} style={{ background: "none", border: "none", fontSize: 20, color: "rgba(255,255,255,0.5)", cursor: "pointer" }}>✕</button>
               </div>
-              <div style={{ padding: 20, overflowY: "auto", flex: 1 }} ref={scrollRef}>
+              <div style={{ padding: 20, overflowY: "auto", flex: 1, background: NAVY }} ref={scrollRef}>
                 {a.steps.map((s: any, i: number) => (
                   <div key={i} style={{ display: "flex", gap: 11, marginBottom: 16, opacity: i < steps ? 1 : 0, transform: i < steps ? "none" : "translateY(5px)", transition: "opacity 0.3s, transform 0.3s" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                       <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#dcfce7", border: "1px solid #bbf7d0", color: "#166534", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, flexShrink: 0 }}>✓</div>
-                      {i < a.steps.length - 1 && <div style={{ width: 1, flex: 1, minHeight: 10, background: "#e5e7eb", margin: "2px 0" }} />}
+                      {i < a.steps.length - 1 && <div style={{ width: 1, flex: 1, minHeight: 10, background: "rgba(255,255,255,0.15)", margin: "2px 0" }} />}
                     </div>
                     <div style={{ paddingTop: 2, flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: "#1A1A2E" }}>{s.t}</div>
-                      <div style={{ fontSize: 11.5, color: "#888899", marginTop: 2 }}>{s.d}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>{s.t}</div>
+                      <div style={{ fontSize: 11.5, color: "rgba(255,255,255,0.5)", marginTop: 2 }}>{s.d}</div>
                     </div>
                   </div>
                 ))}
@@ -260,24 +260,24 @@ function Console({ initialAgent }: { initialAgent: string }) {
                   <div style={{ display: "flex", gap: 11, marginBottom: 16 }}>
                     <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#e0e7ff", border: "1px solid #c7d2fe", color: "#3730a3", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 600, flexShrink: 0, marginTop: 1 }}>AI</div>
                     <div style={{ flex: 1, paddingTop: 2 }}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: "#1A1A2E", marginBottom: 8 }}>{a.draft.head}</div>
-                      <div style={{ background: "#f7f8ff", border: "1px solid #c5cdf7", borderRadius: 8, overflow: "hidden" }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 8 }}>{a.draft.head}</div>
+                      <div style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 8, overflow: "hidden" }}>
                         {isWip ? <WipRows /> : editMode ? (
-                          <textarea style={{ width: "100%", padding: 14, fontSize: 13, color: "#1A1A2E", lineHeight: 1.6, border: "none", background: "transparent", resize: "none", outline: "none", minHeight: 140, fontFamily: "inherit", boxSizing: "border-box" }} value={editText} onChange={e => setEditText(e.target.value)} />
+                          <textarea style={{ width: "100%", padding: 14, fontSize: 13, color: "#fff", lineHeight: 1.6, border: "none", background: "transparent", resize: "none", outline: "none", minHeight: 140, fontFamily: "inherit", boxSizing: "border-box" }} value={editText} onChange={e => setEditText(e.target.value)} />
                         ) : (
                           <div style={{ padding: 14, fontSize: 13, color: "#555566", lineHeight: 1.6 }}>
-                            <p style={{ fontWeight: 600, color: "#1A1A2E", marginBottom: 8, marginTop: 0 }}>{a.draft.subj}</p>
-                            <p style={{ whiteSpace: "pre-line", margin: 0 }}>{a.draft.body}</p>
+                            <p style={{ fontWeight: 600, color: "#fff", marginBottom: 8, marginTop: 0 }}>{a.draft.subj}</p>
+                            <p style={{ whiteSpace: "pre-line", margin: 0, color: "rgba(255,255,255,0.7)" }}>{a.draft.body}</p>
                           </div>
                         )}
-                        <div style={{ display: "flex", gap: 7, padding: 10, borderTop: "1px solid #c5cdf7" }}>
+                        <div style={{ display: "flex", gap: 7, padding: 10, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
                           {editMode ? (<>
                             <button onClick={approve} style={{ fontSize: 11.5, padding: "5px 14px", background: BLUE, color: "#fff", border: "none", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Save and approve</button>
-                            <button onClick={() => setEditMode(false)} style={{ fontSize: 11.5, padding: "5px 14px", background: "#f3f4f8", color: "#555566", border: "1px solid #e5e7eb", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Cancel</button>
+                            <button onClick={() => setEditMode(false)} style={{ fontSize: 11.5, padding: "5px 14px", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Cancel</button>
                           </>) : (<>
                             <button onClick={approve} style={{ fontSize: 11.5, padding: "5px 14px", background: BLUE, color: "#fff", border: "none", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Approve</button>
-                            {!isWip && <button onClick={() => { setEditMode(true); setEditText(a.draft.body); }} style={{ fontSize: 11.5, padding: "5px 14px", background: "#f3f4f8", color: "#555566", border: "1px solid #e5e7eb", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Edit</button>}
-                            {a.draft.actions && !isWip && <button onClick={() => setOverlayOpen(false)} style={{ fontSize: 11.5, padding: "5px 14px", background: "#f3f4f8", color: "#555566", border: "1px solid #e5e7eb", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Skip</button>}
+                            {!isWip && <button onClick={() => { setEditMode(true); setEditText(a.draft.body); }} style={{ fontSize: 11.5, padding: "5px 14px", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Edit</button>}
+                            {a.draft.actions && !isWip && <button onClick={() => setOverlayOpen(false)} style={{ fontSize: 11.5, padding: "5px 14px", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>Skip</button>}
                           </>)}
                         </div>
                       </div>
@@ -300,51 +300,54 @@ function TestimonialCarousel() {
     { quote: "We were writing off around 2,000 a week in unbilled time without realising it. Plutus surfaced it every Monday. We have recovered most of it just by having someone look at the list.", name: "Senior Associate", firm: "Conveyancing Practice, Melbourne AU" },
     { quote: "Charis sent a thank-you email to a client we had not thought about in months. She replied the same day asking about updating her EPOA. That is a matter we would never have found otherwise.", name: "Principal", firm: "Boutique Practice, London UK" },
   ];
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState<"left"|"right">("right");
+  const [displayed, setDisplayed] = useState(0);
 
-  useEffect(() => {
-    const el = scrollRef.current; if (!el) return;
-    const h = () => {
-      const idx = Math.round(el.scrollLeft / (el.offsetWidth * 0.88));
-      setActive(Math.min(idx, items.length - 1));
-    };
-    el.addEventListener("scroll", h, { passive: true });
-    return () => el.removeEventListener("scroll", h);
-  }, []);
-
-  function scrollTo(i: number) {
-    const el = scrollRef.current; if (!el) return;
-    const card = el.children[i] as HTMLElement;
-    if (card) card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    setActive(i);
+  function goTo(i: number, dir: "left"|"right") {
+    if (animating || i === active) return;
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => { setDisplayed(i); setActive(i); setAnimating(false); }, 320);
   }
+  function prev() { if (active > 0) goTo(active - 1, "left"); }
+  function next() { if (active < items.length - 1) goTo(active + 1, "right"); }
+
+  const t = items[displayed];
+  const exitX = direction === "right" ? "-40px" : "40px";
+  const enterX = direction === "right" ? "40px" : "-40px";
 
   return (
     <div>
-      <div ref={scrollRef} style={{ display: "flex", overflowX: "auto", gap: 20, scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}>
-        {items.map((t, i) => (
-          <div key={i} style={{ flexShrink: 0, width: "min(420px, 85vw)", scrollSnapAlign: "center", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-            <p style={{ color: "#fff", fontSize: 15, lineHeight: 1.8, marginBottom: 24, marginTop: 0 }}>{t.quote}</p>
+      <div style={{ display: "flex", alignItems: "stretch", gap: 20 }}>
+        <button onClick={prev} disabled={active === 0} aria-label="Previous"
+          style={{ width: 44, flexShrink: 0, borderRadius: 8, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", cursor: active === 0 ? "default" : "pointer", opacity: active === 0 ? 0.25 : 1, fontSize: 20, transition: "opacity 0.2s", alignSelf: "center", height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>&#8592;</button>
+        <div style={{ flex: 1, overflow: "hidden", borderRadius: 16 }}>
+          <div key={displayed} style={{
+            background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: 16, padding: "40px 48px", minHeight: 220,
+            display: "flex", flexDirection: "column", justifyContent: "space-between",
+            opacity: animating ? 0 : 1,
+            transform: animating ? `translateX(${exitX})` : "translateX(0)",
+            transition: animating ? "opacity 0.28s ease, transform 0.28s ease" : "opacity 0.28s ease, transform 0.28s ease"
+          }}>
+            <p style={{ color: "#fff", fontSize: 17, lineHeight: 1.85, marginBottom: 32, marginTop: 0, fontStyle: "italic" }}>"{t.quote}"</p>
             <div>
               <div style={{ color: "#fff", fontWeight: 600, fontSize: 14 }}>{t.name}</div>
               <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, marginTop: 4 }}>{t.firm}</div>
-              <div style={{ color: "rgba(255,255,255,0.25)", fontSize: 10, marginTop: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>Placeholder · to be replaced</div>
+              <div style={{ color: "rgba(255,255,255,0.2)", fontSize: 10, marginTop: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>Placeholder · to be replaced</div>
             </div>
           </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 28 }}>
-        <button onClick={() => scrollTo(Math.max(0, active - 1))} disabled={active === 0}
-          style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.25)", background: "transparent", color: "#fff", cursor: active === 0 ? "default" : "pointer", opacity: active === 0 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, transition: "opacity 0.2s", flexShrink: 0 }} aria-label="Previous">&#8592;</button>
-        <div style={{ display: "flex", gap: 8, flex: 1 }}>
-          {items.map((_, i) => (
-            <button key={i} onClick={() => scrollTo(i)}
-              style={{ height: 3, flex: i === active ? 2 : 1, borderRadius: 2, background: i === active ? "#fff" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "flex 0.3s, background 0.3s" }} />
-          ))}
         </div>
-        <button onClick={() => scrollTo(Math.min(items.length - 1, active + 1))} disabled={active === items.length - 1}
-          style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.25)", background: "transparent", color: "#fff", cursor: active === items.length - 1 ? "default" : "pointer", opacity: active === items.length - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, transition: "opacity 0.2s", flexShrink: 0 }} aria-label="Next">&#8594;</button>
+        <button onClick={next} disabled={active === items.length - 1} aria-label="Next"
+          style={{ width: 44, flexShrink: 0, borderRadius: 8, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", cursor: active === items.length - 1 ? "default" : "pointer", opacity: active === items.length - 1 ? 0.25 : 1, fontSize: 20, transition: "opacity 0.2s", alignSelf: "center", height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>&#8594;</button>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 24 }}>
+        {items.map((_, i) => (
+          <button key={i} onClick={() => goTo(i, i > active ? "right" : "left")}
+            style={{ height: 3, width: i === active ? 32 : 12, borderRadius: 2, background: i === active ? "#fff" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.3s, background 0.3s" }} />
+        ))}
       </div>
     </div>
   );
@@ -468,7 +471,7 @@ export default function Legal() {
       </Section>
 
       {/* 3 — CONSOLE — navy */}
-      <section id="console" ref={consoleRef} style={{ background: NAVY, minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
+      <section id="console" ref={consoleRef} style={{ background: "#FFFFFF", minHeight: "100dvh", position: "relative", display: "flex", alignItems: "center" }}>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <h2 style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", color: "#1A1A2E", margin: "0 0 8px", textAlign: "center" }}>Watch any agent run</h2>
           <p style={{ color: "#555566", fontSize: 16, margin: "0 0 40px", textAlign: "center" }}>Select an agent, click Run, and see exactly what it does.</p>
@@ -523,7 +526,7 @@ export default function Legal() {
           <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 18, lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px", textAlign: "center" }}>
             Pick a time below and we will map out what is worth automating in your firm.
           </p>
-          <iframe src="https://cal.com/jai.ai/discovery-call?embed=true&layout=month_view" style={{ width: "100%", height: 700, border: "none", borderRadius: 12 }} />
+          <iframe src="https://cal.com/jai.ai/discovery-call?embed=true&layout=month_view&theme=light" style={{ width: "100%", height: 700, border: "none", borderRadius: 12, background: "transparent" }} />
         </div>
       </section>
 
