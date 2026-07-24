@@ -23,7 +23,7 @@ const ANIM_CSS = `
   .agent-flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(.4,.2,.2,1)}
   .agent-flip-card.flipped .agent-flip-inner{transform:rotateY(180deg)}
   .agent-flip-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;border-radius:12px;padding:22px}
-  .agent-flip-back{transform:rotateY(180deg);background:#2C3EE8}
+  .agent-flip-back{transform:rotateY(180deg);background:#ffffff}
   .faq-item{border-bottom:1px solid rgba(255,255,255,0.12)}
   .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease}
   .faq-answer.open{max-height:200px}
@@ -115,9 +115,9 @@ function AgentFlipCard({ agent, onSelect }: { agent: any; onSelect:(k:string)=>v
           <div style={{ fontSize:11,color:BLUE,marginTop:12 }}>Click to see what it handles</div>
         </div>
         <div className="agent-flip-face agent-flip-back" style={{ justifyContent:"flex-start",padding:22 }}>
-          <p style={{ fontSize:13,color:"#e4e6ff",lineHeight:1.65,marginBottom:16,marginTop:0 }}>{agent.desc}</p>
+          <p style={{ fontSize:13,color:"#555566",lineHeight:1.65,marginBottom:16,marginTop:0 }}>{agent.desc}</p>
           <button onClick={e=>{e.stopPropagation();onSelect(agent.key);}}
-            style={{ fontSize:12,fontWeight:600,color:"#fff",border:"1px solid rgba(255,255,255,0.4)",background:"transparent",borderRadius:4,padding:"6px 14px",cursor:"pointer",alignSelf:"flex-start" }}>
+            style={{ fontSize:12,fontWeight:600,color:"#2C3EE8",border:"1px solid #2C3EE8",background:"transparent",borderRadius:4,padding:"6px 14px",cursor:"pointer",alignSelf:"flex-start" }}>
             See it run →
           </button>
         </div>
@@ -151,12 +151,12 @@ function Console({ initialAgent }: { initialAgent:string }) {
 
   return (
     <div style={{ borderRadius:12,overflow:"hidden",border:"1px solid rgba(0,0,0,0.1)",boxShadow:"0 4px 32px rgba(0,0,0,0.12)" }}>
-      <div style={{ background:NAVY,padding:"12px 16px",display:"flex",alignItems:"center",gap:10 }}>
+      <div style={{ background:"#fff",padding:"12px 16px",display:"flex",alignItems:"center",gap:10,borderBottom:"1px solid rgba(0,0,0,0.07)" }}>
         <div style={{ display:"flex",gap:5 }}>
           {["#FF5F57","#FEBC2E","#28C840"].map(c=><span key={c} style={{ width:9,height:9,borderRadius:"50%",background:c,display:"block" }} />)}
         </div>
-        <span style={{ fontSize:11,color:"rgba(255,255,255,0.5)",flex:1,textAlign:"center" }}>j.ai · Agent Console · Sutton Family Law</span>
-        <span style={{ fontSize:11,color:"#4ade80",display:"flex",alignItems:"center",gap:5 }}>
+        <span style={{ fontSize:11,color:"#888899",flex:1,textAlign:"center" }}>j.ai · Agent Console · Sutton Family Law</span>
+        <span style={{ fontSize:11,color:"#16a34a",display:"flex",alignItems:"center",gap:5 }}>
           <span style={{ width:6,height:6,borderRadius:"50%",background:"#4ade80",display:"inline-block" }} />6 agents live
         </span>
       </div>
