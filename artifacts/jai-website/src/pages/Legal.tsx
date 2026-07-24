@@ -23,7 +23,7 @@ const ANIM_CSS = `
   .agent-flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(.4,.2,.2,1)}
   .agent-flip-card.flipped .agent-flip-inner{transform:rotateY(180deg)}
   .agent-flip-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;border-radius:12px;padding:22px}
-  .agent-flip-back{transform:rotateY(180deg);background:#ffffff}
+  .agent-flip-back{transform:rotateY(180deg);background:#2C3EE8}
   .faq-item{border-bottom:1px solid rgba(255,255,255,0.12)}
   .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease}
   .faq-answer.open{max-height:200px}
@@ -90,11 +90,11 @@ function WipRows() {
   return (
     <div style={{ padding:"0 14px 8px" }}>
       {[["Chen · Property Settlement (18d)","£1,840"],["Okafor · Estate Planning (22d)","£960"],["Williams · Family Law (14d)","£720"]].map(([m,a]) => (
-        <div key={m} style={{ display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:"1px solid rgba(255,255,255,0.1)",fontSize:12.5,color:"rgba(255,255,255,0.8)" }}>
+        <div key={m} style={{ display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:"1px solid #eee",fontSize:12.5,color:"#1A1A2E" }}>
           <span>{m}</span><span style={{ fontWeight:600,color:"#2C3EE8" }}>{a}</span>
         </div>
       ))}
-      <div style={{ display:"flex",justifyContent:"space-between",marginTop:8,background:"rgba(44,62,232,0.3)",borderRadius:4,padding:"8px",fontSize:12.5,fontWeight:600,color:"#fff" }}>
+      <div style={{ display:"flex",justifyContent:"space-between",marginTop:8,background:"#f0f2fd",borderRadius:4,padding:"8px",fontSize:12.5,fontWeight:600,color:"#1A1A2E" }}>
         <span>Total surfaced</span><span>£3,520</span>
       </div>
     </div>
@@ -115,9 +115,9 @@ function AgentFlipCard({ agent, onSelect }: { agent: any; onSelect:(k:string)=>v
           <div style={{ fontSize:11,color:BLUE,marginTop:12 }}>Click to see what it handles</div>
         </div>
         <div className="agent-flip-face agent-flip-back" style={{ justifyContent:"flex-start",padding:22 }}>
-          <p style={{ fontSize:13,color:"#555566",lineHeight:1.65,marginBottom:16,marginTop:0 }}>{agent.desc}</p>
+          <p style={{ fontSize:13,color:"rgba(255,255,255,0.9)",lineHeight:1.65,marginBottom:16,marginTop:0 }}>{agent.desc}</p>
           <button onClick={e=>{e.stopPropagation();onSelect(agent.key);}}
-            style={{ fontSize:12,fontWeight:600,color:"#2C3EE8",border:"1px solid #2C3EE8",background:"transparent",borderRadius:4,padding:"6px 14px",cursor:"pointer",alignSelf:"flex-start" }}>
+            style={{ fontSize:12,fontWeight:600,color:"#fff",border:"1px solid rgba(255,255,255,0.5)",background:"transparent",borderRadius:4,padding:"6px 14px",cursor:"pointer",alignSelf:"flex-start" }}>
             See it run →
           </button>
         </div>
@@ -176,52 +176,52 @@ function Console({ initialAgent }: { initialAgent:string }) {
           ))}
         </div>
         {/* Main panel — navy */}
-        <div style={{ display:"flex",flexDirection:"column",position:"relative",background:NAVY }}>
-          <div style={{ padding:"16px 20px",borderBottom:"1px solid rgba(255,255,255,0.08)",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
+        <div style={{ display:"flex",flexDirection:"column",position:"relative",background:"#fff" }}>
+          <div style={{ padding:"16px 20px",borderBottom:"1px solid rgba(0,0,0,0.07)",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
             <div>
-              <div style={{ fontSize:15,fontWeight:600,color:"#fff" }}>{a.name} · {a.role}</div>
-              <div style={{ fontSize:11.5,color:"rgba(255,255,255,0.5)",marginTop:2 }}>{a.meta.join(" · ")}</div>
+              <div style={{ fontSize:15,fontWeight:600,color:"#1A1A2E" }}>{a.name} · {a.role}</div>
+              <div style={{ fontSize:11.5,color:"#888899",marginTop:2 }}>{a.meta.join(" · ")}</div>
             </div>
             <button onClick={run} style={{ fontSize:12.5,padding:"8px 18px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>▶ See it run</button>
           </div>
-          <div style={{ padding:20,flex:1,overflowY:"auto" }}>
+          <div style={{ padding:20,flex:1,overflowY:"auto",background:"#fff" }}>
             {approved?(
               <div>
                 <div style={{ display:"inline-flex",alignItems:"center",gap:4,background:"rgba(74,222,128,0.15)",color:"#4ade80",fontSize:11,fontWeight:600,padding:"3px 12px",borderRadius:10,marginBottom:16 }}>✓ Approved</div>
-                <div style={{ background:"rgba(255,255,255,0.08)",borderRadius:8,border:"1px solid rgba(255,255,255,0.15)",overflow:"hidden" }}>
-                  <div style={{ padding:"8px 14px",borderBottom:"1px solid rgba(255,255,255,0.1)",display:"flex",justifyContent:"space-between",fontSize:11,color:"rgba(255,255,255,0.5)" }}>
+                <div style={{ background:"#f7f8ff",borderRadius:8,border:"1px solid #e0e3f5",overflow:"hidden" }}>
+                  <div style={{ padding:"8px 14px",borderBottom:"1px solid rgba(0,0,0,0.06)",display:"flex",justifyContent:"space-between",fontSize:11,color:"#888899" }}>
                     <span>{a.approved.head}</span><span style={{ color:"#4ade80" }}>● Approved</span>
                   </div>
-                  {a.approved.wip?<WipRows/>:<div style={{ padding:14,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.6 }}><p style={{ fontWeight:600,color:"#fff",marginBottom:8,marginTop:0 }}>{a.approved.subj}</p><p style={{ whiteSpace:"pre-line",margin:0 }}>{approvedBody||a.approved.body}</p></div>}
+                  {a.approved.wip?<WipRows/>:<div style={{ padding:14,fontSize:13,color:"#555566",lineHeight:1.6 }}><p style={{ fontWeight:600,color:"#1A1A2E",marginBottom:8,marginTop:0 }}>{a.approved.subj}</p><p style={{ whiteSpace:"pre-line",margin:0 }}>{approvedBody||a.approved.body}</p></div>}
                 </div>
               </div>
             ):(
               <div>
                 <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:16 }}>
-                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"rgba(255,255,255,0.7)",background:"rgba(255,255,255,0.1)",padding:"3px 12px",borderRadius:10 }}>{m}</span>)}
+                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"#555566",background:"#f3f4f8",padding:"3px 12px",borderRadius:10 }}>{m}</span>)}
                 </div>
-                <div style={{ padding:"48px 0",textAlign:"center",fontSize:13.5,color:"rgba(255,255,255,0.4)",lineHeight:1.7 }}>
-                  Click <strong style={{ color:"#fff" }}>▶ See it run</strong> to watch this agent work and see what it does.
+                <div style={{ padding:"48px 0",textAlign:"center",fontSize:13.5,color:"#888899",lineHeight:1.7 }}>
+                  Click <strong style={{ color:"#1A1A2E" }}>▶ See it run</strong> to watch this agent work and see what it does.
                 </div>
               </div>
             )}
           </div>
           {overlayOpen&&(
-            <div style={{ position:"absolute",inset:0,background:NAVY,zIndex:10,display:"flex",flexDirection:"column" }}>
-              <div style={{ padding:"14px 20px",borderBottom:"1px solid rgba(255,255,255,0.08)",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0 }}>
-                <div style={{ fontSize:14,fontWeight:600,color:"#fff" }}>Watching {a.name} run</div>
-                <button onClick={()=>setOverlayOpen(false)} style={{ background:"none",border:"none",fontSize:20,color:"rgba(255,255,255,0.5)",cursor:"pointer" }}>✕</button>
+            <div style={{ position:"absolute",inset:0,background:"#fff",zIndex:10,display:"flex",flexDirection:"column" }}>
+              <div style={{ padding:"14px 20px",borderBottom:"1px solid rgba(0,0,0,0.07)",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0 }}>
+                <div style={{ fontSize:14,fontWeight:600,color:"#1A1A2E" }}>Watching {a.name} run</div>
+                <button onClick={()=>setOverlayOpen(false)} style={{ background:"none",border:"none",fontSize:20,color:"#888899",cursor:"pointer" }}>✕</button>
               </div>
-              <div style={{ padding:20,overflowY:"auto",flex:1 }} ref={scrollRef}>
+              <div style={{ padding:20,overflowY:"auto",flex:1,background:"#fff" }} ref={scrollRef}>
                 {a.steps.map((s:any,i:number)=>(
                   <div key={i} style={{ display:"flex",gap:11,marginBottom:16,opacity:i<steps?1:0,transform:i<steps?"none":"translateY(5px)",transition:"opacity 0.3s,transform 0.3s" }}>
                     <div style={{ display:"flex",flexDirection:"column",alignItems:"center" }}>
                       <div style={{ width:26,height:26,borderRadius:"50%",background:"rgba(74,222,128,0.15)",border:"1px solid rgba(74,222,128,0.3)",color:"#4ade80",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,flexShrink:0 }}>✓</div>
-                      {i<a.steps.length-1&&<div style={{ width:1,flex:1,minHeight:10,background:"rgba(255,255,255,0.15)",margin:"2px 0" }} />}
+                      {i<a.steps.length-1&&<div style={{ width:1,flex:1,minHeight:10,background:"#e5e7eb",margin:"2px 0" }} />}
                     </div>
                     <div style={{ paddingTop:2,flex:1 }}>
-                      <div style={{ fontSize:13,fontWeight:600,color:"#fff" }}>{s.t}</div>
-                      <div style={{ fontSize:11.5,color:"rgba(255,255,255,0.5)",marginTop:2 }}>{s.d}</div>
+                      <div style={{ fontSize:13,fontWeight:600,color:"#1A1A2E" }}>{s.t}</div>
+                      <div style={{ fontSize:11.5,color:"#888899",marginTop:2 }}>{s.d}</div>
                     </div>
                   </div>
                 ))}
@@ -229,24 +229,24 @@ function Console({ initialAgent }: { initialAgent:string }) {
                   <div style={{ display:"flex",gap:11,marginBottom:16 }}>
                     <div style={{ width:26,height:26,borderRadius:"50%",background:"rgba(44,62,232,0.3)",border:"1px solid rgba(44,62,232,0.5)",color:"#a5b4fc",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:600,flexShrink:0,marginTop:1 }}>AI</div>
                     <div style={{ flex:1,paddingTop:2 }}>
-                      <div style={{ fontSize:13,fontWeight:600,color:"#fff",marginBottom:8 }}>{a.draft.head}</div>
-                      <div style={{ background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:8,overflow:"hidden" }}>
+                      <div style={{ fontSize:13,fontWeight:600,color:"#1A1A2E",marginBottom:8 }}>{a.draft.head}</div>
+                      <div style={{ background:"#f7f8ff",border:"1px solid #c5cdf7",borderRadius:8,overflow:"hidden" }}>
                         {isWip?<WipRows/>:editMode?(
-                          <textarea style={{ width:"100%",padding:14,fontSize:13,color:"#fff",lineHeight:1.6,border:"none",background:"transparent",resize:"none",outline:"none",minHeight:140,fontFamily:"inherit",boxSizing:"border-box" }} value={editText} onChange={e=>setEditText(e.target.value)} />
+                          <textarea style={{ width:"100%",padding:14,fontSize:13,color:"#1A1A2E",lineHeight:1.6,border:"none",background:"transparent",resize:"none",outline:"none",minHeight:140,fontFamily:"inherit",boxSizing:"border-box" }} value={editText} onChange={e=>setEditText(e.target.value)} />
                         ):(
                           <div style={{ padding:14,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.6 }}>
                             <p style={{ fontWeight:600,color:"#fff",marginBottom:8,marginTop:0 }}>{a.draft.subj}</p>
                             <p style={{ whiteSpace:"pre-line",margin:0 }}>{a.draft.body}</p>
                           </div>
                         )}
-                        <div style={{ display:"flex",gap:7,padding:10,borderTop:"1px solid rgba(255,255,255,0.12)" }}>
+                        <div style={{ display:"flex",gap:7,padding:10,borderTop:"1px solid #c5cdf7" }}>
                           {editMode?(<>
                             <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Save and approve</button>
-                            <button onClick={()=>setEditMode(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"rgba(255,255,255,0.1)",color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Cancel</button>
+                            <button onClick={()=>setEditMode(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Cancel</button>
                           </>):(<>
                             <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Approve</button>
-                            {!isWip&&<button onClick={()=>{setEditMode(true);setEditText(a.draft.body);}} style={{ fontSize:11.5,padding:"5px 14px",background:"rgba(255,255,255,0.1)",color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Edit</button>}
-                            {a.draft.actions&&!isWip&&<button onClick={()=>setOverlayOpen(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"rgba(255,255,255,0.1)",color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Skip</button>}
+                            {!isWip&&<button onClick={()=>{setEditMode(true);setEditText(a.draft.body);}} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Edit</button>}
+                            {a.draft.actions&&!isWip&&<button onClick={()=>setOverlayOpen(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Skip</button>}
                           </>)}
                         </div>
                       </div>
