@@ -104,7 +104,7 @@ function WipRows() {
 function AgentFlipCard({ agent, onSelect }: { agent: any; onSelect:(k:string)=>void }) {
   const [flipped, setFlipped] = useState(false);
   return (
-    <div className={`agent-flip-card stag-item${flipped?" flipped":""}`}
+    <div className={`agent-flip-card${flipped?" flipped":""}`}
       style={{ height:200,cursor:"pointer",background:"rgba(0,0,0,0.04)",border:"1px solid rgba(0,0,0,0.1)",borderRadius:12 }}
       onClick={() => setFlipped(f => !f)}>
       <div className="agent-flip-inner">
@@ -198,7 +198,7 @@ function Console({ initialAgent }: { initialAgent:string }) {
             ):(
               <div>
                 <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:16 }}>
-                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"#555566",background:"#f3f4f8",padding:"3px 12px",borderRadius:10 }}>{m}</span>)}
+                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"#fff",background:BLUE,padding:"3px 12px",borderRadius:10,fontWeight:500 }}>{m}</span>)}
                 </div>
                 <div style={{ padding:"48px 0",textAlign:"center",fontSize:13.5,color:"#888899",lineHeight:1.7 }}>
                   Click <strong style={{ color:"#1A1A2E" }}>▶ See it run</strong> to watch this agent work and see what it does.
@@ -234,8 +234,8 @@ function Console({ initialAgent }: { initialAgent:string }) {
                         {isWip?<WipRows/>:editMode?(
                           <textarea style={{ width:"100%",padding:14,fontSize:13,color:"#1A1A2E",lineHeight:1.6,border:"none",background:"transparent",resize:"none",outline:"none",minHeight:140,fontFamily:"inherit",boxSizing:"border-box" }} value={editText} onChange={e=>setEditText(e.target.value)} />
                         ):(
-                          <div style={{ padding:14,fontSize:13,color:"rgba(255,255,255,0.7)",lineHeight:1.6 }}>
-                            <p style={{ fontWeight:600,color:"#fff",marginBottom:8,marginTop:0 }}>{a.draft.subj}</p>
+                          <div style={{ padding:14,fontSize:13,color:"#555566",lineHeight:1.6 }}>
+                            <p style={{ fontWeight:600,color:"#1A1A2E",marginBottom:8,marginTop:0 }}>{a.draft.subj}</p>
                             <p style={{ whiteSpace:"pre-line",margin:0 }}>{a.draft.body}</p>
                           </div>
                         )}
@@ -470,7 +470,9 @@ export default function Legal() {
           </RevEl>
           <StagGrid style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
             {agentData.map(ag => (
-              <AgentFlipCard key={ag.key} agent={ag} onSelect={selectAgent} />
+              <div key={ag.key} className="stag-item">
+                <AgentFlipCard agent={ag} onSelect={selectAgent} />
+              </div>
             ))}
           </StagGrid>
         </div>
