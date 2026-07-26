@@ -91,7 +91,7 @@ function WipRows() {
     <div style={{ padding:"0 14px 8px" }}>
       {[["Chen · Property Settlement (18d)","£1,840"],["Okafor · Estate Planning (22d)","£960"],["Williams · Family Law (14d)","£720"]].map(([m,a]) => (
         <div key={m} style={{ display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:"1px solid #eee",fontSize:12.5,color:"#1A1A2E" }}>
-          <span>{m}</span><span style={{ fontWeight:600,color:"#2C3EE8" }}>{a}</span>
+          <span>{m}</span><span style={{ fontWeight:600,color:NAVY }}>{a}</span>
         </div>
       ))}
       <div style={{ display:"flex",justifyContent:"space-between",marginTop:8,background:"#f0f2fd",borderRadius:4,padding:"8px",fontSize:12.5,fontWeight:600,color:"#1A1A2E" }}>
@@ -166,7 +166,7 @@ function Console({ initialAgent }: { initialAgent:string }) {
           <div style={{ padding:"11px 14px",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase",color:"#888899",borderBottom:"1px solid rgba(0,0,0,0.07)" }}>Agents</div>
           {agentData.map(ag=>(
             <button key={ag.key} onClick={()=>pick(ag.key)}
-              style={{ width:"100%",padding:"12px 14px",background:cur===ag.key?"rgba(44,62,232,0.07)":"transparent",border:"none",borderLeft:`2px solid ${cur===ag.key?BLUE:"transparent"}`,borderBottom:"1px solid rgba(0,0,0,0.05)",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:9 }}>
+              style={{ width:"100%",padding:"12px 14px",background:cur===ag.key?"rgba(15,23,41,0.07)":"transparent",border:"none",borderLeft:`2px solid ${cur===ag.key?NAVY:"transparent"}`,borderBottom:"1px solid rgba(0,0,0,0.05)",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:9 }}>
               <span style={{ width:6,height:6,borderRadius:"50%",background:ag.dot,display:"block",flexShrink:0 }} />
               <div style={{ flex:1 }}>
                 <div style={{ fontSize:13,fontWeight:600,color:"#1A1A2E" }}>{ag.name}</div>
@@ -182,12 +182,12 @@ function Console({ initialAgent }: { initialAgent:string }) {
               <div style={{ fontSize:15,fontWeight:600,color:"#1A1A2E" }}>{a.name} · {a.role}</div>
               <div style={{ fontSize:11.5,color:"#888899",marginTop:2 }}>{a.meta.join(" · ")}</div>
             </div>
-            <button onClick={run} style={{ fontSize:12.5,padding:"8px 18px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>▶ See it run</button>
+            <button onClick={run} style={{ fontSize:12.5,padding:"8px 18px",background:NAVY,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>▶ See it run</button>
           </div>
           <div style={{ padding:20,flex:1,overflowY:"auto",background:"#fff" }}>
             {approved?(
               <div>
-                <div style={{ display:"inline-flex",alignItems:"center",gap:4,background:"rgba(74,222,128,0.15)",color:"#4ade80",fontSize:11,fontWeight:600,padding:"3px 12px",borderRadius:10,marginBottom:16 }}>✓ Approved</div>
+                <div style={{ display:"inline-flex",alignItems:"center",gap:4,background:"rgba(74,222,128,0.12)",color:"#16a34a",fontSize:11,fontWeight:600,padding:"3px 12px",borderRadius:10,marginBottom:16 }}>✓ Approved</div>
                 <div style={{ background:"#f7f8ff",borderRadius:8,border:"1px solid #e0e3f5",overflow:"hidden" }}>
                   <div style={{ padding:"8px 14px",borderBottom:"1px solid rgba(0,0,0,0.06)",display:"flex",justifyContent:"space-between",fontSize:11,color:"#888899" }}>
                     <span>{a.approved.head}</span><span style={{ color:"#4ade80" }}>● Approved</span>
@@ -198,7 +198,7 @@ function Console({ initialAgent }: { initialAgent:string }) {
             ):(
               <div>
                 <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:16 }}>
-                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"#fff",background:BLUE,padding:"3px 12px",borderRadius:10,fontWeight:500 }}>{m}</span>)}
+                  {a.meta.map((m:string)=><span key={m} style={{ fontSize:11,color:"#fff",background:NAVY,padding:"3px 12px",borderRadius:10,fontWeight:500 }}>{m}</span>)}
                 </div>
                 <div style={{ padding:"48px 0",textAlign:"center",fontSize:13.5,color:"#888899",lineHeight:1.7 }}>
                   Click <strong style={{ color:"#1A1A2E" }}>▶ See it run</strong> to watch this agent work and see what it does.
@@ -227,7 +227,7 @@ function Console({ initialAgent }: { initialAgent:string }) {
                 ))}
                 {draftVisible&&(
                   <div style={{ display:"flex",gap:11,marginBottom:16 }}>
-                    <div style={{ width:26,height:26,borderRadius:"50%",background:"rgba(44,62,232,0.3)",border:"1px solid rgba(44,62,232,0.5)",color:"#a5b4fc",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:600,flexShrink:0,marginTop:1 }}>AI</div>
+                    <div style={{ width:26,height:26,borderRadius:"50%",background:"rgba(15,23,41,0.15)",border:"1px solid rgba(15,23,41,0.3)",color:"#0F1729",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:600,flexShrink:0,marginTop:1 }}>AI</div>
                     <div style={{ flex:1,paddingTop:2 }}>
                       <div style={{ fontSize:13,fontWeight:600,color:"#1A1A2E",marginBottom:8 }}>{a.draft.head}</div>
                       <div style={{ background:"#f7f8ff",border:"1px solid #c5cdf7",borderRadius:8,overflow:"hidden" }}>
@@ -241,10 +241,10 @@ function Console({ initialAgent }: { initialAgent:string }) {
                         )}
                         <div style={{ display:"flex",gap:7,padding:10,borderTop:"1px solid #c5cdf7" }}>
                           {editMode?(<>
-                            <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Save and approve</button>
+                            <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:NAVY,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Save and approve</button>
                             <button onClick={()=>setEditMode(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Cancel</button>
                           </>):(<>
-                            <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:BLUE,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Approve</button>
+                            <button onClick={approve} style={{ fontSize:11.5,padding:"5px 14px",background:NAVY,color:"#fff",border:"none",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Approve</button>
                             {!isWip&&<button onClick={()=>{setEditMode(true);setEditText(a.draft.body);}} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Edit</button>}
                             {a.draft.actions&&!isWip&&<button onClick={()=>setOverlayOpen(false)} style={{ fontSize:11.5,padding:"5px 14px",background:"#f3f4f8",color:"#555566",border:"1px solid #e5e7eb",borderRadius:4,cursor:"pointer",fontWeight:600 }}>Skip</button>}
                           </>)}
@@ -391,7 +391,7 @@ function ContactForm() {
         <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
           {agentOpts.map(a=>(
             <button key={a} type="button" onClick={()=>toggle(a)}
-              style={{ fontSize:11.5,padding:"4px 10px",borderRadius:20,border:"1px solid",borderColor:fd.agents.includes(a)?BLUE:"rgba(255,255,255,0.2)",background:fd.agents.includes(a)?BLUE:"transparent",color:"#fff",cursor:"pointer" }}>{a}</button>
+              style={{ fontSize:11.5,padding:"4px 10px",borderRadius:20,border:"1px solid",borderColor:fd.agents.includes(a)?NAVY:"rgba(255,255,255,0.2)",background:fd.agents.includes(a)?NAVY:"transparent",color:"#fff",cursor:"pointer" }}>{a}</button>
           ))}
         </div>
       </div>
@@ -399,7 +399,7 @@ function ContactForm() {
         <textarea required style={{...inp,resize:"none",minHeight:90}} placeholder="Describe the tasks taking up your team's time, or the specific workflow you have in mind..." value={fd.message} onChange={e=>setFd(p=>({...p,message:e.target.value}))} />
       </div>
       {error&&<p style={{ color:"#f87171",fontSize:13,marginBottom:12 }}>{error}</p>}
-      <button type="submit" disabled={submitting} style={{ width:"100%",background:BLUE,color:"#fff",fontWeight:600,fontSize:14,padding:"12px",borderRadius:8,border:"none",cursor:"pointer",opacity:submitting?0.5:1 }}>
+      <button type="submit" disabled={submitting} style={{ width:"100%",background:NAVY,color:"#fff",fontWeight:600,fontSize:14,padding:"12px",borderRadius:8,border:"none",cursor:"pointer",opacity:submitting?0.5:1 }}>
         {submitting?"Sending...":"Send enquiry"}
       </button>
     </form>
@@ -513,7 +513,7 @@ export default function Legal() {
                 <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.4)", marginTop: 8, textAlign: "center" }}>value of first<br/>returned matter</div>
               </div>
               <div style={{ background: "#fff", flex: 1, padding: "36px 40px" }}>
-                <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: BLUE, fontWeight: 600, marginBottom: 14 }}>Hermes · Estate Planning · Sydney AU</div>
+                <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: NAVY, fontWeight: 600, marginBottom: 14 }}>Hermes · Estate Planning · Sydney AU</div>
                 <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: 22, color: NAVY, marginBottom: 16, lineHeight: 1.25 }}>From 400 closed matters to 3 new clients in 30 days.</div>
                 <p style={{ color: "#555566", fontSize: 15, lineHeight: 1.75, margin: 0 }}>
                   A boutique estate planning practice had 400+ closed matters sitting untouched. No system to identify which past clients might need new work. Hermes connected directly to their Smokeball account, scanned every closed matter from the past 18 months, identified clients whose Will or EPOA was over 2 years old, and drafted a personalised re-engagement email for each — queued for the partner to review each morning. In the first 30 days: three clients responded. One became a $6,000 estate planning matter. The partner approved 8 emails and spent 12 minutes total.
@@ -533,7 +533,7 @@ export default function Legal() {
                 <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.4)", marginTop: 8, textAlign: "center" }}>to full<br/>recovery</div>
               </div>
               <div style={{ background: "#fff", flex: 1, padding: "36px 40px" }}>
-                <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: BLUE, fontWeight: 600, marginBottom: 14 }}>Plutus · Family Law · London UK</div>
+                <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: NAVY, fontWeight: 600, marginBottom: 14 }}>Plutus · Family Law · London UK</div>
                 <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: 22, color: NAVY, marginBottom: 16, lineHeight: 1.25 }}>£2,000 a week in unbilled time — recovered within a month.</div>
                 <p style={{ color: "#555566", fontSize: 15, lineHeight: 1.75, margin: 0 }}>
                   A family law practice was writing off around £2,000 a week in unbilled time entries without realising it. No one had time to audit it. Plutus surfaced it every Monday morning — a clean list of open matters with unbilled entries older than 14 days, sent directly to the fee earner. No clients were contacted. No automation was required beyond reviewing the list. Within four weeks, recovery was consistent and write-offs had dropped significantly.
@@ -544,17 +544,7 @@ export default function Legal() {
         </div>
       </section>
 
-      {/* 5 — TESTIMONIALS — white */}
-      <section style={{ background: "#fff", minHeight: "100dvh", display: "flex", alignItems: "center" }}>
-        <div style={{ maxWidth: 960, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
-          <WordReveal text="What firms are saying."
-            color={NAVY}
-            style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4vw,40px)", marginBottom: 40 }} />
-          <TestimonialCarousel />
-        </div>
-      </section>
-
-      {/* 6 — CUSTOM BUILDS + FORM — navy */}
+      {/* 5 — CUSTOM BUILDS + FORM — navy */}
       <section id="custom" style={{ background: NAVY, minHeight: "100dvh", display: "flex", alignItems: "center" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px", width: "100%" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48, alignItems: "start" }}>
