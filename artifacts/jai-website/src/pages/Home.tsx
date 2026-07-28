@@ -80,9 +80,9 @@ export default function Home() {
         <div className="wrap">
           <Reveal as="h2">We strongly believe AI is here to do the work you don't want, so you can do the work you were meant for.</Reveal>
           <Reveal className="steps3">
-            <div className="s"><div className="k">01 · Find</div><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We find it.</p></div>
-            <div className="s"><div className="k">02 · Build</div><h4>We build what replaces it</h4><p>An automation or agent that takes it on, wired into the tools you already use.</p></div>
-            <div className="s"><div className="k">03 · Reclaim</div><h4>You get your time back</h4><p>It runs inside your business, you stay in control, and the hours return to work that matters.</p></div>
+            <div className="s"><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We find it.</p></div>
+            <div className="s"><h4>We build what replaces it</h4><p>An automation or agent that takes it on, wired into the tools you already use.</p></div>
+            <div className="s"><h4>You get your time back</h4><p>It runs inside your business, you stay in control, and the hours return to work that matters.</p></div>
           </Reveal>
         </div>
       </section>
@@ -95,7 +95,7 @@ export default function Home() {
             <div>
               <Reveal as="p">Not to lose hours to tasks that slow your growth and pull your team away from the real thing.</Reveal>
               <Reveal as="p" className="beat">AI can give those hours back.</Reveal>
-              <Reveal as="p">That's the whole job. We find the work that should run on systems, build the thing that runs it, and hand you back the time.</Reveal>
+              <Reveal as="p">We find the work that should run on systems, build the thing that runs it, and hand you back the time.</Reveal>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
           <div className="r">
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="li-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
             <span className="cp">© 2026 j.ai</span>
           </div>
         </div>
