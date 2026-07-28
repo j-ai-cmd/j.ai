@@ -78,11 +78,11 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <section className="h-how">
         <div className="wrap">
-          <Reveal as="h2">Find it. Build it. Run it.</Reveal>
+          <Reveal as="h2">We strongly believe AI is here to do the work you don't want, so you can do the work you were meant for.</Reveal>
           <Reveal className="steps3">
-            <div className="s"><div className="k">01 · Find</div><h4>Find the work</h4><p>We sit with how your business runs and find the repetitive, manual work your team is too good to be doing.</p></div>
-            <div className="s"><div className="k">02 · Build</div><h4>Build the tool</h4><p>We build the automation or agent that handles it, wired into the tools you already use.</p></div>
-            <div className="s"><div className="k">03 · Run</div><h4>Run it live</h4><p>It runs inside your business, with you in control of every output it produces.</p></div>
+            <div className="s"><div className="k">01 · Find</div><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We name it.</p></div>
+            <div className="s"><div className="k">02 · Build</div><h4>We build what replaces it</h4><p>An automation or agent that takes it on, wired into the tools you already use.</p></div>
+            <div className="s"><div className="k">03 · Reclaim</div><h4>You get your time back</h4><p>It runs inside your business, you stay in control, and the hours return to work that matters.</p></div>
           </Reveal>
         </div>
       </section>
