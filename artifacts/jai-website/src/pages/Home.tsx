@@ -30,7 +30,7 @@ export default function Home() {
       {/* HERO */}
       <section className="h-hero">
         <div className="wrap">
-          <Reveal className="eyebrow">AI advisory &amp; custom builds · for SMEs</Reveal>
+          <Reveal className="eyebrow eyebrow-lg">AI advisory &amp; custom builds</Reveal>
           <Reveal as="h1">New AI tools land every week. You don't have time to work out which ones matter.</Reveal>
           <Reveal as="p" className="lede">j.ai finds the work in your business that still runs on people instead of systems, and builds the tools that take it off your plate.</Reveal>
           <Reveal className="go">
@@ -58,7 +58,6 @@ export default function Home() {
       <section className="h-offer">
         <div className="wrap">
           <Reveal as="h2">Two ways to work with j.ai.</Reveal>
-          <Reveal as="p" className="lead">One keeps you ahead of the market. The other builds what the market doesn't sell.</Reveal>
           <Reveal className="row">
             <div className="no">01</div>
             <div>
@@ -114,7 +113,6 @@ export default function Home() {
               <div className="r"><span>Discovery call</span><b>30 min · free</b></div>
               <div className="r"><span>Format</span><b>Video, one to one</b></div>
               <div className="r"><span>You leave with</span><b>A map of where AI fits</b></div>
-              <a href="#book" className="btn btn-solid">Book a discovery call</a>
             </Reveal>
           </div>
           <Reveal style={{ marginTop: "clamp(30px,5vw,56px)" }}>
@@ -128,7 +126,7 @@ export default function Home() {
         <div className="in">
           <div>
             <Wordmark className="mk" />
-            <div className="tag">AI advisory and custom tools for SMEs</div>
+            <div className="tag">AI advisory and custom tools</div>
             <div className="fnav">
               {COMING.map(c => <span key={c}>{c} · soon</span>)}
             </div>
