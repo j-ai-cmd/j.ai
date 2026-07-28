@@ -80,7 +80,7 @@ export default function Home() {
         <div className="wrap">
           <Reveal as="h2">We strongly believe AI is here to do the work you don't want, so you can do the work you were meant for.</Reveal>
           <Reveal className="steps3">
-            <div className="s"><div className="k">01 · Find</div><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We name it.</p></div>
+            <div className="s"><div className="k">01 · Find</div><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We find it.</p></div>
             <div className="s"><div className="k">02 · Build</div><h4>We build what replaces it</h4><p>An automation or agent that takes it on, wired into the tools you already use.</p></div>
             <div className="s"><div className="k">03 · Reclaim</div><h4>You get your time back</h4><p>It runs inside your business, you stay in control, and the hours return to work that matters.</p></div>
           </Reveal>
