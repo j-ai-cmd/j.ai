@@ -315,3 +315,13 @@ footer .cp{color:var(--muted);opacity:.7;font-size:12px}
 .panel .main .draft{animation:consoleReveal .45s cubic-bezier(.2,.6,.2,1) both}
 @keyframes consoleReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.panel .main .stp,.panel .main .draft{animation:none}}
+
+/* and more cell */
+.cell-more{display:flex;flex-direction:column;justify-content:center;border-style:dashed;background:transparent}
+.cell-more .name{font-family:var(--fd);font-weight:600;font-size:20px;color:var(--paper);margin-bottom:8px}
+.cell-more p{color:var(--faint-on-dark)}
+/* linkedin footer icon */
+.li-icon{display:inline-flex;transition:color .18s}
+footer .r .li-icon{color:var(--muted)}
+.legal-root footer .r .li-icon{color:var(--muted-on-dark)}
+.li-icon:hover{color:var(--accent)}
