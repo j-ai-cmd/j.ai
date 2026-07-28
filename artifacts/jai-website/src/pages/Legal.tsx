@@ -342,7 +342,6 @@ export default function Legal() {
       <section className="l-close">
         <div className="wrap">
           <Reveal as="h2">Stop doing work that shouldn't need you.</Reveal>
-          <Reveal><a href="#book" className="btn">Book a call</a></Reveal>
         </div>
       </section>
 
