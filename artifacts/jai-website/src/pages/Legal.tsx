@@ -252,7 +252,7 @@ export default function Legal() {
         <div className="wrap">
           <Reveal className="sec-head">
             <h2>The agent library.</h2>
-            <div className="note">Eight named agents. Each owns one repeatable task. Nothing reaches a client without you.</div>
+            <div className="note">Eight named agents. Each owns one task.</div>
           </Reveal>
           <Reveal className="bento">
             {agentData.map(ag=>(
