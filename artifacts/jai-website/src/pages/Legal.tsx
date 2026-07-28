@@ -205,7 +205,7 @@ function CustomForm() {
 const FAQS = [
   { q:"What practice management systems do you connect to?", a:"Smokeball, LEAP, Clio, and Actionstep." },
   { q:"Do my clients ever receive anything automatically?", a:"No. Every agent output lands in your j.ai dashboard first. You review it, approve it, edit it, or skip it. Nothing reaches a client without a human deciding." },
-  { q:"How long does it take to get set up?", a:"One onboarding call. We collect your credentials, configure each agent for your firm, and you are live." },
+  { q:"How long does it take to get set up?", a:"One onboarding call. We collect your credentials, request access, and configure each agent for your firm, you are live in less than 1 week." },
   { q:"Do I need to be technical to use this?", a:"No. Everything runs through your j.ai dashboard. You approve, edit, or skip. We handle the rest." },
   { q:"What if I want something built that isn't in the standard library?", a:"That is what the custom build request is for. Tell us the workflow or the problem. We scope it, price it, and build it connected to your existing systems." },
 ];
@@ -265,11 +265,8 @@ export default function Legal() {
                 <p>{ag.desc}</p>
               </div>
             ))}
-            <div className="cell cell-more narrow">
-              <span className="name">and more…</span>
-              <p>New agents ship as we find more work worth taking off your plate.</p>
-            </div>
           </Reveal>
+          <div className="more-line">and more…</div>
         </div>
       </section>
 
@@ -277,7 +274,7 @@ export default function Legal() {
       <section className="l-run">
         <div className="wrap">
           <Reveal className="sec-head">
-            <h2>Every output stops with you.</h2>
+            <h2>Built for your firm</h2>
             <div className="note">Agents do the work. You bring the judgment. Edit, approve or skip.</div>
           </Reveal>
           <Reveal><Console /></Reveal>
