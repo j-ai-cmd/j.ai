@@ -200,7 +200,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .panel .side .it{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:5px;font-size:13px;color:var(--muted-on-dark);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--fb)}
 .panel .side .it.on{background:rgba(216,69,28,.16);color:var(--paper)}
 .panel .side .it .d{width:6px;height:6px;border-radius:50%;flex:none}
-.panel .main{padding:22px 24px;min-width:0;position:relative}
+.panel .main{padding:22px 24px;min-width:0;position:relative;min-height:440px;display:flex;flex-direction:column;transition:none}
 .panel .main .hd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
 .panel .main .hd .t{font-family:var(--fd);font-weight:600;font-size:17px;color:var(--paper)}
 .panel .main .hd .m{font-family:var(--fm);font-size:11px;color:var(--faint-on-dark);margin-top:3px}
@@ -310,3 +310,8 @@ footer .cp{color:var(--muted);opacity:.7;font-size:12px}
 
 .eyebrow-lg{font-size:14px}
 .l-close h2{margin-bottom:0}
+
+/* console â€” Option C: graceful expand, no snap */
+.panel .main .draft{animation:consoleReveal .45s cubic-bezier(.2,.6,.2,1) both}
+@keyframes consoleReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.panel .main .stp,.panel .main .draft{animation:none}}
