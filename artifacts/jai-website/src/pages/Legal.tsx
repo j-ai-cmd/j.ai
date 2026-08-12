@@ -16,7 +16,7 @@ const agentData = [
 ];
 
 function WipRows() {
-  const rows = [["Matter A · unbilled 18d","—"],["Matter B · unbilled 22d","—"],["Matter C · unbilled 14d","—"]];
+  const rows = [["Matter A · unbilled 18d","$420"],["Matter B · unbilled 22d","$680"],["Matter C · unbilled 14d","$310"]];
   return (
     <div style={{ padding:"4px 0" }}>
       {rows.map(([m,a]) => (
@@ -24,6 +24,9 @@ function WipRows() {
           <span>{m}</span><span style={{ color:"var(--dot-c)" }}>{a}</span>
         </div>
       ))}
+      <div style={{ display:"flex",justifyContent:"space-between",padding:"8px 0",fontSize:13,fontWeight:600,color:"var(--paper)" }}>
+        <span>Total unbilled</span><span style={{ color:"var(--dot-c)" }}>$1,410</span>
+      </div>
       <div style={{ fontFamily:"var(--fm)",fontSize:11,color:"var(--faint-on-dark)",marginTop:10 }}>fee earner only · never the client</div>
     </div>
   );
@@ -38,19 +41,35 @@ function Console() {
   const [approved, setApproved] = useState(false);
   const [approvedBody, setApprovedBody] = useState("");
   const [running, setRunning] = useState(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-  function pick(key:string){ setCur(key); setSteps(0); setDraftVisible(false); setEditMode(false); setApproved(false); setApprovedBody(""); setRunning(false); }
+  function clearTimers(){ timers.current.forEach(clearTimeout); timers.current = []; }
+  useEffect(() => clearTimers, []);
+
+  function pick(key:string){
+    clearTimers();
+    setCur(key); setSteps(0); setDraftVisible(false); setEditMode(false); setApproved(false); setApprovedBody(""); setRunning(false);
+    if (bodyRef.current) bodyRef.current.scrollTop = 0;
+  }
   function run(){
+    clearTimers();
     setSteps(0); setDraftVisible(false); setEditMode(false); setApproved(false); setApprovedBody(""); setRunning(true);
+    if (bodyRef.current) bodyRef.current.scrollTop = 0;
     const a = agentData.find(x=>x.key===cur)!;
-    a.steps.forEach((_,i)=>setTimeout(()=>setSteps(i+1),(i+1)*480));
-    setTimeout(()=>setDraftVisible(true),(a.steps.length+1)*480);
+    a.steps.forEach((_,i)=>{ timers.current.push(setTimeout(()=>setSteps(i+1),(i+1)*480)); });
+    timers.current.push(setTimeout(()=>setDraftVisible(true),(a.steps.length+1)*480));
   }
   function approve(){ const a=agentData.find(x=>x.key===cur)!; setApprovedBody(editMode?editText:a.draft.body); setApproved(true); }
 
   const a = agentData.find(x=>x.key===cur)!;
   const isWip = a.draft.wip;
   const showStatic = !running;
+  const animating = running && !draftVisible;
+
+  useEffect(() => {
+    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+  }, [steps, draftVisible, approved]);
 
   return (
     <div className="panel">
@@ -62,7 +81,7 @@ function Console() {
         <div className="side">
           <div className="lbl">Agents</div>
           {agentData.map(ag=>(
-            <button key={ag.key} className={"it"+(cur===ag.key?" on":"")} onClick={()=>pick(ag.key)}>
+            <button key={ag.key} className={"it"+(cur===ag.key?" on":"")} onClick={()=>pick(ag.key)} aria-pressed={cur===ag.key}>
               <span className="d" style={{ background:DOTS[ag.dot] }} /> {ag.name}
             </button>
           ))}
@@ -73,8 +92,10 @@ function Console() {
               <div className="t">{a.name} · {a.role}</div>
               <div className="m">{a.meta.join(" · ")}</div>
             </div>
-            <button className="run" onClick={run}>▶ Run</button>
+            <button className="run" onClick={run} disabled={animating}>▶ Run</button>
           </div>
+
+          <div className="body" ref={bodyRef}>
 
           {showStatic && !approved && (
             <div style={{ padding:"40px 0",textAlign:"center",color:"var(--faint-on-dark)",fontFamily:"var(--fm)",fontSize:13 }}>
@@ -132,6 +153,7 @@ function Console() {
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
