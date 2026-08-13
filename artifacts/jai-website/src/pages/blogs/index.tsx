@@ -13,6 +13,14 @@ export interface BlogPost {
 
 export const POSTS: BlogPost[] = [
   {
+    slug: "legaltech-consolidation-wave",
+    title: "Legal Tech's Consolidation Wave Is Here",
+    date: "2026-08-13",
+    category: "LegalTech",
+    excerpt: "Three acquisitions landed in the space of a few weeks. Here's what legal tech's consolidation wave means if you're the one buying software right now.",
+    readTime: "5 min read",
+  },
+  {
     slug: "clio-ecosystem-2026",
     title: "The Clio Ecosystem in 2026: Where the Opportunity Actually Lives",
     date: "2026-08-13",

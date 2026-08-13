@@ -5,6 +5,57 @@ import { POSTS } from "./index";
 
 // Blog post content — Rex adds entries here when publishing via gh CLI
 const CONTENT: Record<string, string> = {
+  "legaltech-consolidation-wave": `
+For years, the story in legal tech was fragmentation. Every workflow, from intake to drafting to research to billing to e-discovery, spawned a dozen point solutions, each pitching itself as the tool your firm couldn't live without. Buyers complained about the noise. Analysts drew crowded landscape maps with fifty logos crammed onto a single slide.
+
+That story just changed. The market is consolidating.
+
+## The landscape
+
+In the space of a few weeks, three deals landed that make the pattern impossible to ignore. Legora, the AI-native legal drafting and review platform, closed its fifth acquisition of the year, picking up Wexler. BigHand, the document and workflow automation vendor, acquired Ayora. And Anaqua, the IP management platform, bought Unified Patents.
+
+Three different corners of legal tech. Three different buyers. One shared logic: consolidate now, before the market picks winners for you.
+
+Artificial Lawyer called this "the great consolidation," and the label fits. Typical legal tech M&A is quiet: a startup running out of runway gets acquihired, a PE fund flips a portfolio company. These three deals are different. Platforms with real revenue and real customers are buying up adjacent capability, fast, in the same quarter Harvey reportedly raised at a $15.5B valuation and Big Tech started going direct to law firms instead of selling through vendors. The category is maturing on every front at once.
+
+## The real opportunity
+
+Consolidation waves like this create two very different experiences, depending on which side of the deal you're on.
+
+If you're a vendor being acquired, or one of the five companies Legora bought this year, the story is usually fine: an exit, a bigger platform, more resources behind the product you built. The risk sits elsewhere.
+
+The risk sits with the buyer. The firm or legal ops team that signed a three-year contract with a standalone point solution six months ago, and now finds that vendor absorbed into a platform with a different roadmap, different pricing, and different priorities. Nobody asked the customer if they wanted to be part of a bigger platform. They just are now.
+
+That's the part of the story most people miss: what happens to everyone who bought from the company that just got bought.
+
+## The breakdown
+
+Look at what's actually being absorbed and you start to see the shape of the next twelve months.
+
+**Legora's five acquisitions this year**, Wexler included, all sit in the AI-native drafting and contract review space: the exact workflow every mid-size firm is under pressure to modernize. Each acquisition adds a feature Legora didn't want to build from scratch. For a firm evaluating drafting tools right now, the practical question has changed. Forget which vendor has the best demo. Ask which vendor will still exist, in its current form, eighteen months from now.
+
+**BigHand's purchase of Ayora** folds workflow and document automation under one roof. Useful if you're already a BigHand customer. Disruptive if you picked Ayora specifically because it wasn't BigHand. Integration timelines, support quality, and pricing all become live questions the moment a deal like this closes, and they rarely get answered before the ink is dry.
+
+**Anaqua buying Unified Patents** consolidates IP management and patent intelligence into a single platform, which sounds efficient until you remember that IP teams often chose smaller, focused tools precisely because the big suites felt bloated and slow to adapt.
+
+The through-line: consolidation makes platforms bigger and, almost always, slower to change. The nimble point solution you picked because it moved fast is now a business unit inside a larger org, with a roadmap set by someone else's priorities.
+
+## The so-what
+
+If you're evaluating legal tech right now, whether you're a firm, an in-house legal ops lead, or a partner deciding what to renew, this matters more than the deal headlines suggest.
+
+Three things worth checking before your next renewal or purchase:
+
+1. **Ownership stability.** Has this vendor been acquired in the last 18 months, or does their funding profile make them a likely acquisition target? Neither answer is disqualifying, but both should change how long a contract you're willing to sign.
+2. **Integration debt.** If a vendor you rely on gets bought, what happens to the integrations, APIs, and workflows you've already built around it? Consolidated platforms don't always prioritize backward compatibility for acquired products.
+3. **Where the flexibility actually lives.** Big, consolidated platforms are good at breadth. They're rarely good at the specific, slightly unusual workflow your firm actually runs on. That gap includes custom automation, integrations between systems that were never designed to talk to each other, and AI agents tuned to how your intake process actually works instead of how a platform assumes it should work. The next acquisition won't fill it. A builder working close to your firm will.
+
+Use this moment to get specific about what you're actually buying, and from whom.
+
+## If you work in legal tech, legal ops, or you're running a firm evaluating new tools
+
+Watch this closely over the next two quarters. The firms that come out ahead will be the ones who use the shakeout to get deliberate about what they build, what they buy, and who they trust to build it.
+`,
   "clio-ecosystem-2026": `
 Clio has evolved far beyond traditional practice management. What started as a matter management tool is now a platform — and that distinction matters if you're thinking about where AI agents sit inside a law firm's stack.
 
