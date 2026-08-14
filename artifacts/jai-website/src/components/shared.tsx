@@ -5,7 +5,7 @@ export const CAL_URL = "https://cal.com/jai.ai/discovery-call";
 export const CAL_EMBED = "https://cal.com/jai.ai/discovery-call?embed=true&layout=month_view";
 export const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5";
 export const LINKEDIN = "https://www.linkedin.com/in/jai-dhingra/";
-export const EMAIL = "admin@jdotai.com";
+export const EMAIL = "jai@jdotai.com";
 
 // Scroll-reveal wrapper
 export function Reveal({ children, className = "", as: Tag = "div", ...rest }: any) {
