@@ -194,7 +194,7 @@ export default function BlogPost() {
           <Reveal>
             <div className="blog-footer-cta">
               <p>Questions? Thinking about this for your firm?</p>
-              <a href="mailto:admin@jdotai.com" className="btn btn-solid">Get in touch</a>
+              <a href="mailto:jai@jdotai.com" className="btn btn-solid">Get in touch</a>
             </div>
           </Reveal>
         </div>
