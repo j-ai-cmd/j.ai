@@ -211,6 +211,12 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .l-close .btn:hover{background:var(--ink);color:var(--paper)}
 
 footer{padding:52px 0;border-top:1px solid var(--line)}
+.h-footer{background:var(--ink);border-top-color:var(--ink);color:var(--paper)}
+.h-footer .tag{color:var(--paper);opacity:.55}
+.h-footer .fnav span{color:var(--paper);opacity:.4}
+.h-footer .r a{color:var(--paper);opacity:.7}
+.h-footer .cp{color:var(--paper);opacity:.45}
+.h-footer .li-icon{opacity:.7}
 .legal-root footer{border-color:var(--line-dark)}
 footer .in{max-width:var(--maxw);margin:0 auto;padding:0 26px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px;align-items:flex-start}
 footer .mk{font-size:20px}

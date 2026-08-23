@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer>
+      <footer className="h-footer">
         <div className="in">
           <div>
             <Wordmark className="mk" />
