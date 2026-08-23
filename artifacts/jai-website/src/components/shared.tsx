@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 
-export const CAL_URL = "https://cal.com/jai.ai/discovery-call";
-export const CAL_EMBED = "https://cal.com/jai.ai/discovery-call?embed=true&layout=month_view";
 export const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5";
 export const LINKEDIN = "https://www.linkedin.com/in/jai-dhingra/";
 export const EMAIL = "jai@jdotai.com";

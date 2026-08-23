@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
-import { Reveal, Wordmark, MobileSheet, CAL_URL, CAL_EMBED, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
+import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
 
 const DOTS: Record<string,string> = { a:"var(--dot-a)", b:"var(--dot-b)", c:"var(--dot-c)", d:"var(--dot-d)", e:"var(--dot-e)" };
 
@@ -244,7 +244,6 @@ export default function Legal() {
           <div className="nav">
             <Link href="/">Work</Link>
             <a className="live">Legal</a>
-            <a href="#book">Book a call</a>
           </div>
           <button className="hamb" onClick={()=>setMenu(true)} aria-label="Open menu" style={{ color:"var(--paper)" }}><span/><span/><span/></button>
         </div>
@@ -252,7 +251,6 @@ export default function Legal() {
       <MobileSheet open={menu} onClose={()=>setMenu(false)} dark links={[
         { label:"Work", href:"/" },
         { label:"Legal", href:"/legal" },
-        { label:"Book a call", href:"/legal#book", solid:true },
       ]} />
 
       {/* HERO */}
@@ -263,7 +261,6 @@ export default function Legal() {
           <Reveal as="p" className="lede">j.ai connects to Smokeball, Clio, LEAP and Actionstep, maps the repeatable work in your firm, and runs it as agents. You approve every output.</Reveal>
           <Reveal className="go">
             <a href="#library" className="btn btn-solid">See the library</a>
-            <a href="#book" className="btn btn-line">Book a call</a>
           </Reveal>
           <Reveal className="connects"><span>Smokeball</span><span>Clio</span><span>LEAP</span><span>Actionstep</span></Reveal>
         </div>
@@ -344,19 +341,6 @@ export default function Legal() {
                 <div className="a">{f.a}</div>
               </details>
             ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* BOOKING — embedded Cal.com */}
-      <section className="l-book" id="book">
-        <div className="wrap">
-          <Reveal className="sec-head">
-            <h2>Book a call.</h2>
-            
-          </Reveal>
-          <Reveal>
-            <iframe src={CAL_EMBED} style={{ width:"100%", height:680, border:"1px solid var(--line-dark)", borderRadius:8, background:"var(--deep-2)" }} title="Book a call" />
           </Reveal>
         </div>
       </section>

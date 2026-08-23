@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
-import { Reveal, Wordmark, MobileSheet, CAL_EMBED, LINKEDIN, EMAIL } from "@/components/shared";
+import { Reveal, Wordmark, MobileSheet, LINKEDIN, EMAIL } from "@/components/shared";
 
 const COMING = ["HR", "Recruitment", "Insurance", "Real Estate", "Finance"];
 
@@ -16,7 +16,6 @@ export default function Home() {
           <div className="nav">
             <a className="live">Work</a>
             <Link href="/legal">Legal</Link>
-            <a href="#book">Book a call</a>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
@@ -24,7 +23,6 @@ export default function Home() {
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Work", href: "/" },
         { label: "Legal", href: "/legal" },
-        { label: "Book a call", href: "/#book", solid: true },
       ]} />
 
       {/* HERO */}
@@ -34,8 +32,7 @@ export default function Home() {
           <Reveal as="h1">New AI tools land every week. You don't have time to work out which ones matter.</Reveal>
           <Reveal as="p" className="lede">j.ai finds the work in your business that still runs on people instead of systems, and builds the tools that take it off your plate.</Reveal>
           <Reveal className="go">
-            <a href="#book" className="btn btn-solid">Book a discovery call</a>
-            <Link href="/legal" className="txt">See the legal agents →</Link>
+            <Link href="/legal" className="btn btn-solid">See the legal agents</Link>
           </Reveal>
         </div>
       </section>
@@ -98,26 +95,6 @@ export default function Home() {
               <Reveal as="p">We find the work that should run on systems, build the thing that runs it, and hand you back the time.</Reveal>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="h-cta" id="book">
-        <div className="wrap">
-          <div className="grid">
-            <div>
-              <Reveal as="h2">See what AI could take off your plate.</Reveal>
-              <Reveal as="p" className="p">A 30-minute call. We look at how your business runs, where the time goes, and where AI actually fits.</Reveal>
-            </div>
-            <Reveal className="book">
-              <div className="r"><span>Discovery call</span><b>30 min · free</b></div>
-              <div className="r"><span>Format</span><b>Video, one to one</b></div>
-              <div className="r"><span>You leave with</span><b>A map of where AI fits</b></div>
-            </Reveal>
-          </div>
-          <Reveal style={{ marginTop: "clamp(30px,5vw,56px)" }}>
-            <iframe src={CAL_EMBED} style={{ width: "100%", height: 680, border: "none", borderRadius: 4, background: "var(--paper)" }} title="Book a call" />
-          </Reveal>
         </div>
       </section>
 
