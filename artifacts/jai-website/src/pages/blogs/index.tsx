@@ -59,7 +59,7 @@ export default function BlogIndex() {
 
       <section className="blog-hero">
         <div className="wrap">
-          <Reveal className="eyebrow" style={{ color: "var(--accent)" }}>j.ai · thinking out loud</Reveal>
+          <Reveal className="eyebrow" style={{ color: "var(--accent-on-dark)" }}>j.ai · thinking out loud</Reveal>
           <Reveal as="h1">The blog.</Reveal>
           <Reveal as="p" className="blog-lede">LegalTech analysis, AI agent breakdowns, and founder notes from building jdotai.</Reveal>
         </div>
