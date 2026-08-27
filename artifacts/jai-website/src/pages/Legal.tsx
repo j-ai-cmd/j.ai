@@ -118,7 +118,7 @@ export default function Legal() {
           <Reveal className="steps4">
             <div className="s">
               <h4>Custom intake form</h4>
-              <p>We build the intake form custom for you — estate planning, family law, conveyancing. Fields, pages, logic, brand assets, all yours.</p>
+              <p>We build the intake form custom for you - estate planning, family law, conveyancing. Fields, pages, logic, brand assets, all yours.</p>
             </div>
             <div className="s">
               <h4>Clients complete it themselves</h4>
