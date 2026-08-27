@@ -120,7 +120,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA PAGE — DEMO ═══ */
 .demo-section{background:var(--deep);padding:clamp(60px,7vw,100px) 0}
-.demo-heading{font-family:var(--fd);font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-0.02em;color:var(--accent-on-dark);margin-bottom:40px}
+.demo-heading{font-family:var(--fd);font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-0.02em;color:var(--paper-on-dark);margin-bottom:40px}
 
 /* ═══ DONNA PAGE — HOW ═══ */
 .d-how{background:var(--paper);padding:clamp(70px,8vw,110px) 0;border-top:1px solid var(--line)}
