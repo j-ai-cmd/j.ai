@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
+import DonnaConsole from "@/components/DonnaConsole";
 
 const FAQS = [
   { q: "What practice management systems does donna connect to?", a: "Clio (live), Smokeball, Actionstep, MyLegalCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
@@ -106,19 +107,7 @@ export default function Legal() {
       <section className="demo-section" id="donna">
         <div className="wrap">
           <div className="demo-heading">Try donna.</div>
-          <div id="donna-console-placeholder" style={{
-            background: "var(--deep-2)",
-            border: "1px solid var(--line-dark)",
-            borderRadius: 12,
-            minHeight: 480,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}>
-            <p style={{ color: "var(--muted-on-dark)", fontFamily: "var(--fm)", fontSize: 15 }}>
-              Console loading…
-            </p>
-          </div>
+          <DonnaConsole />
         </div>
       </section>
 
