@@ -12,8 +12,8 @@ const FAQS = [
 
 const PMS_BLOCKS = ["Clio", "Smokeball", "Actionstep", "MyLegalCase", "LEAP"];
 const AI_BLOCKS = [
-  { label: "Claude", note: "Anthropic" },
-  { label: "ChatGPT", note: "OpenAI" },
+  { label: "Claude"},
+  { label: "ChatGPT"},
   { label: "Kimi", note: "Self-hosted" },
 ];
 
