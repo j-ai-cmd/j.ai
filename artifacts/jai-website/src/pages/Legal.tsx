@@ -122,15 +122,15 @@ export default function Legal() {
             </div>
             <div className="s">
               <h4>Clients complete it themselves</h4>
-              <p>They get a link. No account, no login. They fill it in on any device.</p>
+              <p>A clean, mobile-friendly form your clients finish in minutes. Submissions tracked in real time on a dashboard.</p>
             </div>
             <div className="s">
               <h4>Syncs with your legal software</h4>
-              <p>Submissions go straight into your PMS. No copy-paste, no double handling.</p>
+              <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents all.p>
             </div>
             <div className="s">
               <h4>MCP connector</h4>
-              <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.</p>
+              <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.p>
             </div>
           </Reveal>
         </div>
