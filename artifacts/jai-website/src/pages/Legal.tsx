@@ -70,7 +70,7 @@ export default function Legal() {
               <div className="hero-num-list">
                 <Reveal className="hero-num-item">
                   <b>1.</b>
-                  <span>A custom intake form that collects exactly what your firm needs — and syncs it straight to your practice management system.</span>
+                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your practice management system.</span>
                 </Reveal>
                 <Reveal className="hero-num-item">
                   <b>2.</b>
@@ -84,7 +84,7 @@ export default function Legal() {
             </div>
             <div className="hero-right">
               <Reveal>
-                <div className="hero-block-label">Practice management systems</div>
+                <div className="hero-block-label">Practice management systems (PMS)</div>
                 <div className="hero-block-row">
                   {PMS_BLOCKS.map(p => <div key={p} className="hero-block">{p}</div>)}
                 </div>
