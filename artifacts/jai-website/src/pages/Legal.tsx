@@ -129,7 +129,7 @@ export default function Legal() {
           <Reveal className="steps4">
             <div className="s">
               <h4>Custom intake form</h4>
-              <p>We build a form around your practice areas - the exact fields your firm needs, nothing more.</p>
+              <p>We build the intake form custom for you — estate planning, family law, conveyancing. Fields, pages, logic, brand assets, all yours.</p>
             </div>
             <div className="s">
               <h4>Clients complete it themselves</h4>
@@ -141,7 +141,7 @@ export default function Legal() {
             </div>
             <div className="s">
               <h4>MCP connector</h4>
-              <p>Your AI assistant gets live access to your PMS - read and write, in real time.</p>
+              <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.</p>
             </div>
           </Reveal>
         </div>
