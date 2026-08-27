@@ -13,14 +13,14 @@ export default function Home() {
           <Wordmark />
           <div className="nav">
             <a className="live">Home</a>
-            <Link href="/donna">donna</Link>
+            <Link href="/donna">Legal</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
       </div>
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Home", href: "/" },
-        { label: "donna", href: "/donna" },
+        { label: "Legal", href: "/donna" },
       ]} />
 
       {/* HERO */}

@@ -67,7 +67,7 @@ export default function Legal() {
         <div className="wrap">
           <div className="hero-grid">
             <div>
-              <Reveal><div className="donna-logo">donna.</div></Reveal>
+              <Reveal><div className="donna-logo">donna</div></Reveal>
               <div className="hero-num-list">
                 <Reveal className="hero-num-item">
                   <b>1.</b>
@@ -126,11 +126,11 @@ export default function Legal() {
             </div>
             <div className="s">
               <h4>Syncs with your legal software</h4>
-              <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents all.p>
+              <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents all.</p>
             </div>
             <div className="s">
               <h4>MCP connector</h4>
-              <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.p>
+              <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.</p>
             </div>
           </Reveal>
         </div>
