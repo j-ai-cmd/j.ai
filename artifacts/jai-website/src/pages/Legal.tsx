@@ -3,9 +3,9 @@ import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
 
 const FAQS = [
-  { q: "What practice management systems does donna connect to?", a: "Clio (live), Smokeball, Actionstep, MyLegalCase, and LEAP. We're actively expanding the list — if yours isn't there yet, get in touch." },
+  { q: "What practice management systems does donna connect to?", a: "Clio (live), Smokeball, Actionstep, MyLegalCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
   { q: "How long does it take to get set up?", a: "One onboarding call. We collect your details, configure donna for your firm, and you're live within a week." },
-  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in — no login, no password, no friction." },
+  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in - no login, no password, no friction." },
   { q: "Can I customise the intake form fields?", a: "Yes. Every intake form is built around your practice areas and the information you actually need. You control what's required and what's optional." },
   { q: "How does the MCP connector work?", a: "donna exposes a secure MCP endpoint that your AI assistant (Claude, ChatGPT, or a self-hosted model) connects to. It can then read and write to your PMS in real time, without you having to context-switch." },
 ];
@@ -74,7 +74,7 @@ export default function Legal() {
                 </Reveal>
                 <Reveal className="hero-num-item">
                   <b>2.</b>
-                  <span>An MCP connector that gives your AI assistant live read/write access to your PMS — so it can actually do the work, not just talk about it.</span>
+                  <span>An MCP connector that gives your AI assistant live read/write access to your PMS - so it can actually do the work, not just talk about it.</span>
                 </Reveal>
               </div>
               <Reveal className="go">
@@ -102,7 +102,7 @@ export default function Legal() {
         </div>
       </section>
 
-      {/* DEMO — console placeholder */}
+      {/* DEMO - console placeholder */}
       <section className="demo-section" id="donna">
         <div className="wrap">
           <div className="demo-heading">Try donna.</div>
@@ -129,7 +129,7 @@ export default function Legal() {
           <Reveal className="steps4">
             <div className="s">
               <h4>Custom intake form</h4>
-              <p>We build a form around your practice areas — the exact fields your firm needs, nothing more.</p>
+              <p>We build a form around your practice areas - the exact fields your firm needs, nothing more.</p>
             </div>
             <div className="s">
               <h4>Clients complete it themselves</h4>
@@ -141,7 +141,7 @@ export default function Legal() {
             </div>
             <div className="s">
               <h4>MCP connector</h4>
-              <p>Your AI assistant gets live access to your PMS — read and write, in real time.</p>
+              <p>Your AI assistant gets live access to your PMS - read and write, in real time.</p>
             </div>
           </Reveal>
         </div>
