@@ -106,12 +106,12 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 /* ═══ DONNA PAGE — HERO ═══ */
 .d-hero{background:var(--paper);padding:clamp(70px,9vw,120px) 0 clamp(60px,8vw,100px)}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:start}
-.donna-logo{font-family:'Inter',sans-serif;font-size:clamp(60px,10vw,120px);color:var(--accent);line-height:1;font-weight:700;letter-spacing:-0.04em}
+.donna-logo{font-family:var(--fd);font-size:clamp(60px,10vw,120px);color:var(--accent);line-height:1;font-weight:600;letter-spacing:-0.03em}
 .hero-num-list{margin-top:28px}
 .hero-num-item{display:flex;gap:14px;margin-bottom:18px;font-size:clamp(16px,1.6vw,18px);line-height:1.65;color:var(--ink-soft);max-width:58ch}
 .hero-num-item b{font-family:var(--fd);font-weight:700;color:var(--accent);flex-shrink:0;font-size:1.1em}
 .d-hero .go{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px}
-.hero-right{padding-top:clamp(16px,4vw,48px)}
+.hero-right{padding-top:clamp(96px,calc(10vw + 28px),160px)}
 .hero-block-label{font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .hero-block-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
 .hero-block{padding:10px 22px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;color:var(--ink);background:rgba(255,255,255,0.3);transition:.15s;cursor:default}
@@ -120,11 +120,11 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA PAGE — DEMO ═══ */
 .demo-section{background:var(--deep);padding:clamp(60px,7vw,100px) 0}
-.demo-heading{font-family:var(--fd);font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-0.02em;color:var(--paper-on-dark);margin-bottom:40px}
+.demo-heading{font-family:var(--fd);font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-0.02em;color:var(--accent-on-dark);margin-bottom:40px}
 
 /* ═══ DONNA PAGE — HOW ═══ */
 .d-how{background:var(--paper);padding:clamp(70px,8vw,110px) 0;border-top:1px solid var(--line)}
-.d-how h2{font-size:clamp(30px,4.2vw,50px);color:var(--ink);letter-spacing:-0.02em;margin-bottom:60px;max-width:16ch}
+.d-how h2{font-size:clamp(30px,4.2vw,50px);color:var(--accent);letter-spacing:-0.02em;margin-bottom:60px;max-width:16ch}
 .steps4{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .steps4 .s{border:1px solid var(--line);border-radius:10px;padding:28px 24px;background:rgba(255,255,255,0.35)}
 .steps4 .s h4{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:12px;font-family:var(--fd)}
@@ -144,8 +144,8 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 /* ═══ DONNA PAGE — CONTACT ═══ */
 .d-contact{background:var(--paper);padding:clamp(70px,8vw,110px) 0}
 .d-contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
-.d-contact h2{font-size:clamp(28px,3.8vw,46px);letter-spacing:-0.02em;max-width:14ch;margin-bottom:20px;color:var(--ink)}
-.d-contact .sub-p{color:var(--ink-soft);font-size:18px;line-height:1.8;max-width:44ch}
+.d-contact h2{font-size:clamp(28px,3.8vw,46px);letter-spacing:-0.02em;max-width:14ch;margin-bottom:20px;color:var(--accent)}
+.d-contact .sub-p{color:var(--accent);font-size:18px;line-height:1.8;max-width:44ch}
 .d-form{background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:30px}
 .d-form .fl{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
 .d-form .fi{width:100%;border:1px solid var(--line);border-radius:3px;padding:12px 14px;font:inherit;font-size:14px;color:var(--ink);margin-bottom:16px;background:var(--paper);outline:none;transition:border-color .15s;-webkit-appearance:none}

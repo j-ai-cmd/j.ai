@@ -52,14 +52,14 @@ export default function Legal() {
           <Wordmark />
           <div className="nav">
             <Link href="/">Home</Link>
-            <a className="live">donna</a>
+            <a className="live">Legal</a>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
       </div>
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Home", href: "/" },
-        { label: "donna", href: "/donna" },
+        { label: "Legal", href: "/donna" },
       ]} />
 
       {/* HERO */}
@@ -106,7 +106,7 @@ export default function Legal() {
       {/* DEMO - console placeholder */}
       <section className="demo-section" id="donna">
         <div className="wrap">
-          <div className="demo-heading">Try donna.</div>
+          <div className="demo-heading">Try donna for yourself.</div>
           <DonnaConsole />
         </div>
       </section>
