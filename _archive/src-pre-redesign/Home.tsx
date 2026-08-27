@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, LINKEDIN, EMAIL } from "@/components/shared";
 
+const COMING = ["HR", "Recruitment", "Insurance", "Real Estate", "Finance"];
+
 export default function Home() {
   const [menu, setMenu] = useState(false);
 
@@ -12,24 +14,25 @@ export default function Home() {
         <div className="in">
           <Wordmark />
           <div className="nav">
-            <a className="live">Home</a>
-            <Link href="/donna">donna</Link>
+            <a className="live">Work</a>
+            <Link href="/legal">Legal</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
       </div>
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
-        { label: "Home", href: "/" },
-        { label: "donna", href: "/donna" },
+        { label: "Work", href: "/" },
+        { label: "Legal", href: "/legal" },
       ]} />
 
       {/* HERO */}
       <section className="h-hero">
         <div className="wrap">
+          <Reveal className="eyebrow eyebrow-lg">AI advisory &amp; custom builds</Reveal>
           <Reveal as="h1">New AI tools land every week. You don't have time to work out which ones matter.</Reveal>
           <Reveal as="p" className="lede">j.ai finds the work in your business that still runs on people instead of systems, and builds the tools that take it off your plate.</Reveal>
           <Reveal className="go">
-            <Link href="/donna" className="btn btn-solid">See donna</Link>
+            <Link href="/legal" className="btn btn-solid">See the legal agents</Link>
           </Reveal>
         </div>
       </section>
@@ -74,21 +77,9 @@ export default function Home() {
         <div className="wrap">
           <Reveal as="h2">We strongly believe AI is here to do the work you don't want, so you can do the work you were meant for.</Reveal>
           <Reveal className="steps3">
-            <div className="s">
-              <div className="how-num">01</div>
-              <h4>We find what drains you</h4>
-              <p>The repetitive, manual work your team is too good to be doing. We find it.</p>
-            </div>
-            <div className="s">
-              <div className="how-num">02</div>
-              <h4>We build what replaces it</h4>
-              <p>An automation or agent that takes it on, wired into the tools you already use.</p>
-            </div>
-            <div className="s">
-              <div className="how-num">03</div>
-              <h4>You get your time back</h4>
-              <p>It runs inside your business, you stay in control, and the hours return to work that matters.</p>
-            </div>
+            <div className="s"><h4>We find what drains you</h4><p>The repetitive, manual work your team is too good to be doing. We find it.</p></div>
+            <div className="s"><h4>We build what replaces it</h4><p>An automation or agent that takes it on, wired into the tools you already use.</p></div>
+            <div className="s"><h4>You get your time back</h4><p>It runs inside your business, you stay in control, and the hours return to work that matters.</p></div>
           </Reveal>
         </div>
       </section>
@@ -107,19 +98,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA BANNER */}
-      <section className="cta-banner">
-        <div className="wrap">
-          <Reveal as="h2">Stop doing work that shouldn't need you.</Reveal>
-        </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="h-footer">
         <div className="in">
           <div>
             <Wordmark className="mk" />
             <div className="tag">AI advisory and custom tools</div>
+            <div className="fnav">
+              {COMING.map(c => <span key={c}>{c} · soon</span>)}
+            </div>
           </div>
           <div className="r">
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>

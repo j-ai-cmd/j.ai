@@ -10,7 +10,6 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/legal" component={Legal} />
-      <Route path="/donna" component={Legal} />
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route component={NotFound} />
