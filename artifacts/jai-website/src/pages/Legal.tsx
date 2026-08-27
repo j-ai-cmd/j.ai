@@ -4,7 +4,7 @@ import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/c
 import DonnaConsole from "@/components/DonnaConsole";
 
 const FAQS = [
-  { q: "What practice management systems does donna connect to?", a: "Clio (live), Smokeball, Actionstep, MyLegalCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
+  { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, MyLegalCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
   { q: "How long does it take to get set up?", a: "One onboarding call. We collect your details, configure donna for your firm, and you're live within a week." },
   { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in - no login, no password, no friction." },
   { q: "Can I customise the intake form fields?", a: "Yes. Every intake form is built around your practice areas and the information you actually need. You control what's required and what's optional." },
