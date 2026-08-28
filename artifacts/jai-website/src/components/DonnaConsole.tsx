@@ -75,9 +75,9 @@ const CSS = `
 #donna-app .form-select{width:100%;padding:9px 13px;border:1px solid var(--cream-border);border-radius:9px;background:var(--cream);color:var(--text-dark);font-size:0.85rem;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a8a75' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
 
 /* SUBMISSIONS */
-#donna-app .submissions-layout{display:flex;height:100%;overflow:hidden;}
+#donna-app .submissions-layout{display:flex;height:100%;overflow:hidden;position:relative;}
 #donna-app .submissions-main{flex:1;overflow-y:auto;padding:24px 28px;}
-#donna-app .sub-detail-panel{width:300px;flex-shrink:0;border-left:1px solid var(--cream-border);background:var(--cream-mid);display:flex;flex-direction:column;overflow:hidden;}
+#donna-app .sub-detail-panel{position:absolute;top:0;right:0;bottom:0;width:280px;border-left:1px solid var(--cream-border);background:var(--cream-mid);display:flex;flex-direction:column;overflow:hidden;box-shadow:-4px 0 20px rgba(30,18,9,0.08);}
 #donna-app .sub-detail-header{padding:18px 20px 14px;border-bottom:1px solid var(--cream-border);display:flex;align-items:center;justify-content:space-between;}
 #donna-app .sub-detail-body{flex:1;overflow-y:auto;padding:18px 20px;}
 #donna-app .detail-field{margin-bottom:14px;}
@@ -1007,8 +1007,7 @@ function showToast(msg) {
 }
 window.showToast = showToast;
 window.copyLink = function(formName) {
-  var slug = formName === 'Family Law' ? 'family-law' : 'estate-planning';
-  var url = 'https://donna.jdotai.com/f/' + slug;
+  var url = 'https://demoform-two.vercel.app/';
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).catch(function() {});
   } else {
