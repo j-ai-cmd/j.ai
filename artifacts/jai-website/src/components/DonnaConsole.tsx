@@ -28,7 +28,7 @@ const CSS = `
 #donna-app .signout-btn:hover{color:var(--burgundy);background:rgba(122,46,59,0.07);}
 
 /* MAIN */
-#donna-app #main{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+#donna-app #main{flex:1;overflow:hidden;display:flex;flex-direction:column;background:var(--cream);}
 #donna-app .page{flex:1;display:none;flex-direction:column;overflow:hidden;}
 #donna-app .page.active{display:flex;}
 #donna-app .page-header{display:flex;align-items:center;justify-content:flex-end;padding:20px 32px 0;flex-shrink:0;}
@@ -652,7 +652,7 @@ window.openPreview = function(formName) {
   currentFormName = formName;
   currentPreviewPage = 0;
   previewFormData = {};
-  document.getElementById('preview-firm-name').textContent = 'Your Firm';
+  document.getElementById('preview-firm-name').textContent = 'Acme Corp';
   document.getElementById('preview-form-container').style.display = 'block';
   document.getElementById('preview-success').style.display = 'none';
   renderPreviewPage();
