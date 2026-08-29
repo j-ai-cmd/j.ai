@@ -105,13 +105,15 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA PAGE — HERO ═══ */
 .d-hero{background:var(--deep)!important;padding:clamp(70px,9vw,120px) 0 clamp(60px,8vw,100px)}
-.d-hero .donna-logo{color:var(--accent-on-dark)}
+.d-hero .donna-logo{color:var(--accent)}
 .d-hero .hero-num-item{color:var(--muted-on-dark)}
 .d-hero .hero-num-item b{color:var(--paper-on-dark)}
 .d-hero .hero-block-label{color:var(--muted-on-dark)}
-.d-hero .hero-block{border-color:var(--line-dark);color:var(--muted-on-dark);background:rgba(239,233,220,0.06)}
-.d-hero .hero-block:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
-.d-hero .hero-block span{color:rgba(239,233,220,0.4)}
+.d-hero .hero-block{border-color:var(--accent);color:var(--paper);background:var(--accent)}
+.d-hero .hero-block:hover{background:var(--paper);color:var(--accent);border-color:var(--paper)}
+.d-hero .hero-block span{color:rgba(242,234,217,0.65)}
+.d-hero .btn-line{color:var(--paper-on-dark);border-color:rgba(239,233,220,0.35)}
+.d-hero .btn-line:hover{background:var(--paper-on-dark);color:var(--accent)}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:start}
 .donna-logo{font-family:var(--fd);font-size:clamp(60px,10vw,120px);color:var(--accent);line-height:1;font-weight:400;letter-spacing:-0.02em}
 .hero-num-list{margin-top:28px}
@@ -135,7 +137,11 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .d-vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .d-vid-item{display:flex;flex-direction:column;gap:14px}
 .d-vid-label{font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:600;color:var(--accent);letter-spacing:-0.01em;margin:0}
-.d-vid-player{width:100%;border-radius:12px;box-shadow:0 4px 32px rgba(30,18,9,0.14);display:block}
+.d-vid-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 4px 32px rgba(30,18,9,0.14)}
+.d-vid-player{width:100%;display:block}
+.d-vid-controls{position:absolute;bottom:0;left:0;right:0;display:flex;gap:8px;padding:12px 14px;background:linear-gradient(to top,rgba(20,17,16,0.72) 0%,transparent 100%)}
+.d-vid-btn{width:36px;height:36px;border-radius:50%;background:rgba(242,234,217,0.15);backdrop-filter:blur(4px);border:1px solid rgba(242,234,217,0.22);color:var(--paper-on-dark);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;flex-shrink:0}
+.d-vid-btn:hover{background:rgba(242,234,217,0.28)}
 @media(max-width:640px){.d-vid-grid{grid-template-columns:1fr}}
 
 /* ═══ DONNA PAGE — HOW ═══ */
