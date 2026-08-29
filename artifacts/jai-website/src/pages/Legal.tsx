@@ -111,6 +111,27 @@ export default function Legal() {
         </div>
       </section>
 
+      {/* VIDEO SECTION */}
+      <section className="d-videos">
+        <div className="wrap">
+          <Reveal><h2 className="d-vid-heading">See donna in action.</h2></Reveal>
+          <div className="d-vid-grid">
+            <Reveal>
+              <div className="d-vid-item">
+                <p className="d-vid-label">donna Intake</p>
+                <video src="/videos/donna-intake.mp4" autoPlay muted loop playsInline className="d-vid-player" />
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="d-vid-item">
+                <p className="d-vid-label">donna MCP</p>
+                <video src="/videos/donna-mcp.mp4" autoPlay muted loop playsInline className="d-vid-player" />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section className="d-how">
         <div className="wrap">

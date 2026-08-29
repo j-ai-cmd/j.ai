@@ -16,7 +16,7 @@ const CSS = `
 #donna-app #sidebar{width:200px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--cream-border);background:var(--cream-mid);}
 #donna-app .sidebar-logo{padding:0 16px;height:80px;display:flex;justify-content:center;align-items:center;flex-shrink:0;cursor:pointer;transition:opacity 0.15s;}
 #donna-app .sidebar-logo:hover{opacity:0.75;}
-#donna-app .sidebar-logo span{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--burgundy);font-weight:400;letter-spacing:-0.01em;}
+#donna-app .sidebar-logo span{font-family:'Fraunces',serif;font-size:2.2rem;color:var(--burgundy);font-weight:400;letter-spacing:-0.01em;}
 #donna-app .sidebar-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px;}
 #donna-app .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:0.82rem;font-weight:500;color:var(--text-mid);transition:all 0.15s;text-align:left;width:100%;}
 #donna-app .nav-item:hover{background:var(--cream-border);color:var(--text-dark);}
@@ -92,7 +92,7 @@ const CSS = `
 #donna-app .chat-area::-webkit-scrollbar{width:5px;}
 #donna-app .chat-area::-webkit-scrollbar-thumb{background:var(--cream-border);border-radius:3px;}
 #donna-app .chat-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
-#donna-app .chat-empty-logo{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--burgundy);}
+#donna-app .chat-empty-logo{font-family:'Fraunces',serif;font-size:3.5rem;color:var(--burgundy);}
 #donna-app .chat-empty-sub{font-size:0.85rem;color:var(--text-muted);}
 #donna-app .chat-suggestions{display:flex;gap:8px;padding:10px 32px 12px;flex-wrap:wrap;justify-content:center;}
 #donna-app .suggestion-chip{border:1px solid var(--cream-border);color:var(--text-mid);border-radius:20px;padding:7px 16px;font-size:0.8rem;transition:all 0.15s;background:transparent;}
@@ -208,7 +208,6 @@ const HTML = `
     <div id="tab-content-submissions" style="display:none;flex:1;overflow:hidden">
       <div class="submissions-layout">
         <div class="submissions-main">
-          <div style="max-width:720px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
               <select id="filter-form" class="form-select" style="max-width:190px;font-size:0.8rem;padding:6px 10px" onchange="filterSubmissions()">
                 <option value="">All forms</option>
@@ -219,7 +218,6 @@ const HTML = `
             </div>
             <div class="table-head"><span>Date</span><span>Email</span><span>Status</span><span>Actions</span></div>
             <div class="data-table" id="submissions-table"></div>
-          </div>
         </div>
         <div class="sub-detail-panel" id="sub-detail-panel" style="display:none">
           <div class="sub-detail-header">
@@ -698,7 +696,7 @@ export default function DonnaConsole() {
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Comfortaa:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap";
     document.head.appendChild(link);
     return () => { document.head.removeChild(link); };
   }, []);
