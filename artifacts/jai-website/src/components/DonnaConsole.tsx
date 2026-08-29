@@ -10,7 +10,7 @@ const CSS = `
   --text-dark:#1e1209;--text-mid:#5c4d3a;--text-muted:#9a8a75;--text-faint:#c4b8a4;
 }
 #donna-app{position:relative;font-family:'Source Sans 3',sans-serif;border-radius:16px;overflow:hidden;box-shadow:0 4px 60px rgba(30,18,9,0.15);width:100%;}
-#donna-app #app{display:flex;height:660px;overflow:hidden;border-radius:16px;border:1px solid var(--cream-border);}
+#donna-app #app{display:flex;height:720px;overflow:hidden;border-radius:16px;border:1px solid var(--cream-border);}
 
 /* SIDEBAR */
 #donna-app #sidebar{width:200px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--cream-border);background:var(--cream-mid);}
