@@ -20,6 +20,7 @@ const AI_BLOCKS = [
 
 function VideoPlayer({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
 
@@ -37,21 +38,31 @@ function VideoPlayer({ src }: { src: string }) {
     setMuted(v.muted);
   };
 
+  const toggleFullscreen = () => {
+    const el = wrapRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) document.exitFullscreen();
+    else el.requestFullscreen();
+  };
+
   return (
-    <div className="d-vid-wrap">
-      <video ref={ref} src={src} playsInline className="d-vid-player" />
+    <div ref={wrapRef} className="d-vid-wrap">
+      <video ref={ref} src={src} playsInline className="d-vid-player" onClick={togglePlay} />
+      <button className="d-vid-play-center" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"}>
+        {playing
+          ? <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          : <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        }
+      </button>
       <div className="d-vid-controls">
-        <button className="d-vid-btn" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"}>
-          {playing
-            ? <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-            : <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          }
-        </button>
         <button className="d-vid-btn" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"}>
           {muted
             ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
             : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54,8.46a5,5,0,0,1,0,7.07"/><path d="M19.07,4.93a10,10,0,0,1,0,14.14"/></svg>
           }
+        </button>
+        <button className="d-vid-btn" onClick={toggleFullscreen} aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
         </button>
       </div>
     </div>
@@ -168,6 +179,8 @@ export default function Legal() {
       <section className="demo-section" id="donna">
         <div className="wrap">
           <div className="demo-heading">Try donna for yourself.</div>
+        </div>
+        <div className="demo-console-outer">
           <DonnaConsole />
         </div>
       </section>
@@ -245,16 +258,6 @@ export default function Legal() {
                     <option>Actionstep</option>
                     <option>myCase</option>
                     <option>LEAP</option>
-                    <option>Other</option>
-                  </select>
-                  <label className="fl">Primary practice area</label>
-                  <select className="fi" value={form.area} onChange={set("area")}>
-                    <option value="">Select practice area</option>
-                    <option>Family Law</option>
-                    <option>Criminal Law</option>
-                    <option>Estate Planning</option>
-                    <option>Conveyancing</option>
-                    <option>Corporate</option>
                     <option>Other</option>
                   </select>
                   <button className="sub" type="submit" disabled={loading}>

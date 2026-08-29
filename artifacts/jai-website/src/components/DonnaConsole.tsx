@@ -9,7 +9,7 @@ const CSS = `
   --cream-hover:#e2d9c4;--burgundy:#7a2e3b;--burgundy-dark:#5e2230;
   --text-dark:#1e1209;--text-mid:#5c4d3a;--text-muted:#9a8a75;--text-faint:#c4b8a4;
 }
-#donna-app{position:relative;font-family:'Source Sans 3',sans-serif;border-radius:16px;overflow:hidden;box-shadow:0 4px 60px rgba(30,18,9,0.15);width:940px;max-width:100%;}
+#donna-app{position:relative;font-family:'Source Sans 3',sans-serif;border-radius:16px;overflow:hidden;box-shadow:0 4px 60px rgba(30,18,9,0.15);width:100%;}
 #donna-app #app{display:flex;height:720px;overflow:hidden;border-radius:16px;border:1px solid var(--cream-border);}
 
 /* SIDEBAR */
@@ -77,7 +77,7 @@ const CSS = `
 /* SUBMISSIONS */
 #donna-app .submissions-layout{display:flex;height:100%;overflow:hidden;position:relative;}
 #donna-app .submissions-main{flex:1;overflow-y:auto;padding:24px 28px;}
-#donna-app .sub-detail-panel{position:absolute;top:0;right:0;bottom:0;width:280px;border-left:1px solid var(--cream-border);background:var(--cream-mid);display:flex;flex-direction:column;overflow:hidden;box-shadow:-4px 0 20px rgba(30,18,9,0.08);}
+#donna-app .sub-detail-panel{position:absolute;top:0;right:0;bottom:0;width:38%;min-width:280px;max-width:520px;border-left:1px solid var(--cream-border);background:var(--cream-mid);display:flex;flex-direction:column;overflow:hidden;box-shadow:-4px 0 20px rgba(30,18,9,0.08);}
 #donna-app .sub-detail-header{padding:18px 20px 14px;border-bottom:1px solid var(--cream-border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 #donna-app .sub-detail-body{flex:1;overflow-y:auto;padding:18px 20px;}
 #donna-app .sub-detail-footer{padding:14px 20px 20px;border-top:1px solid var(--cream-border);flex-shrink:0;}
