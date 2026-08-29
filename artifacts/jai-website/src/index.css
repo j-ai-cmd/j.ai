@@ -143,9 +143,9 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .d-vid-label{font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:600;color:var(--deep);letter-spacing:-0.01em;margin:0}
 .d-vid-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 4px 32px rgba(30,18,9,0.14);cursor:pointer}
 .d-vid-player{width:100%;display:block}
-.d-vid-play-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(20,17,16,0.55);backdrop-filter:blur(6px);border:2px solid rgba(242,234,217,0.35);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;z-index:2;padding-left:2px}
+.d-vid-play-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(20,17,16,0.55);backdrop-filter:blur(6px);border:2px solid rgba(242,234,217,0.35);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.3s,background 0.2s,transform 0.2s;z-index:2;padding-left:2px}
 .d-vid-play-center:hover{background:rgba(20,17,16,0.78);transform:translate(-50%,-50%) scale(1.08)}
-.d-vid-controls{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:linear-gradient(to top,rgba(20,17,16,0.65) 0%,transparent 100%);z-index:2}
+.d-vid-controls{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:linear-gradient(to top,rgba(20,17,16,0.65) 0%,transparent 100%);z-index:2;transition:opacity 0.3s}
 .d-vid-btn{width:34px;height:34px;border-radius:50%;background:rgba(242,234,217,0.15);backdrop-filter:blur(4px);border:1px solid rgba(242,234,217,0.22);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;flex-shrink:0}
 .d-vid-btn:hover{background:rgba(242,234,217,0.3)}
 @media(max-width:640px){.d-vid-grid{grid-template-columns:1fr}}

@@ -21,8 +21,16 @@ const AI_BLOCKS = [
 function VideoPlayer({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+
+  const revealControls = () => {
+    setShowControls(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setShowControls(false), 2500);
+  };
 
   const togglePlay = () => {
     const v = ref.current;
@@ -46,15 +54,15 @@ function VideoPlayer({ src }: { src: string }) {
   };
 
   return (
-    <div ref={wrapRef} className="d-vid-wrap">
+    <div ref={wrapRef} className="d-vid-wrap" onMouseMove={revealControls} onMouseEnter={revealControls} onMouseLeave={() => { if (timerRef.current) clearTimeout(timerRef.current); setShowControls(false); }}>
       <video ref={ref} src={src} playsInline className="d-vid-player" onClick={togglePlay} />
-      <button className="d-vid-play-center" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"}>
+      <button className="d-vid-play-center" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"} style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}>
         {playing
           ? <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
           : <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
         }
       </button>
-      <div className="d-vid-controls">
+      <div className="d-vid-controls" style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}>
         <button className="d-vid-btn" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"}>
           {muted
             ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
