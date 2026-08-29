@@ -122,11 +122,11 @@ export default function Legal() {
               <div className="hero-num-list">
                 <Reveal className="hero-num-item">
                   <b>1.</b>
-                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your practice management system(PMS)</span>
+                  <span>An MCP connector that gives your AI assistant live access to your PMS - so you can talk to all your matters.</span>
                 </Reveal>
                 <Reveal className="hero-num-item">
                   <b>2.</b>
-                  <span>An MCP connector that gives your AI assistant live access to your PMS - so you can talk to all your matters.</span>
+                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your practice management system (PMS).</span>
                 </Reveal>
               </div>
               <Reveal className="go">
