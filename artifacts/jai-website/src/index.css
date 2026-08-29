@@ -109,9 +109,11 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .d-hero .hero-num-item{color:var(--muted-on-dark)}
 .d-hero .hero-num-item b{color:var(--paper-on-dark)}
 .d-hero .hero-block-label{color:var(--muted-on-dark)}
-.d-hero .hero-block{border-color:var(--accent);color:var(--paper);background:var(--accent)}
-.d-hero .hero-block:hover{background:var(--paper);color:var(--accent);border-color:var(--paper)}
-.d-hero .hero-block span{color:rgba(242,234,217,0.65)}
+.d-hero .hero-block{border-color:rgba(239,233,220,0.3);color:var(--accent);background:var(--paper-on-dark)}
+.d-hero .hero-block:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.d-hero .hero-block span{color:var(--muted)}
+.d-hero .btn-solid{background:var(--paper-on-dark);color:var(--accent)}
+.d-hero .btn-solid:hover{background:var(--paper);color:var(--accent)}
 .d-hero .btn-line{color:var(--paper-on-dark);border-color:rgba(239,233,220,0.35)}
 .d-hero .btn-line:hover{background:var(--paper-on-dark);color:var(--accent)}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:start}
@@ -134,7 +136,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA PAGE — VIDEOS ═══ */
 .d-videos{background:var(--paper);padding:clamp(60px,7vw,100px) 0}
-.d-vid-heading{font-family:var(--fd);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-bottom:40px;text-decoration:underline;text-underline-offset:8px}
+.d-vid-heading{font-family:var(--fd);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-bottom:40px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:8px}
 .d-vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .d-vid-item{display:flex;flex-direction:column;gap:14px}
 .d-vid-label{font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:600;color:var(--deep);letter-spacing:-0.01em;margin:0}
