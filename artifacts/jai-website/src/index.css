@@ -105,8 +105,9 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA PAGE — HERO ═══ */
 .d-hero{background:var(--deep)!important;padding:clamp(70px,9vw,120px) 0 clamp(60px,8vw,100px)}
-.d-hero .donna-logo{color:var(--paper-on-dark);transition:color 0.18s}
-.d-hero .donna-logo:hover{color:var(--accent)}
+@keyframes donna-flip{0%{transform:perspective(600px) rotateY(0deg)}100%{transform:perspective(600px) rotateY(360deg)}}
+.d-hero .donna-logo{color:var(--paper-on-dark);transition:color 0.18s;cursor:default}
+.d-hero .donna-logo:hover{color:var(--accent);animation:donna-flip 0.5s ease-in-out}
 .d-hero .hero-num-item{color:var(--muted-on-dark)}
 .d-hero .hero-num-item b{color:var(--paper-on-dark)}
 .d-hero .hero-block-label{color:var(--muted-on-dark)}
