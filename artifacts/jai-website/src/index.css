@@ -106,7 +106,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 /* ═══ DONNA PAGE — HERO ═══ */
 .d-hero{background:var(--paper);padding:clamp(70px,9vw,120px) 0 clamp(60px,8vw,100px)}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:start}
-.donna-logo{font-family:var(--fd);font-size:clamp(60px,10vw,120px);color:var(--accent);line-height:1;font-weight:600;letter-spacing:-0.03em}
+.donna-logo{font-family:'DM Serif Display',serif;font-size:clamp(60px,10vw,120px);color:var(--accent);line-height:1;font-weight:400;letter-spacing:-0.02em}
 .hero-num-list{margin-top:28px}
 .hero-num-item{display:flex;gap:14px;margin-bottom:18px;font-size:clamp(16px,1.6vw,18px);line-height:1.65;color:var(--ink-soft);max-width:58ch}
 .hero-num-item b{font-family:var(--fd);font-weight:700;color:var(--accent);flex-shrink:0;font-size:1.1em}

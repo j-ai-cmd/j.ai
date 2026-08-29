@@ -63,7 +63,7 @@ const CSS = `
 #donna-app .table-head{padding:8px 20px;display:grid;grid-template-columns:148px 1fr 130px 68px;gap:8px;background:var(--cream-mid);}
 #donna-app .table-head span{font-size:0.66rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);}
 
-/* TEMPLATE ITEMS (build tab) */
+/* TEMPLATE ITEMS */
 #donna-app .template-item{display:flex;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--cream-border);transition:background 0.12s;}
 #donna-app .template-item:last-child{border-bottom:none;}
 #donna-app .template-item:hover{background:rgba(0,0,0,0.015);}
@@ -78,8 +78,9 @@ const CSS = `
 #donna-app .submissions-layout{display:flex;height:100%;overflow:hidden;position:relative;}
 #donna-app .submissions-main{flex:1;overflow-y:auto;padding:24px 28px;}
 #donna-app .sub-detail-panel{position:absolute;top:0;right:0;bottom:0;width:280px;border-left:1px solid var(--cream-border);background:var(--cream-mid);display:flex;flex-direction:column;overflow:hidden;box-shadow:-4px 0 20px rgba(30,18,9,0.08);}
-#donna-app .sub-detail-header{padding:18px 20px 14px;border-bottom:1px solid var(--cream-border);display:flex;align-items:center;justify-content:space-between;}
+#donna-app .sub-detail-header{padding:18px 20px 14px;border-bottom:1px solid var(--cream-border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 #donna-app .sub-detail-body{flex:1;overflow-y:auto;padding:18px 20px;}
+#donna-app .sub-detail-footer{padding:14px 20px 20px;border-top:1px solid var(--cream-border);flex-shrink:0;}
 #donna-app .detail-field{margin-bottom:14px;}
 #donna-app .detail-field-label{font-size:0.66rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
 #donna-app .detail-field-value{font-size:0.85rem;color:var(--text-dark);font-weight:500;}
@@ -130,68 +131,6 @@ const CSS = `
 #donna-app .q-action-btn{font-size:0.72rem;padding:4px 10px;border-radius:6px;border:1px solid var(--cream-border);color:var(--text-muted);background:transparent;cursor:pointer;transition:all 0.12s;}
 #donna-app .q-action-btn:hover{background:var(--cream-border);color:var(--text-dark);}
 #donna-app .q-action-btn.required-active{border-color:var(--burgundy);color:var(--burgundy);background:rgba(122,46,59,0.06);}
-
-/* PREVIEW OVERLAY */
-#donna-app .preview-page{position:absolute;inset:0;background:#f0ead8;z-index:300;display:none;flex-direction:column;overflow:hidden;font-family:'Source Sans 3',sans-serif;}
-#donna-app .preview-page.open{display:flex;}
-#donna-app .preview-topnav{display:flex;align-items:center;padding:0 20px;background:#ede6d2;border-bottom:1px solid var(--cream-border);flex-shrink:0;height:52px;gap:0;}
-#donna-app .preview-firm-name{font-family:'Comfortaa',sans-serif;font-size:1.15rem;color:#7a2e3b;font-weight:700;margin-right:20px;white-space:nowrap;}
-#donna-app .preview-part-tabs{display:flex;gap:0;flex:1;height:100%;}
-#donna-app .preview-part-tab{padding:0 12px;font-size:0.76rem;font-weight:500;color:#5c4d3a;border:none;background:none;cursor:default;height:100%;border-bottom:2.5px solid transparent;white-space:nowrap;font-family:'Source Sans 3',sans-serif;transition:color 0.12s;}
-#donna-app .preview-part-tab.pv-tab-active{color:#7a2e3b;border-bottom-color:#7a2e3b;font-weight:600;}
-#donna-app .preview-draft-saved{display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#5c4d3a;white-space:nowrap;margin-left:12px;}
-#donna-app .preview-draft-dot{width:7px;height:7px;border-radius:50%;background:#15803d;}
-#donna-app .preview-body{flex:1;overflow:hidden;display:flex;}
-#donna-app .preview-sidebar{width:200px;flex-shrink:0;background:#ede6d2;border-right:1px solid var(--cream-border);display:flex;flex-direction:column;padding:20px 12px;overflow-y:auto;}
-#donna-app .preview-sidebar-section{font-size:0.75rem;font-weight:700;color:#1e1209;margin-bottom:6px;padding:0 4px;}
-#donna-app .preview-sidebar-prog-bar{height:6px;background:var(--cream-border);border-radius:3px;margin-bottom:4px;}
-#donna-app .preview-sidebar-prog-fill{height:100%;background:#7a2e3b;border-radius:3px;transition:width 0.3s;}
-#donna-app .preview-sidebar-pct{font-size:0.7rem;color:#5c4d3a;margin-bottom:14px;padding:0 4px;}
-#donna-app .preview-page-link{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;font-size:0.78rem;font-weight:500;color:#5c4d3a;margin-bottom:1px;cursor:pointer;transition:background 0.12s;}
-#donna-app .preview-page-link:not(.pv-active):hover{background:var(--cream-hover);}
-#donna-app .preview-page-link.pv-active{background:#7a2e3b;color:white;}
-#donna-app .pv-icon{width:16px;height:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;opacity:0.5;}
-#donna-app .preview-page-link.pv-active .pv-icon{opacity:1;}
-#donna-app .preview-page-link.pv-done .pv-icon{opacity:0.7;}
-#donna-app .pv-checkmark{width:14px;height:14px;border-radius:50%;background:#15803d;display:flex;align-items:center;justify-content:center;}
-#donna-app .preview-main{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
-#donna-app .preview-main::-webkit-scrollbar{width:4px;}
-#donna-app .preview-main::-webkit-scrollbar-thumb{background:#c4c9d4;border-radius:2px;}
-#donna-app .preview-progress-strip{background:#e8e0cc;padding:10px 24px;flex-shrink:0;}
-#donna-app .preview-progress-label{font-size:0.76rem;color:#5c4d3a;margin-bottom:6px;}
-#donna-app .preview-progress-bar{height:4px;background:var(--cream-border);border-radius:2px;}
-#donna-app .preview-progress-fill{height:100%;background:#7a2e3b;border-radius:2px;transition:width 0.35s ease;}
-#donna-app .preview-content-wrap{flex:1;padding:20px 24px;overflow-y:auto;background:#f0ead8;}
-#donna-app .preview-form{background:#f5efe0;border-radius:12px;padding:28px 32px;max-width:680px;width:100%;box-shadow:0 1px 8px rgba(0,0,0,0.06);}
-#donna-app .preview-form-title{font-size:1.4rem;font-weight:700;color:#1e1209;margin-bottom:4px;font-family:'Comfortaa',sans-serif;}
-#donna-app .preview-page-sub{font-size:0.82rem;color:#5c4d3a;margin-bottom:24px;line-height:1.5;}
-#donna-app .preview-section-heading{font-size:0.95rem;font-weight:700;color:#1e1209;border-left:3px solid #7a2e3b;padding-left:10px;margin:20px 0 14px;font-family:'Comfortaa',sans-serif;}
-#donna-app .preview-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-bottom:12px;}
-#donna-app .preview-field-grid.cols-4{grid-template-columns:repeat(4,1fr);}
-#donna-app .preview-field-grid.cols-1{grid-template-columns:1fr;}
-#donna-app .preview-field{margin-bottom:0;}
-#donna-app .preview-field.full{grid-column:1/-1;}
-#donna-app .preview-field label{display:block;font-size:0.76rem;font-weight:600;color:#5c4d3a;margin-bottom:5px;}
-#donna-app .preview-field .req{color:#ba1a1a;margin-left:2px;}
-#donna-app .preview-field input[type=text],#donna-app .preview-field input[type=email],#donna-app .preview-field input[type=tel]{width:100%;padding:9px 12px;border:1.5px solid var(--cream-border);border-radius:8px;font-size:0.85rem;outline:none;font-family:'Source Sans 3',sans-serif;transition:border-color 0.15s;background:#fdfaf4;color:#1e1209;}
-#donna-app .preview-field input:focus{border-color:#7a2e3b;}
-#donna-app .preview-field textarea{width:100%;padding:9px 12px;border:1.5px solid var(--cream-border);border-radius:8px;font-size:0.85rem;outline:none;font-family:'Source Sans 3',sans-serif;resize:vertical;min-height:76px;transition:border-color 0.15s;background:#fdfaf4;color:#1e1209;}
-#donna-app .preview-field textarea:focus{border-color:#7a2e3b;}
-#donna-app .preview-field select{width:100%;padding:9px 12px;border:1.5px solid var(--cream-border);border-radius:8px;font-size:0.85rem;outline:none;font-family:'Source Sans 3',sans-serif;background:#fdfaf4;color:#1e1209;cursor:pointer;transition:border-color 0.15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23565e6c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;}
-#donna-app .preview-field select:focus{border-color:#7a2e3b;}
-#donna-app .preview-radio-group{display:flex;gap:8px;flex-wrap:wrap;}
-#donna-app .preview-radio-pill{padding:7px 18px;border:1.5px solid var(--cream-border);border-radius:20px;font-size:0.82rem;font-weight:500;color:#5c4d3a;cursor:pointer;transition:all 0.15s;background:#fdfaf4;font-family:'Source Sans 3',sans-serif;}
-#donna-app .preview-radio-pill.pv-radio-selected{border-color:#7a2e3b;background:#f0ead8;color:#7a2e3b;font-weight:600;}
-#donna-app .upload-zone{border:1.5px dashed #c4c9d4;border-radius:8px;padding:18px;text-align:center;color:#5c4d3a;font-size:0.82rem;cursor:pointer;transition:all 0.15s;}
-#donna-app .upload-zone:hover{border-color:#7a2e3b;color:#7a2e3b;}
-#donna-app .preview-error{display:none;font-size:0.78rem;color:#ba1a1a;background:#fdecea;border-radius:7px;padding:8px 12px;margin-bottom:12px;border:1px solid #f5c2c7;}
-#donna-app .preview-nav{display:flex;gap:10px;margin-top:24px;align-items:center;}
-#donna-app .preview-next-btn{padding:10px 28px;background:#7a2e3b;color:white;border-radius:8px;font-size:0.86rem;font-weight:600;border:none;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background 0.15s;}
-#donna-app .preview-next-btn:hover{background:#5e2230;}
-#donna-app .preview-back-link{font-size:0.82rem;color:#5c4d3a;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;background:none;border:none;font-family:'Source Sans 3',sans-serif;padding:0;transition:color 0.15s;}
-#donna-app .preview-back-link:hover{color:#1e1209;}
-#donna-app .preview-success{display:none;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;text-align:center;}
-#donna-app .success-icon{width:56px;height:56px;border-radius:50%;background:#e4f0ea;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
 
 /* TOAST */
 #donna-app .toast{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--text-dark);color:var(--cream);padding:10px 20px;border-radius:10px;font-size:0.82rem;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
@@ -247,7 +186,7 @@ const HTML = `
             <div class="template-actions">
               <button class="btn-outline btn-sm" onclick="openEditForm('Estate Planning')">Edit</button>
               <button class="btn-outline btn-sm" onclick="copyLink('Estate Planning')">Copy link</button>
-              <button class="btn-outline btn-sm" onclick="openPreview('Estate Planning')">Preview</button>
+              <button class="btn-outline btn-sm" onclick="window.open('https://demoform-two.vercel.app/','_blank')">Preview</button>
             </div>
           </div>
           <div class="template-item">
@@ -258,7 +197,7 @@ const HTML = `
             <div class="template-actions">
               <button class="btn-outline btn-sm" onclick="openEditForm('Family Law')">Edit</button>
               <button class="btn-outline btn-sm" onclick="copyLink('Family Law')">Copy link</button>
-              <button class="btn-outline btn-sm" onclick="openPreview('Family Law')">Preview</button>
+              <button class="btn-outline btn-sm" onclick="window.open('https://demoform-two.vercel.app/','_blank')">Preview</button>
             </div>
           </div>
         </div>
@@ -294,6 +233,12 @@ const HTML = `
             <div class="detail-field"><div class="detail-field-label">Form</div><div class="detail-field-value" id="sub-detail-form">—</div></div>
             <hr class="divider"/>
             <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.6">Once complete, contact and matter are created automatically in your practice management system.</p>
+          </div>
+          <div class="sub-detail-footer">
+            <button class="btn-outline btn-sm" style="width:100%;justify-content:center;display:flex;gap:6px;align-items:center;opacity:0.55;cursor:default" disabled>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open in Clio
+            </button>
           </div>
         </div>
       </div>
@@ -347,46 +292,6 @@ const HTML = `
   </div>
 </div>
 
-<!-- PREVIEW OVERLAY -->
-<div class="preview-page" id="preview-page">
-  <div class="preview-topnav">
-    <span class="preview-firm-name" id="preview-firm-name">Acme Corp</span>
-    <div class="preview-part-tabs" id="preview-part-tabs"></div>
-    <div class="preview-draft-saved"><span class="preview-draft-dot"></span>Draft saved</div>
-    <button class="btn-outline btn-sm" style="margin-left:14px;font-size:0.75rem" onclick="closePreview()">Close preview</button>
-  </div>
-  <div class="preview-body">
-    <div class="preview-sidebar" id="preview-sidebar"></div>
-    <div class="preview-main">
-      <div class="preview-progress-strip">
-        <div class="preview-progress-label" id="preview-page-indicator">Page 1 of 9 · 11% complete</div>
-        <div class="preview-progress-bar"><div class="preview-progress-fill" id="preview-progress-fill" style="width:11%"></div></div>
-      </div>
-      <div class="preview-content-wrap">
-        <div class="preview-form">
-          <div id="preview-form-container">
-            <div class="preview-form-title" id="preview-page-title">Let's get started</div>
-            <div class="preview-page-sub" id="preview-page-sub">Please provide your contact details to get started.</div>
-            <div class="preview-error" id="preview-error">Please fill in all required fields.</div>
-            <div id="preview-fields"></div>
-            <div class="preview-nav">
-              <button class="preview-back-link" id="preview-back-btn" onclick="prevPreviewPage()" style="display:none">← Back</button>
-              <button class="preview-next-btn" id="preview-next-btn" onclick="nextPreviewPage()">Continue →</button>
-            </div>
-          </div>
-          <div class="preview-success" id="preview-success">
-            <div class="success-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2a7a4f" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div style="font-size:1.15rem;font-weight:700;color:#1e1209;margin-bottom:8px">Questionnaire submitted</div>
-            <div style="font-size:0.84rem;color:#5c4d3a;line-height:1.6">Thank you. A lawyer will review your answers and be in touch shortly.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast">Link copied to clipboard</div>
 `;
 
@@ -395,22 +300,20 @@ const JS = `
 
 var formState = {
   'Estate Planning': {
-    parts: ['Identity & Assets', 'Business & Insurance', 'Wills & Executors', 'EPA & Medical'],
-    pagePartMap: [0,0,0,0,0,1,2,3,3],
     pages: [
       { title: 'Let\\'s get started', sub: 'Please provide your contact details so we can get started.', sections: [
         { heading: 'Name & Contact', grid: 2, fields: [
-          { label: 'First Name', type: 'text', required: true },
+          { label: 'First Name', type: 'text', required: false },
           { label: 'Last Name', type: 'text', required: false },
-          { label: 'Email Address', type: 'email', required: true, alwaysRequired: true, full: true },
-          { label: 'Mobile Number', type: 'tel', required: true },
+          { label: 'Email Address', type: 'email', required: false, alwaysRequired: true, full: true },
+          { label: 'Mobile Number', type: 'tel', required: false },
           { label: 'Home Phone', type: 'tel', required: false }
         ]}
       ]},
       { title: 'Welcome', sub: 'Tell us about the nature of this matter.', sections: [
         { heading: 'Engagement', grid: 2, fields: [
-          { label: 'Who is this matter for?', type: 'select', required: true, full: true, options: ['', 'Single Client', 'Couple (Joint Matter)', 'Couple (Separate Matters)'] },
-          { label: 'State / Territory', type: 'select', required: true, options: ['', 'ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'] },
+          { label: 'Who is this matter for?', type: 'select', required: false, full: true, options: ['', 'Single Client', 'Couple (Joint Matter)', 'Couple (Separate Matters)'] },
+          { label: 'State / Territory', type: 'select', required: false, options: ['', 'ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'] },
           { label: 'Preferred Contact Method', type: 'select', required: false, options: ['', 'Email', 'Phone', 'Either'] },
           { label: 'Is this matter urgent?', type: 'yesno', required: false, full: true },
           { label: 'How did you hear about us?', type: 'select', required: false, full: true, options: ['', 'Google', 'Referral from friend / colleague', 'Social media', 'Existing client', 'Other'] }
@@ -419,27 +322,27 @@ var formState = {
       { title: 'C1 — Personal Details', sub: 'Please provide your personal information as accurately as possible.', sections: [
         { heading: 'Name', grid: 4, fields: [
           { label: 'Title', type: 'select', required: false, options: ['', 'Mr', 'Mrs', 'Ms', 'Miss', 'Dr', 'Prof'] },
-          { label: 'First Name', type: 'text', required: true },
+          { label: 'First Name', type: 'text', required: false },
           { label: 'Middle Name', type: 'text', required: false },
-          { label: 'Last Name', type: 'text', required: true },
+          { label: 'Last Name', type: 'text', required: false },
           { label: 'Preferred Name / Nickname', type: 'text', required: false, full: true }
         ]},
         { heading: 'Identity', grid: 2, fields: [
-          { label: 'Date of Birth', type: 'text', required: true },
+          { label: 'Date of Birth', type: 'text', required: false },
           { label: 'Place of Birth', type: 'text', required: false },
           { label: 'Gender', type: 'select', required: false, options: ['', 'Male', 'Female', 'Non-binary', 'Prefer not to say'] },
           { label: 'Citizenship', type: 'text', required: false },
           { label: 'Permanent Resident of Australia?', type: 'yesno', required: false, full: true }
         ]},
         { heading: 'Contact & Address', grid: 1, fields: [
-          { label: 'Residential Address', type: 'text', required: true, full: true },
+          { label: 'Residential Address', type: 'text', required: false, full: true },
           { label: 'Occupation', type: 'text', required: false, full: true },
           { label: 'Relationship Status', type: 'select', required: false, full: true, options: ['', 'Single', 'Married', 'De facto', 'Separated', 'Divorced', 'Widowed'] }
         ]}
       ]},
       { title: 'Children', sub: 'Tell us about any children or dependants.', sections: [
         { heading: 'Children & Dependants', grid: 1, fields: [
-          { label: 'Do you have children?', type: 'yesno', required: true, full: true },
+          { label: 'Do you have children?', type: 'yesno', required: false, full: true },
           { label: 'Do you have grandchildren?', type: 'yesno', required: false, full: true },
           { label: 'Do you have other dependants?', type: 'yesno', required: false, full: true },
           { label: 'Any family provision risk?', type: 'select', required: false, full: true, options: ['', 'Yes', 'No', 'Not sure'] }
@@ -447,7 +350,7 @@ var formState = {
       ]},
       { title: 'Disclosure Preference', sub: 'Let us know how you\\'d like to disclose your financial position.', sections: [
         { heading: 'Financial Disclosure', grid: 1, fields: [
-          { label: 'How would you like to disclose your financial position?', type: 'select', required: true, full: true, options: ['', 'Full Disclosure', 'Summary Only', 'Prefer to Discuss'] },
+          { label: 'How would you like to disclose your financial position?', type: 'select', required: false, full: true, options: ['', 'Full Disclosure', 'Summary Only', 'Prefer to Discuss'] },
           { label: 'Do you own real property?', type: 'yesno', required: false, full: true },
           { label: 'Do you have superannuation?', type: 'yesno', required: false, full: true },
           { label: 'Do you have a mortgage or loans?', type: 'yesno', required: false, full: true }
@@ -494,45 +397,45 @@ var formState = {
           { label: 'Additional information for your lawyer', type: 'textarea', required: false, full: true }
         ]},
         { heading: 'Confirmation', grid: 1, fields: [
-          { label: 'I confirm the information provided is true and correct', type: 'checkbox', required: true, full: true },
-          { label: 'Signature (type your full name)', type: 'text', required: true, full: true }
+          { label: 'I confirm the information provided is true and correct', type: 'checkbox', required: false, full: true },
+          { label: 'Signature (type your full name)', type: 'text', required: false, full: true }
         ]}
       ]}
     ]
   },
   'Family Law': {
     pages: [
-      { title: 'Contact Info', fields: [
+      { title: 'Contact Info', sections: [{ fields: [
         { label: 'Full name', type: 'text', required: false },
-        { label: 'Email address', type: 'email', required: true, alwaysRequired: true }
-      ]},
-      { title: 'Personal Information', fields: [
+        { label: 'Email address', type: 'email', required: false, alwaysRequired: true }
+      ]}]},
+      { title: 'Personal Information', sections: [{ fields: [
         { label: 'Date of birth', type: 'text', required: false },
         { label: 'Phone number', type: 'tel', required: false },
         { label: 'Residential address', type: 'textarea', required: false },
         { label: 'Suburb / City', type: 'text', required: false }
-      ]},
-      { title: 'Separation Details', fields: [
+      ]}]},
+      { title: 'Separation Details', sections: [{ fields: [
         { label: 'Date of separation', type: 'text', required: false },
         { label: 'Length of relationship', type: 'text', required: false },
         { label: 'Are children involved?', type: 'select', required: false, options: ['', 'Yes', 'No'] },
         { label: 'Current living arrangement', type: 'select', required: false, options: ['', 'Still living together', 'Living separately', 'Other'] }
-      ]},
-      { title: 'Parenting & Property', fields: [
+      ]}]},
+      { title: 'Parenting & Property', sections: [{ fields: [
         { label: "Children's details (names and ages)", type: 'textarea', required: false },
         { label: 'Jointly owned property?', type: 'select', required: false, options: ['', 'Yes', 'No'] },
         { label: 'Outstanding mortgages?', type: 'select', required: false, options: ['', 'Yes', 'No', 'Not applicable'] },
         { label: 'Brief description of assets', type: 'textarea', required: false }
-      ]},
-      { title: 'Referral & Additional Info', fields: [
+      ]}]},
+      { title: 'Referral & Additional Info', sections: [{ fields: [
         { label: 'How did you hear about us?', type: 'select', required: false, options: ['', 'Google', 'Referral from friend or colleague', 'Social media', 'Other'] },
         { label: 'Additional comments', type: 'textarea', required: false },
         { label: 'Supporting documents', type: 'upload', required: false }
-      ]},
-      { title: 'Consent & Signature', fields: [
+      ]}]},
+      { title: 'Consent & Signature', sections: [{ fields: [
         { label: 'I have read and agree to the Privacy Policy', type: 'checkbox', required: false },
         { label: 'Signature (type your full name)', type: 'text', required: false }
-      ]}
+      ]}]}
     ]
   }
 };
@@ -617,7 +520,7 @@ function renderEditPage(idx) {
     card.className = 'question-card';
     var labelEl = document.createElement('div');
     labelEl.className = 'question-label';
-    labelEl.textContent = field.label + (field.required ? ' *' : '');
+    labelEl.textContent = field.label;
     card.appendChild(labelEl);
     var metaEl = document.createElement('div');
     metaEl.className = 'question-meta';
@@ -644,235 +547,6 @@ function renderEditPage(idx) {
     content.appendChild(card);
   });
 }
-
-var currentPreviewPage = 0;
-var previewFormData = {};
-
-window.openPreview = function(formName) {
-  currentFormName = formName;
-  currentPreviewPage = 0;
-  previewFormData = {};
-  document.getElementById('preview-firm-name').textContent = 'Acme Corp';
-  document.getElementById('preview-form-container').style.display = 'block';
-  document.getElementById('preview-success').style.display = 'none';
-  renderPreviewPage();
-  document.getElementById('preview-page').classList.add('open');
-};
-window.closePreview = function() { document.getElementById('preview-page').classList.remove('open'); };
-
-function renderPreviewSidebar() {
-  var form = formState[currentFormName];
-  if (!form.pagePartMap) return;
-  var sb = document.getElementById('preview-sidebar');
-  if (!sb) return;
-  var currentPart = form.pagePartMap[currentPreviewPage];
-  var partPages = form.pages.filter(function(p, i) { return form.pagePartMap[i] === currentPart; });
-  var seenInPart = 0;
-  for (var i = 0; i < form.pages.length; i++) {
-    if (form.pagePartMap[i] === currentPart && i < currentPreviewPage) seenInPart++;
-  }
-  var pct = Math.round((seenInPart + 1) / partPages.length * 100);
-  var pageIcons = [
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>'
-  ];
-  var html = '<div class="preview-sidebar-section">Progress</div>'
-    + '<div class="preview-sidebar-prog-bar"><div class="preview-sidebar-prog-fill" style="width:' + pct + '%"></div></div>'
-    + '<div class="preview-sidebar-pct">' + pct + '% — Part ' + String.fromCharCode(65 + currentPart) + '</div>';
-  var lastPart = -1;
-  form.pages.forEach(function(p, i) {
-    var thisPart = form.pagePartMap[i];
-    if (thisPart !== lastPart) { if (lastPart !== -1) html += '<div style="height:6px"></div>'; lastPart = thisPart; }
-    var cls = 'preview-page-link';
-    if (i === currentPreviewPage) cls += ' pv-active';
-    else if (i < currentPreviewPage) cls += ' pv-done';
-    var iconHtml = (i < currentPreviewPage)
-      ? '<span class="pv-checkmark"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>'
-      : '<span class="pv-icon">' + (pageIcons[i] || '') + '</span>';
-    html += '<div class="' + cls + '" onclick="jumpToPreviewPage(' + i + ')">' + iconHtml + p.title + '</div>';
-  });
-  sb.innerHTML = html;
-  var tabsEl = document.getElementById('preview-part-tabs');
-  if (tabsEl && form.parts) {
-    tabsEl.innerHTML = form.parts.map(function(pt, pi) {
-      var firstPageOfPart = 0;
-      for (var j = 0; j < form.pagePartMap.length; j++) { if (form.pagePartMap[j] === pi) { firstPageOfPart = j; break; } }
-      return '<button class="preview-part-tab' + (pi === currentPart ? ' pv-tab-active' : '') + '" onclick="jumpToPreviewPage(' + firstPageOfPart + ')">' + pt + '</button>';
-    }).join('');
-  }
-}
-
-function makeFieldEl(field, fidx, sectionIdx) {
-  var key = currentPreviewPage + '_' + sectionIdx + '_' + fidx;
-  var div = document.createElement('div');
-  div.className = 'preview-field' + (field.full ? ' full' : '');
-  if (field.type === 'yesno') {
-    if (field.label) {
-      var lbl = document.createElement('label');
-      lbl.textContent = field.label;
-      if (field.required) { var r = document.createElement('span'); r.className = 'req'; r.textContent = ' *'; lbl.appendChild(r); }
-      div.appendChild(lbl);
-    }
-    var grp = document.createElement('div');
-    grp.className = 'preview-radio-group';
-    ['Yes', 'No'].forEach(function(opt) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'preview-radio-pill' + (previewFormData[key] === opt ? ' pv-radio-selected' : '');
-      btn.textContent = opt;
-      btn.dataset.key = key; btn.dataset.required = field.required ? '1' : '0'; btn.dataset.value = opt;
-      btn.onclick = function() {
-        previewFormData[this.dataset.key] = this.dataset.value;
-        grp.querySelectorAll('.preview-radio-pill').forEach(function(b) { b.classList.remove('pv-radio-selected'); });
-        this.classList.add('pv-radio-selected');
-      };
-      grp.appendChild(btn);
-    });
-    div.appendChild(grp);
-    return div;
-  }
-  if (field.type !== 'checkbox') {
-    var lbl2 = document.createElement('label');
-    lbl2.textContent = field.label;
-    if (field.required) { var r2 = document.createElement('span'); r2.className = 'req'; r2.textContent = ' *'; lbl2.appendChild(r2); }
-    div.appendChild(lbl2);
-  }
-  if (field.type === 'text' || field.type === 'email' || field.type === 'tel') {
-    var inp = document.createElement('input');
-    inp.type = field.type === 'text' ? 'text' : field.type;
-    inp.value = previewFormData[key] || '';
-    inp.placeholder = field.label;
-    inp.dataset.key = key; inp.dataset.required = field.required ? '1' : '0';
-    inp.oninput = function() { previewFormData[this.dataset.key] = this.value; };
-    div.appendChild(inp);
-  } else if (field.type === 'textarea') {
-    var ta = document.createElement('textarea');
-    ta.value = previewFormData[key] || '';
-    ta.placeholder = 'Your answer…';
-    ta.dataset.key = key; ta.dataset.required = field.required ? '1' : '0';
-    ta.oninput = function() { previewFormData[this.dataset.key] = this.value; };
-    div.appendChild(ta);
-  } else if (field.type === 'select') {
-    var sel = document.createElement('select');
-    sel.dataset.key = key; sel.dataset.required = field.required ? '1' : '0';
-    (field.options || ['']).forEach(function(opt) {
-      var o = document.createElement('option'); o.value = opt;
-      o.textContent = opt || '— Select —'; sel.appendChild(o);
-    });
-    sel.value = previewFormData[key] || '';
-    sel.onchange = function() { previewFormData[this.dataset.key] = this.value; };
-    div.appendChild(sel);
-  } else if (field.type === 'upload') {
-    var zone = document.createElement('div');
-    zone.className = 'upload-zone';
-    zone.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:5px;display:block;margin-left:auto;margin-right:auto"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Click to upload or drag and drop';
-    div.appendChild(zone);
-  } else if (field.type === 'checkbox') {
-    var cLabel = document.createElement('label');
-    cLabel.style.cssText = 'display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.84rem;color:#1e1209;line-height:1.45;';
-    var chk = document.createElement('input');
-    chk.type = 'checkbox'; chk.style.cssText = 'margin-top:2px;accent-color:#7a2e3b;width:16px;height:16px;flex-shrink:0;cursor:pointer;';
-    chk.checked = previewFormData[key] === '1';
-    chk.dataset.key = key; chk.dataset.required = field.required ? '1' : '0';
-    chk.onchange = function() { previewFormData[this.dataset.key] = this.checked ? '1' : ''; };
-    var cText = document.createElement('span'); cText.textContent = field.label;
-    if (field.required) { var cReq = document.createElement('span'); cReq.style.color = '#ba1a1a'; cReq.textContent = ' *'; cText.appendChild(cReq); }
-    cLabel.appendChild(chk); cLabel.appendChild(cText);
-    div.appendChild(cLabel);
-  }
-  return div;
-}
-
-function renderPreviewPage() {
-  var form = formState[currentFormName];
-  var total = form.pages.length;
-  var page = form.pages[currentPreviewPage];
-  var pct = Math.round((currentPreviewPage + 1) / total * 100);
-  document.getElementById('preview-progress-fill').style.width = pct + '%';
-  document.getElementById('preview-page-title').textContent = page.title;
-  document.getElementById('preview-page-indicator').textContent = 'Page ' + (currentPreviewPage + 1) + ' of ' + total + ' · ' + pct + '% complete';
-  var subEl = document.getElementById('preview-page-sub');
-  if (subEl) subEl.textContent = page.sub || '';
-  document.getElementById('preview-error').style.display = 'none';
-  renderPreviewSidebar();
-  var container = document.getElementById('preview-fields');
-  container.innerHTML = '';
-  (page.sections || [{ fields: page.fields || [] }]).forEach(function(section, sIdx) {
-    if (section.heading) {
-      var h = document.createElement('div');
-      h.className = 'preview-section-heading';
-      h.textContent = section.heading;
-      container.appendChild(h);
-    }
-    var cols = section.grid || 1;
-    var gridClass = cols === 4 ? 'preview-field-grid cols-4' : cols === 2 ? 'preview-field-grid' : 'preview-field-grid cols-1';
-    var grid = document.createElement('div');
-    grid.className = gridClass;
-    (section.fields || []).forEach(function(field, fidx) { grid.appendChild(makeFieldEl(field, fidx, sIdx)); });
-    container.appendChild(grid);
-  });
-  var backBtn = document.getElementById('preview-back-btn');
-  var nextBtn = document.getElementById('preview-next-btn');
-  backBtn.style.display = currentPreviewPage === 0 ? 'none' : '';
-  if (currentPreviewPage === total - 1) { nextBtn.textContent = 'Submit Questionnaire'; nextBtn.onclick = submitPreviewForm; }
-  else { nextBtn.textContent = 'Continue →'; nextBtn.onclick = nextPreviewPage; }
-}
-
-function validatePage() {
-  var ok = true;
-  document.querySelectorAll('#preview-fields [data-required="1"]').forEach(function(el) {
-    if (el.tagName === 'BUTTON') {
-      var grp = el.closest('.preview-radio-group');
-      if (grp && !grp.querySelector('.pv-radio-selected')) ok = false;
-    } else {
-      var val = el.type === 'checkbox' ? (el.checked ? '1' : '') : el.value;
-      if (!val || val.trim() === '') ok = false;
-    }
-  });
-  return ok;
-}
-
-window.jumpToPreviewPage = function(idx) {
-  document.getElementById('preview-error').style.display = 'none';
-  currentPreviewPage = idx;
-  renderPreviewPage();
-};
-
-function nextPreviewPage() {
-  if (!validatePage()) { document.getElementById('preview-error').style.display = 'block'; return; }
-  currentPreviewPage++;
-  renderPreviewPage();
-}
-window.nextPreviewPage = nextPreviewPage;
-
-function prevPreviewPage() { currentPreviewPage--; renderPreviewPage(); }
-window.prevPreviewPage = prevPreviewPage;
-
-function submitPreviewForm() {
-  if (!validatePage()) { document.getElementById('preview-error').style.display = 'block'; return; }
-  var emailVal = previewFormData['0_0_2'] || previewFormData['0_0_1'] || 'unknown@example.com';
-  var nameVal = previewFormData['0_0_0'] || 'Anonymous';
-  var now = new Date();
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var h = now.getHours(); var m = now.getMinutes();
-  var dateStr = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear() + ', ' + (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + ' ' + (h < 12 ? 'AM' : 'PM');
-  submissions.unshift({ date: dateStr, email: emailVal, name: nameVal, form: currentFormName, status: 'complete', page: '' });
-  extraSubmissions++;
-  buildSubmissionsTable();
-  filterSubmissions();
-  updateSubCount();
-  document.getElementById('preview-form-container').style.display = 'none';
-  document.getElementById('preview-success').style.display = 'flex';
-  setTimeout(function() { closePreview(); showToast('New submission received'); showTab('submissions'); }, 2200);
-}
-window.submitPreviewForm = submitPreviewForm;
 
 function buildSubmissionsTable(filtered) {
   var table = document.getElementById('submissions-table');
@@ -908,12 +582,6 @@ function filterSubmissions() {
   buildSubmissionsTable(filtered);
 }
 window.filterSubmissions = filterSubmissions;
-
-function updateSubCount() {
-  var total = submissions.length + extraSubmissions;
-  var el = document.getElementById('sub-count-label');
-  if (el) el.textContent = '(' + total + ')';
-}
 
 window.openSubDetail = function(idx) {
   var s = submissions[idx];
