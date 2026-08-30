@@ -218,7 +218,7 @@ const HTML = `
             <div class="template-actions">
               <button class="btn-outline btn-sm" onclick="openEditForm('Estate Planning')">Edit</button>
               <button class="btn-outline btn-sm" onclick="copyLink('Estate Planning')">Copy link</button>
-              <button class="btn-outline btn-sm" onclick="window.open('https://demoform-two.vercel.app/','_blank')">Preview</button>
+              <button class="btn-outline btn-sm" onclick="window.open('https://demo-form.jdotai.com/','_blank')">Preview</button>
             </div>
           </div>
           <div class="template-item">
@@ -229,7 +229,7 @@ const HTML = `
             <div class="template-actions">
               <button class="btn-outline btn-sm" onclick="openEditForm('Family Law')">Edit</button>
               <button class="btn-outline btn-sm" onclick="copyLink('Family Law')">Copy link</button>
-              <button class="btn-outline btn-sm" onclick="window.open('https://demoform-two.vercel.app/','_blank')">Preview</button>
+              <button class="btn-outline btn-sm" onclick="window.open('https://demo-form.jdotai.com/','_blank')">Preview</button>
             </div>
           </div>
         </div>
@@ -713,7 +713,7 @@ function showToast(msg) {
 window.showToast = showToast;
 window.copyLink = function(formName) {
   window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_intake_link_copied', properties: { form_template: formName } } }));
-  var url = 'https://demoform-two.vercel.app/';
+  var url = 'https://demo-form.jdotai.com/';
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).catch(function() {});
   } else {
