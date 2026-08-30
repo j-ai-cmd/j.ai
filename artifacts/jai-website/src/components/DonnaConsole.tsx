@@ -137,6 +137,36 @@ const CSS = `
 /* TOAST */
 #donna-app .toast{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--text-dark);color:var(--cream);padding:10px 20px;border-radius:10px;font-size:0.82rem;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
 #donna-app .toast.show{opacity:1;}
+
+/* MOBILE */
+@media(max-width:640px){
+  #donna-app #app{flex-direction:column;height:auto;min-height:560px;border-radius:12px;}
+  #donna-app #sidebar{width:100%;flex-direction:row;border-right:none;border-bottom:1px solid var(--cream-border);height:auto;}
+  #donna-app .sidebar-logo{height:48px;width:auto;padding:0 14px;border-right:1px solid var(--cream-border);flex-shrink:0;justify-content:flex-start;}
+  #donna-app .sidebar-logo span{font-size:1.5rem;}
+  #donna-app .sidebar-nav{flex-direction:row;padding:6px 8px;gap:4px;overflow-x:auto;flex:1;align-items:center;}
+  #donna-app .nav-item{flex-direction:row;padding:7px 12px;font-size:0.78rem;min-width:auto;gap:6px;white-space:nowrap;}
+  #donna-app .sidebar-footer{display:none;}
+  #donna-app #main{min-height:480px;}
+  #donna-app .page-header{padding:12px 16px 0;}
+  #donna-app .scroll-content{padding:14px 16px;}
+  #donna-app .data-table{overflow-x:auto;}
+  #donna-app .table-row,#donna-app .table-head{min-width:380px;}
+  #donna-app .submissions-main{padding:14px 16px;}
+  #donna-app .submissions-layout{flex-direction:column;}
+  #donna-app .sub-detail-panel{flex:0 0 auto!important;max-width:100%!important;min-width:0!important;border-left:none!important;border-top:1px solid var(--cream-border);}
+  #donna-app .chat-area{padding:14px 16px;}
+  #donna-app .chat-suggestions{padding:6px 12px 10px;}
+  #donna-app .chat-input-wrap{padding:6px 12px 16px;}
+  #donna-app .chat-bubble{max-width:90%;}
+  #donna-app .edit-form-header{padding:12px 16px;}
+  #donna-app .edit-form-content{flex-direction:column;}
+  #donna-app .edit-pages-sidebar{width:100%;border-right:none;border-bottom:1px solid var(--cream-border);padding:10px 12px;display:flex;flex-direction:row;gap:6px;overflow-x:auto;min-height:auto;}
+  #donna-app .edit-pages-sidebar .page-nav-item{white-space:nowrap;margin-bottom:0;}
+  #donna-app .edit-questions-main{padding:14px 16px;}
+  #donna-app .template-actions{flex-wrap:wrap;gap:5px;}
+  #donna-app .tab-btn{font-size:0.75rem;padding:5px 12px;}
+}
 `;
 
 const HTML = `

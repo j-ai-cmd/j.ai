@@ -112,7 +112,8 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .d-hero .hero-block-label{color:var(--muted-on-dark)}
 .d-hero .hero-block{border-color:rgba(239,233,220,0.3);color:var(--ink);background:var(--paper-on-dark)}
 .d-hero .hero-block:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
-.d-hero .hero-block span{color:var(--muted-on-dark)}
+.d-hero .hero-block span{color:var(--ink-soft)}
+.d-hero .hero-block:hover span{color:rgba(242,234,217,0.75)}
 .d-hero .btn-solid{background:var(--paper-on-dark);color:var(--ink)}
 .d-hero .btn-solid:hover{background:var(--paper);color:var(--ink)}
 .d-hero .btn-line{color:var(--paper-on-dark);border-color:rgba(239,233,220,0.35)}
