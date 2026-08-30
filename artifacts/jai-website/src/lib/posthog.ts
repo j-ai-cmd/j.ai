@@ -8,6 +8,13 @@ export const isPostHogEnabled = Boolean(posthogKey && posthogHost);
 if (isPostHogEnabled && typeof window !== "undefined") {
   posthog.init(posthogKey, {
     api_host: posthogHost,
+    autocapture: true,
+    capture_pageview: true,
+    capture_pageleave: true,
+    session_recording: {
+      maskAllInputs: true,
+      maskInputOptions: { password: true },
+    },
     capture_exceptions: {
       capture_unhandled_errors: true,
       capture_unhandled_rejections: true,
