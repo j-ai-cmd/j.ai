@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 const CSS = `
 #donna-app*,#donna-app*::before,#donna-app*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -481,6 +482,7 @@ var currentFormName = '';
 var currentEditPage = 0;
 
 window.openEditForm = function(formName) {
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_form_edit_opened', properties: { form_template: formName } } }));
   currentFormName = formName;
   currentEditPage = 0;
   document.getElementById('edit-form-title').textContent = 'Edit — ' + formName;
@@ -489,7 +491,10 @@ window.openEditForm = function(formName) {
   document.getElementById('edit-form-page').classList.add('open');
 };
 window.closeEditForm = function() { document.getElementById('edit-form-page').classList.remove('open'); };
-window.saveFormChanges = function() { closeEditForm(); showToast('Changes saved'); };
+window.saveFormChanges = function() {
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_form_changes_saved', properties: { form_template: currentFormName } } }));
+  closeEditForm(); showToast('Changes saved');
+};
 
 function renderEditSidebar() {
   var nav = document.getElementById('edit-page-nav');
@@ -584,6 +589,7 @@ window.filterSubmissions = filterSubmissions;
 
 window.openSubDetail = function(idx) {
   var s = submissions[idx];
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_submission_viewed', properties: { form_template: s.form, submission_status: s.status } } }));
   document.getElementById('sub-detail-email').textContent = s.email;
   document.getElementById('sub-detail-name').textContent = s.name;
   document.getElementById('sub-detail-date').textContent = s.date;
@@ -639,6 +645,7 @@ window.sendChat = function() {
   var inp = document.getElementById('chat-input');
   var text = inp.value.trim();
   if (!text) return;
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_mcp_question_sent', properties: { input_method: 'typed' } } }));
   addUserBubble(text); inp.value = '';
   hideSuggestions(); addThinkingBubble();
   setTimeout(function() { resolveThinkingBubble('Please connect your PMS to donna first to ask custom questions.'); }, 1500);
@@ -646,6 +653,7 @@ window.sendChat = function() {
 
 window.sendSuggestion = function(btn) {
   var text = btn.textContent.trim();
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_mcp_question_sent', properties: { input_method: 'suggestion' } } }));
   addUserBubble(text); hideSuggestions(); addThinkingBubble();
   var answer = suggestionAnswers[text] || 'Here\\'s what I found…';
   setTimeout(function() { resolveThinkingBubble(answer); }, 1600);
@@ -674,6 +682,7 @@ function showToast(msg) {
 }
 window.showToast = showToast;
 window.copyLink = function(formName) {
+  window.dispatchEvent(new CustomEvent('donna_demo_event', { detail: { event: 'demo_intake_link_copied', properties: { form_template: formName } } }));
   var url = 'https://demoform-two.vercel.app/';
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).catch(function() {});
@@ -700,6 +709,17 @@ export default function DonnaConsole() {
     link.href = "https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap";
     document.head.appendChild(link);
     return () => { document.head.removeChild(link); };
+  }, []);
+
+  useEffect(() => {
+    const captureDemoEvent = (event: Event) => {
+      const detail = (event as CustomEvent<{ event: string; properties: Record<string, string> }>).detail;
+      if (isPostHogEnabled && detail) {
+        posthog.capture(detail.event, detail.properties);
+      }
+    };
+    window.addEventListener("donna_demo_event", captureDemoEvent);
+    return () => window.removeEventListener("donna_demo_event", captureDemoEvent);
   }, []);
 
   useEffect(() => {

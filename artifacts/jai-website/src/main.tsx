@@ -1,4 +1,5 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
+import "./lib/posthog";
 import App from "./App";
 import "./index.css";
 
