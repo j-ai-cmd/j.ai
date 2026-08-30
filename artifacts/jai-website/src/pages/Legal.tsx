@@ -203,7 +203,7 @@ export default function Legal() {
       {/* DEMO - console */}
       <section className="demo-section" id="donna">
         <div className="wrap">
-          <div className="demo-heading">Try donna for yourself.</div>
+          <div className="demo-heading">Try for yourself.</div>
         </div>
         <div className="demo-console-outer">
           <DonnaConsole />
