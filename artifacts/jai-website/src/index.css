@@ -245,8 +245,59 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .msheet.open{display:block;position:fixed;inset:0;z-index:300;background:var(--accent);padding:80px 30px 30px}
   .msheet .close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:28px;cursor:pointer;color:var(--paper);width:44px;height:44px;display:flex;align-items:center;justify-content:center}
   .msheet a,.msheet button{display:block;font-family:var(--fd);font-size:26px;font-weight:600;padding:14px 0;text-decoration:none;color:var(--paper);background:none;border:none;text-align:left;cursor:pointer;width:100%}
+  /* donna hero: reduce hero-right top gap when stacked */
+  .hero-right{padding-top:40px}
+  /* form inputs full width on tablet */
+  .fi,.d-form select{width:100%;box-sizing:border-box}
+  .sub{width:100%}
 }
 @media(max-width:640px){
   .blog-grid{grid-template-columns:1fr}
   .blog-card{padding:28px 22px}
+  /* wrap tighter padding */
+  .wrap{padding:0 18px}
+  /* donna logo slightly smaller */
+  .donna-logo{font-size:clamp(48px,12vw,80px)}
+  /* hero CTA buttons stack full-width */
+  .d-hero .go{flex-direction:column;align-items:stretch;gap:10px}
+  .d-hero .go .btn{text-align:center;display:block;padding:16px 24px}
+  /* hero PMS/AI blocks: allow wrapping */
+  .hero-block-row{flex-wrap:wrap;gap:8px}
+  .hero-block{font-size:13px;padding:8px 12px}
+  /* hero number items tighter */
+  .hero-num-item{font-size:15px;gap:10px}
+  /* hero right tighter top gap */
+  .hero-right{padding-top:24px}
+  /* console: horizontal scroll on mobile so the demo stays functional */
+  .demo-console-outer{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 12px;padding-bottom:clamp(32px,5vw,60px)}
+  /* video heading */
+  .d-vid-heading{font-size:clamp(22px,7vw,36px)}
+  .d-vid-label{font-size:clamp(16px,4vw,20px)}
+  /* how section */
+  .d-how h2{margin-bottom:32px}
+  .steps4 .s{padding:20px 18px}
+  /* FAQ */
+  .faq-item summary{font-size:17px;padding:20px 0}
+  .faq-item .ans{font-size:15px}
+  /* contact */
+  .d-contact h2{font-size:clamp(24px,6vw,36px)}
+  /* footer */
+  .h-footer{padding:36px 0}
+  .h-footer .in{padding:0 18px}
+  /* video controls bigger tap target on mobile */
+  .d-vid-btn{width:44px;height:44px}
+  .d-vid-play-center{width:72px;height:72px}
+}
+@media(max-width:480px){
+  .wrap{padding:0 14px}
+  .d-hero{padding:clamp(50px,10vw,80px) 0 clamp(44px,9vw,70px)}
+  .donna-logo{font-size:clamp(44px,13vw,72px)}
+  .hero-num-item{font-size:14px;line-height:1.6}
+  .demo-section .wrap .demo-heading{font-size:clamp(20px,6vw,30px)}
+  .d-vid-heading{font-size:clamp(20px,6vw,30px)}
+  .cta-banner h2{font-size:clamp(26px,7vw,44px)}
+  .faq-item summary{font-size:16px}
+  .d-how h2,.d-faq h2{font-size:clamp(24px,6vw,36px)}
+  .steps4 .s h4{font-size:18px}
+  .h-footer .in{padding:0 14px}
 }

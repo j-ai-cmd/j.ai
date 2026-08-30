@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
 import DonnaConsole from "@/components/DonnaConsole";
+import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 const FAQS = [
   { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, myCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
@@ -18,7 +19,7 @@ const AI_BLOCKS = [
   { label: "Kimi", note: "Self-hosted" },
 ];
 
-function VideoPlayer({ src }: { src: string }) {
+function VideoPlayer({ src, demo }: { src: string; demo: "intake" | "mcp" }) {
   const ref = useRef<HTMLVideoElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -54,8 +55,19 @@ function VideoPlayer({ src }: { src: string }) {
   };
 
   return (
-    <div ref={wrapRef} className="d-vid-wrap" onMouseMove={revealControls} onMouseEnter={revealControls} onMouseLeave={() => { if (timerRef.current) clearTimeout(timerRef.current); setShowControls(false); }}>
-      <video ref={ref} src={src} playsInline className="d-vid-player" onClick={togglePlay} />
+    <div ref={wrapRef} className="d-vid-wrap" onMouseMove={revealControls} onMouseEnter={revealControls} onMouseLeave={() => { if (timerRef.current) clearTimeout(timerRef.current); setShowControls(false); }} onTouchStart={revealControls}>
+      <video
+        ref={ref}
+        src={src}
+        playsInline
+        className="d-vid-player"
+        onClick={togglePlay}
+        onPlay={() => {
+          if (isPostHogEnabled) {
+            posthog.capture("demo_video_played", { demo });
+          }
+        }}
+      />
       <button className="d-vid-play-center" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"} style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}>
         {playing
           ? <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -98,6 +110,11 @@ export default function Legal() {
     } catch {}
     setLoading(false);
     setSent(true);
+    if (isPostHogEnabled) {
+      posthog.capture("lead_enquiry_submitted", {
+        practice_management_system: form.pms || "not_selected",
+      });
+    }
   }
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
@@ -170,13 +187,13 @@ export default function Legal() {
             <Reveal>
               <div className="d-vid-item">
                 <p className="d-vid-label">donna Intake</p>
-                <VideoPlayer src="/videos/donna-intake.mp4" />
+                <VideoPlayer src="/videos/donna-intake.mp4" demo="intake" />
               </div>
             </Reveal>
             <Reveal>
               <div className="d-vid-item">
                 <p className="d-vid-label">donna MCP</p>
-                <VideoPlayer src="/videos/donna-mcp.mp4" />
+                <VideoPlayer src="/videos/donna-mcp.mp4" demo="mcp" />
               </div>
             </Reveal>
           </div>
