@@ -10,10 +10,13 @@ const ssrDir = path.resolve(root, "dist-ssr");
 const template = fs.readFileSync(path.resolve(distDir, "index.html"), "utf-8");
 const { render } = await import(path.resolve(ssrDir, "entry-server.js"));
 
-const pages = [
-  { url: "/", out: "index.html" },
-  { url: "/legal", out: "legal/index.html" },
-];
+const { routes } = await import(path.resolve(ssrDir, "entry-server.js"));
+
+// Prerender every known route, including one page per published article.
+const pages = Object.keys(routes).map((url) => ({
+  url,
+  out: url === "/" ? "index.html" : `${url.replace(/^\//, "")}/index.html`,
+}));
 
 for (const page of pages) {
   const { html, title, description } = render(page.url);

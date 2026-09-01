@@ -135,6 +135,7 @@ export default function Legal() {
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Home", href: "/" },
         { label: "Legal", href: "/donna" },
+        { label: "Writing", href: "/blog" },
       ]} />
 
       {/* HERO */}

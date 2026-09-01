@@ -14,6 +14,7 @@ export default function Home() {
           <div className="nav">
             <span className="live" aria-current="page">Home</span>
             <Link href="/donna">Legal</Link>
+            <Link href="/blog">Writing</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
@@ -21,6 +22,7 @@ export default function Home() {
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Home", href: "/" },
         { label: "Legal", href: "/donna" },
+        { label: "Writing", href: "/blog" },
       ]} />
 
       {/* HERO */}
