@@ -13,7 +13,7 @@
     "prettier": "^3.8.4",
     "typescript": "~5.9.3"
   },
-  "dependencies": {
+  "optionalDependencies": {
     "@esbuild/darwin-arm64": "0.27.3",
     "@rollup/rollup-darwin-arm64": "4.62.2",
     "lightningcss-darwin-arm64": "1.32.0",
