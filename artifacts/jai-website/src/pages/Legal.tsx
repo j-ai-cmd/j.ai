@@ -4,9 +4,9 @@ import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/c
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 const FAQS = [
-  { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, myCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
+  { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, myCase, and LEAP. We’re actively expanding the list — if yours isn’t there yet, get in touch." },
   { q: "How long does it take to get set up?", a: "You are live in 2 weeks." },
-  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it at their leisure. Progress saved over dashboard." },
+  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in at their own pace, and their progress saves as they go." },
   { q: "How does the MCP connector work?", a: "donna helps you talk to your PMS in plain english. Right in your Claude/ChatGPT." },
 ];
 
@@ -58,6 +58,7 @@ function VideoPlayer({ src, demo }: { src: string; demo: "intake" | "mcp" }) {
         ref={ref}
         src={src}
         playsInline
+        preload="metadata"
         className="d-vid-player"
         onClick={togglePlay}
         onPlay={() => {
@@ -126,7 +127,7 @@ export default function Legal() {
           <Wordmark />
           <div className="nav">
             <Link href="/">Home</Link>
-            <a className="live">Legal</a>
+            <span className="live" aria-current="page">Legal</span>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
@@ -145,11 +146,11 @@ export default function Legal() {
               <div className="hero-num-list">
                 <Reveal className="hero-num-item">
                   <b>1.</b>
-                  <span>An MCP connector that gives your AI assistant live access to your PMS - so you can talk to all your matters.</span>
+                  <span>An MCP connector that gives your AI assistant live access to your PMS — so you can talk to all your matters.</span>
                 </Reveal>
                 <Reveal className="hero-num-item">
                   <b>2.</b>
-                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your (PMS).</span>
+                  <span>A custom intake form that collects exactly what your firm needs — and syncs it straight to your PMS.</span>
                 </Reveal>
               </div>
               <Reveal className="go">
@@ -210,12 +211,12 @@ export default function Legal() {
             <div className="d-flow-arrow">→</div>
             <div className="d-flow-step d-flow-step--mid">
               <div className="d-flow-label">donna</div>
-              <p className="d-flow-desc">Collects, organises and processes your client's information automatically.</p>
+              <p className="d-flow-desc">Collects, organises and processes your client’s information automatically.</p>
             </div>
             <div className="d-flow-arrow">→</div>
             <div className="d-flow-step">
               <div className="d-flow-label">Your PMS + AI</div>
-              <p className="d-flow-desc">Creates matters and lets you work with your firm's data in plain English.</p>
+              <p className="d-flow-desc">Creates matters and lets you work with your firm’s data in plain English.</p>
             </div>
           </Reveal>
         </div>
@@ -274,7 +275,7 @@ export default function Legal() {
                 <div className="d-form-done">
                   <div className="tick">✓</div>
                   <h3>Submitted.</h3>
-                  <p>We'll be in touch within 24 hours.</p>
+                  <p>We’ll be in touch within 24 hours.</p>
                 </div>
               ) : (
                 <form className="d-form" onSubmit={submit}>
@@ -309,7 +310,7 @@ export default function Legal() {
       {/* CTA BANNER */}
       <section className="cta-banner">
         <div className="wrap">
-          <Reveal as="h2">Stop doing work that shouldn't need you.</Reveal>
+          <Reveal as="h2">Stop doing work that shouldn’t need you.</Reveal>
         </div>
       </section>
 

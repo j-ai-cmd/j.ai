@@ -12,7 +12,7 @@ export default function Home() {
         <div className="in">
           <Wordmark />
           <div className="nav">
-            <a className="live">Home</a>
+            <span className="live" aria-current="page">Home</span>
             <Link href="/donna">Legal</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
@@ -26,7 +26,7 @@ export default function Home() {
       {/* HERO */}
       <section className="h-hero">
         <div className="wrap">
-          <Reveal as="h1">New AI tools land every week. You don't have time to work out which ones matter.</Reveal>
+          <Reveal as="h1">New AI tools land every week. You don’t have time to work out which ones matter.</Reveal>
           <Reveal as="p" className="lede">j.ai finds the work in your business that still runs on people instead of systems, and builds the tools that take it off your plate.</Reveal>
           <Reveal className="go">
             <Link href="/donna" className="btn btn-solid">See donna</Link>
@@ -39,11 +39,11 @@ export default function Home() {
         <div className="wrap">
           <div className="grid">
             <Reveal as="h2">The gap is quiet, and it widens.</Reveal>
-            <div>
-              <Reveal as="p">Somewhere in the noise is a tool that could give your team ten hours back a week. Finding it, testing it, and proving it fits your business takes time you don't have.</Reveal>
-              <Reveal as="p">Your competitors already found theirs. They run leaner, move faster, and deliver more.</Reveal>
-              <Reveal as="p" className="pull">Every week you wait, the gap widens.</Reveal>
-            </div>
+            <Reveal>
+              <p>Somewhere in the noise is a tool that could give your team ten hours back a week. Finding it, testing it, and proving it fits your business takes time you don’t have.</p>
+              <p>Your competitors already found theirs. They run leaner, move faster, and deliver more.</p>
+              <p className="pull">Every week you wait, the gap widens.</p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -52,27 +52,27 @@ export default function Home() {
       <section className="h-offer">
         <div className="wrap">
           <Reveal as="h2">Two ways to work with j.ai.</Reveal>
-          <Reveal className="row">
+          <div className="row">
             <div className="no">01</div>
             <div>
               <h3>j.ai Advisory</h3>
-              <p>Someone whose job is to stay ahead of the AI market so you don't have to. Every month, a clear map of what changed, what applies to your business, and exactly how to use it.</p>
+              <p>Someone whose job is to stay ahead of the AI market so you don’t have to. Every month, a clear map of what changed, what applies to your business, and exactly how to use it.</p>
             </div>
-          </Reveal>
-          <Reveal className="row">
+          </div>
+          <div className="row">
             <div className="no">02</div>
             <div>
               <h3>j.ai Labs</h3>
-              <p>When the tool you need doesn't exist yet, we build it. Custom automations and AI agents, shaped around how your business actually runs.</p>
+              <p>When the tool you need doesn’t exist yet, we build it. Custom automations and AI agents, shaped around how your business actually runs.</p>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
       <section className="h-how">
         <div className="wrap">
-          <Reveal as="h2">We strongly believe AI is here to do the work you don't want, so you can do the work you were meant for.</Reveal>
+          <Reveal as="h2">We strongly believe AI is here to do the work you don’t want, so you can do the work you were meant for.</Reveal>
           <Reveal className="steps3">
             <div className="s">
               <div className="how-num">01</div>
@@ -97,12 +97,12 @@ export default function Home() {
       <section className="h-why">
         <div className="wrap">
           <div className="grid">
-            <Reveal as="h2">You started your business to do the work you're good at.</Reveal>
-            <div>
-              <Reveal as="p">Not to lose hours to tasks that slow your growth and pull your team away from the real thing.</Reveal>
-              <Reveal as="p" className="beat">AI can give those hours back.</Reveal>
-              <Reveal as="p">We find the work that should run on systems, build the thing that runs it, and hand you back the time.</Reveal>
-            </div>
+            <Reveal as="h2">You started your business to do the work you’re good at.</Reveal>
+            <Reveal>
+              <p>Not to lose hours to tasks that slow your growth and pull your team away from the real thing.</p>
+              <p className="beat">AI can give those hours back.</p>
+              <p>We find the work that should run on systems, build the thing that runs it, and hand you back the time.</p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -110,7 +110,7 @@ export default function Home() {
       {/* CTA BANNER */}
       <section className="cta-banner">
         <div className="wrap">
-          <Reveal as="h2">Stop doing work that shouldn't need you.</Reveal>
+          <Reveal as="h2">Stop doing work that shouldn’t need you.</Reveal>
         </div>
       </section>
 
