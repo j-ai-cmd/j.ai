@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
-import DonnaConsole from "@/components/DonnaConsole";
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 const FAQS = [
   { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, myCase, and LEAP. We're actively expanding the list - if yours isn't there yet, get in touch." },
-  { q: "How long does it take to get set up?", a: "One onboarding call. We collect your details, configure donna for your firm, and you're live within a week." },
-  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in - no login, no password, no friction." },
-  { q: "Can I customise the intake form fields?", a: "Yes. Every intake form is built around your practice areas and the information you actually need. You control what's required and what's optional." },
-  { q: "How does the MCP connector work?", a: "donna exposes a secure MCP endpoint that your AI assistant (Claude, ChatGPT, or a self-hosted model) connects to. It can then read and write to your PMS in real time, without you having to context-switch." },
+  { q: "How long does it take to get set up?", a: "You are live in 2 weeks." },
+  { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it at their leisure. Progress saved over dashboard." },
+  { q: "How does the MCP connector work?", a: "donna helps you talk to your PMS in plain english. Right in your Claude/ChatGPT." },
 ];
 
 const PMS_BLOCKS = ["Clio", "Smokeball", "Actionstep", "myCase", "LEAP"];
@@ -151,7 +149,7 @@ export default function Legal() {
                 </Reveal>
                 <Reveal className="hero-num-item">
                   <b>2.</b>
-                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your practice management system (PMS).</span>
+                  <span>A custom intake form that collects exactly what your firm needs - and syncs it straight to your (PMS).</span>
                 </Reveal>
               </div>
               <Reveal className="go">
@@ -200,13 +198,26 @@ export default function Legal() {
         </div>
       </section>
 
-      {/* DEMO - console */}
-      <section className="demo-section" id="donna">
+      {/* HOW IT WORKS — 3-step flow */}
+      <section className="d-flow" id="donna">
         <div className="wrap">
-          <div className="demo-heading">Try for yourself.</div>
-        </div>
-        <div className="demo-console-outer">
-          <DonnaConsole />
+          <Reveal as="h2" className="d-flow-heading">How donna works.</Reveal>
+          <Reveal className="d-flow-steps">
+            <div className="d-flow-step">
+              <div className="d-flow-label">Client</div>
+              <p className="d-flow-desc">Completes your custom intake form and provides everything you need upfront.</p>
+            </div>
+            <div className="d-flow-arrow">→</div>
+            <div className="d-flow-step d-flow-step--mid">
+              <div className="d-flow-label">donna</div>
+              <p className="d-flow-desc">Collects, organises and processes your client's information automatically.</p>
+            </div>
+            <div className="d-flow-arrow">→</div>
+            <div className="d-flow-step">
+              <div className="d-flow-label">Your PMS + AI</div>
+              <p className="d-flow-desc">Creates matters and lets you work with your firm's data in plain English.</p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -225,7 +236,7 @@ export default function Legal() {
             </div>
             <div className="s">
               <h4>Syncs with your legal software</h4>
-              <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents all.</p>
+              <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents etc.</p>
             </div>
             <div className="s">
               <h4>MCP connector</h4>
