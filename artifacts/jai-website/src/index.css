@@ -133,11 +133,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .hero-block:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
 .hero-block span{font-weight:400;font-size:12px;color:var(--muted)}
 
-/* ═══ DONNA PAGE — DEMO ═══ */
-.demo-section{background:var(--deep);padding:clamp(60px,7vw,100px) 0}
-.demo-heading{font-family:var(--fd);font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-0.02em;color:var(--paper-on-dark);margin-bottom:40px}
-.demo-console-outer{max-width:1020px;margin:0 auto;padding:0 clamp(16px,3vw,48px);padding-bottom:clamp(40px,5vw,72px)}
-
 /* ═══ DONNA PAGE — VIDEOS ═══ */
 .d-videos{background:var(--paper);padding:clamp(60px,7vw,100px) 0}
 .d-vid-heading{font-family:var(--fd);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-bottom:40px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:8px}
@@ -288,8 +283,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .hero-num-item{font-size:15px;gap:10px}
   /* hero right tighter top gap */
   .hero-right{padding-top:24px}
-  /* console: horizontal scroll on mobile so the demo stays functional */
-  .demo-console-outer{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 12px;padding-bottom:clamp(32px,5vw,60px)}
   /* video heading */
   .d-vid-heading{font-size:clamp(22px,7vw,36px)}
   .d-vid-label{font-size:clamp(16px,4vw,20px)}
@@ -313,7 +306,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .d-hero{padding:clamp(50px,10vw,80px) 0 clamp(44px,9vw,70px)}
   .donna-logo{font-size:clamp(44px,13vw,72px)}
   .hero-num-item{font-size:14px;line-height:1.6}
-  .demo-section .wrap .demo-heading{font-size:clamp(20px,6vw,30px)}
   .d-vid-heading{font-size:clamp(20px,6vw,30px)}
   .cta-banner h2{font-size:clamp(26px,7vw,44px)}
   .faq-item summary{font-size:16px}
@@ -325,5 +317,18 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 /* ═══ FOCUS ═══ */
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
 .h-gap :focus-visible,.h-how :focus-visible,.d-hero :focus-visible,.d-faq :focus-visible,
-.d-flow :focus-visible,.demo-section :focus-visible,.h-footer :focus-visible,
+.d-flow :focus-visible,.h-footer :focus-visible,
 .blog-root :focus-visible,.msheet :focus-visible{outline-color:var(--accent-on-dark)}
+
+/* ═══ 404 ═══ */
+.nf-body{padding:clamp(80px,12vw,160px) 0 clamp(90px,14vw,180px)}
+.nf-code{font-family:var(--fd);font-weight:400;font-size:clamp(52px,7vw,84px);color:var(--accent);line-height:.9;margin-bottom:20px}
+.nf-body h1{font-size:clamp(32px,4.6vw,54px);letter-spacing:-0.02em;max-width:16ch}
+.nf-lede{font-size:clamp(17px,1.8vw,20px);line-height:1.6;color:var(--ink-soft);max-width:44ch;margin-top:22px}
+.nf-links{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
+.nf-help{margin-top:36px;font-size:15px;color:var(--muted)}
+.nf-help a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:640px){
+  .nf-links{flex-direction:column;align-items:stretch}
+  .nf-links .btn{text-align:center;display:block;padding:16px 24px}
+}

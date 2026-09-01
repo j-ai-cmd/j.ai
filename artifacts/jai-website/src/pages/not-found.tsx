@@ -1,21 +1,35 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { Link } from "wouter";
+import { Wordmark, EMAIL } from "@/components/shared";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
+    <div>
+      <div className="h-mast">
+        <div className="in">
+          <Wordmark />
+          <div className="nav">
+            <Link href="/">Home</Link>
+            <Link href="/donna">Legal</Link>
           </div>
+        </div>
+      </div>
 
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+      <section className="nf-body">
+        <div className="wrap">
+          <p className="nf-code">404</p>
+          <h1>That page has moved, or never existed.</h1>
+          <p className="nf-lede">
+            Nothing lives at this address. The pages below are the ones worth your time.
           </p>
-        </CardContent>
-      </Card>
+          <div className="nf-links">
+            <Link href="/" className="btn btn-solid">Back to home</Link>
+            <Link href="/donna" className="btn btn-line">See donna</Link>
+          </div>
+          <p className="nf-help">
+            Looking for something specific? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
