@@ -55,7 +55,7 @@ export default function BlogIndex() {
 
       <section className="blog-hero">
         <div className="wrap">
-          <Reveal as="h1">Writing.</Reveal>
+          <Reveal as="h1">Blogs.</Reveal>
           <Reveal as="p" className="blog-lede">
             Practical notes on AI implementation, workflow automation and client intake for solo and small law firms.
           </Reveal>

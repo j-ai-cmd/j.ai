@@ -14,6 +14,7 @@
   --line:rgba(43,39,36,0.16); --line-soft:rgba(43,39,36,0.09); --line-dark:rgba(239,233,220,0.14);
   --fd:'Fraunces',serif; --fb:'Inter Tight',sans-serif; --fm:'Inter Tight',sans-serif;
   --accent-2:#65242f;
+  --paper-key:#f0e6d5;
   --paper-wash:rgba(242,234,217,0.45);
   --ease-out:cubic-bezier(.2,.6,.2,1);
   --maxw:1140px;
@@ -134,21 +135,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .hero-block:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
 .hero-block span{font-weight:400;font-size:12px;color:var(--muted)}
 
-/* ═══ DONNA PAGE — VIDEOS ═══ */
-.d-videos{background:var(--paper);padding:clamp(60px,7vw,100px) 0}
-.d-vid-heading{font-family:var(--fd);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-bottom:40px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:8px}
-.d-vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.d-vid-item{display:flex;flex-direction:column;gap:14px}
-.d-vid-label{font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:600;color:var(--deep);letter-spacing:-0.01em;margin:0}
-.d-vid-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 4px 32px rgba(30,18,9,0.14);cursor:pointer}
-.d-vid-player{width:100%;display:block}
-.d-vid-play-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(20,17,16,0.55);backdrop-filter:blur(6px);border:2px solid rgba(242,234,217,0.35);color:var(--paper);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.3s,background 0.2s,transform 0.2s;z-index:2;padding-left:2px}
-.d-vid-play-center:hover{background:rgba(20,17,16,0.78)}
-.d-vid-controls{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:linear-gradient(to top,rgba(20,17,16,0.65) 0%,transparent 100%);z-index:2;transition:opacity 0.3s}
-.d-vid-btn{width:34px;height:34px;border-radius:50%;background:rgba(242,234,217,0.15);backdrop-filter:blur(4px);border:1px solid rgba(242,234,217,0.22);color:var(--paper);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;flex-shrink:0}
-.d-vid-btn:hover{background:rgba(242,234,217,0.3)}
-@media(max-width:640px){.d-vid-grid{grid-template-columns:1fr}}
-
 /* ═══ DONNA PAGE — HOW ═══ */
 
 .d-how{background:var(--paper);padding:clamp(70px,8vw,110px) 0;border-top:1px solid var(--line)}
@@ -268,9 +254,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .hero-num-item{font-size:15px;gap:10px}
   /* hero right tighter top gap */
   .hero-right{padding-top:24px}
-  /* video heading */
-  .d-vid-heading{font-size:clamp(22px,7vw,36px)}
-  .d-vid-label{font-size:clamp(16px,4vw,20px)}
   /* how section */
   .d-how h2{margin-bottom:32px}
   .steps4 .s{padding:20px 18px}
@@ -282,16 +265,12 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   /* footer */
   .h-footer{padding:36px 0}
   .h-footer .in{padding:0 18px}
-  /* video controls bigger tap target on mobile */
-  .d-vid-btn{width:44px;height:44px}
-  .d-vid-play-center{width:72px;height:72px}
 }
 @media(max-width:480px){
   .wrap{padding:0 14px}
   .d-hero{padding:clamp(50px,10vw,80px) 0 clamp(44px,9vw,70px)}
   .donna-logo{font-size:clamp(44px,13vw,72px)}
   .hero-num-item{font-size:14px;line-height:1.6}
-  .d-vid-heading{font-size:clamp(20px,6vw,30px)}
   .cta-banner h2{font-size:clamp(26px,7vw,44px)}
   .faq-item summary{font-size:16px}
   .d-how h2,.d-faq h2{font-size:clamp(24px,6vw,36px)}
@@ -355,59 +334,27 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* ═══ DONNA — FLOW BANNER ═══ */
 .fb-sec{background:var(--deep);padding:clamp(56px,8vw,100px) 0}
-.fb-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
-.fb-title{font-size:clamp(28px,4vw,48px);color:var(--paper-on-dark);letter-spacing:-0.02em}
-.fb-play{display:inline-flex;align-items:center;gap:9px;background:transparent;
-  border:1px solid var(--line-dark);border-radius:999px;color:var(--muted-on-dark);
-  font:inherit;font-size:13.5px;font-weight:500;padding:11px 18px;min-height:44px;cursor:pointer;
-  transition:color .18s var(--ease-out),border-color .18s var(--ease-out),background .18s var(--ease-out)}
-.fb-play:hover{color:var(--paper);border-color:rgba(239,233,220,.34);background:var(--deep-2)}
-.fb-play:active{transform:translateY(1px)}
-.fb-play[aria-pressed="true"]{color:var(--paper);border-color:rgba(239,233,220,.4)}
-.fb-glyph{width:9px;height:11px;flex:none;position:relative}
-.fb-glyph::before{content:"";position:absolute;inset:0;width:0;height:0;
-  border-left:9px solid currentColor;border-top:5.5px solid transparent;border-bottom:5.5px solid transparent}
-.fb-glyph.is-pause::before{border:0;background:currentColor;width:3px;height:11px;box-shadow:6px 0 0 currentColor}
+.fb-title{font-size:clamp(28px,4vw,48px);color:var(--paper-on-dark);letter-spacing:-0.02em;margin-bottom:30px}
 
 .fb-banner{background:var(--paper);border-radius:16px;box-shadow:0 4px 44px rgba(0,0,0,.34);overflow:hidden}
-.fb-track{height:2px;background:var(--line-soft);position:relative;overflow:hidden}
-.fb-fill{position:absolute;top:0;bottom:0;width:33.333%;background:var(--accent);
-  transition:left .5s var(--ease-out)}
 
-.fb-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.fb-stage{appearance:none;-webkit-appearance:none;font:inherit;text-align:left;background:transparent;
-  cursor:pointer;padding:clamp(24px,3vw,34px) clamp(20px,2.4vw,32px);border:0;border-left:1px solid var(--line);
-  position:relative;color:inherit;display:block;transition:background .22s var(--ease-out)}
+.fb-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.fb-stage{padding:clamp(24px,3vw,34px) clamp(20px,2.4vw,32px);border-left:1px solid var(--line);
+  position:relative;display:block}
 .fb-stage:first-child{border-left:0}
-.fb-stage:hover{background:var(--paper-2)}
-.fb-stage[aria-selected="true"]{background:rgba(122,46,59,.07)}
-.fb-stage:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.fb-stage.is-key{background:rgba(122,46,59,.07)}
+.fb-stage.is-key .fb-n{color:var(--accent)}
+.fb-stage.is-key .fb-label{font-weight:700}
+.fb-stage.is-key::before{background:var(--paper-key)}
 .fb-n{display:block;font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.1em;
   color:var(--muted);margin-bottom:9px;font-variant-numeric:tabular-nums;transition:color .22s var(--ease-out)}
-.fb-stage[aria-selected="true"] .fb-n{color:var(--accent)}
 .fb-label{display:block;font-family:var(--fd);font-weight:600;font-size:clamp(19px,2vw,23px);
   color:var(--accent);letter-spacing:-0.01em;margin-bottom:10px;line-height:1.05}
-.fb-stage[aria-selected="true"] .fb-label{font-weight:700}
 .fb-summary{display:block;color:var(--ink-soft);font-size:15.5px;max-width:34ch;line-height:1.65}
 .fb-stage:not(:first-child)::before{content:"";position:absolute;left:-5px;top:clamp(34px,4vw,44px);
   width:9px;height:9px;transform:rotate(45deg);border-top:1px solid var(--accent);
   border-right:1px solid var(--accent);background:var(--paper);transition:background .22s var(--ease-out)}
-.fb-stage:hover::before{background:var(--paper-2)}
-.fb-stage[aria-selected="true"]::before{background:#f0e6d5}
 
-.fb-detail{border-top:1px solid var(--line);padding:clamp(20px,2.6vw,26px) clamp(20px,2.4vw,32px);
-  background:var(--paper-2);display:grid;gap:14px 30px;
-  grid-template-columns:minmax(0,15rem) minmax(0,1fr);align-items:start;min-height:132px}
-.fb-what{font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--muted);padding-top:3px}
-.fb-items{margin:0;padding:0;list-style:none;display:grid;gap:9px}
-.fb-items li{display:flex;gap:10px;color:var(--ink-soft);font-size:15px;line-height:1.55}
-.fb-items li::before{content:"";flex:none;width:5px;height:5px;margin-top:8px;border-radius:50%;
-  background:var(--accent);opacity:.55}
-.fb-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.fb-chip{font-size:12.5px;font-weight:500;color:var(--ink-soft);border:1px solid var(--line);
-  border-radius:5px;padding:5px 10px;background:var(--paper)}
-.fb-swap{animation:fbRise .34s var(--ease-out) both}
 @keyframes fbRise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 @media(max-width:820px){
@@ -415,9 +362,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .fb-stage{border-left:0;border-top:1px solid var(--line)}
   .fb-stage:first-child{border-top:0}
   .fb-stage:not(:first-child)::before{left:clamp(20px,2.4vw,32px);top:-5px;transform:rotate(135deg)}
-  .fb-detail{grid-template-columns:1fr;min-height:0}
-}
+  }
 @media(prefers-reduced-motion:reduce){
-  .fb-swap{animation:none}
-  .fb-fill{transition:none}
-}
+    }

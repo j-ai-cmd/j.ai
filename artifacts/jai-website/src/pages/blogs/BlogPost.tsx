@@ -140,7 +140,7 @@ export default function BlogPost() {
           <div className="wrap">
             <h1>Post not found.</h1>
             <p className="blog-lede">That article doesn’t exist, or the address has changed.</p>
-            <Link href="/blog" className="btn btn-line" style={{ marginTop: 32, display: "inline-block" }}>← Back to writing</Link>
+            <Link href="/blog" className="btn btn-line" style={{ marginTop: 32, display: "inline-block" }}>← Back to blogs</Link>
           </div>
         </section>
       </Chrome>
@@ -154,7 +154,7 @@ export default function BlogPost() {
           <nav className="blog-crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/blog">Writing</Link>
+            <Link href="/blog">Blogs</Link>
             <span aria-hidden="true">/</span>
             <span>{post.category}</span>
           </nav>
