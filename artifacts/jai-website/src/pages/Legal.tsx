@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
+import FlowBanner from "@/components/FlowBanner";
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 export const FAQS = [
@@ -200,28 +201,7 @@ export default function Legal() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — 3-step flow */}
-      <section className="d-flow" id="donna">
-        <div className="wrap">
-          <Reveal as="h2" className="d-flow-heading">How donna works.</Reveal>
-          <Reveal className="d-flow-steps">
-            <div className="d-flow-step">
-              <div className="d-flow-label">Client</div>
-              <p className="d-flow-desc">Completes your custom intake form and provides everything you need upfront.</p>
-            </div>
-            <div className="d-flow-arrow">→</div>
-            <div className="d-flow-step d-flow-step--mid">
-              <div className="d-flow-label">donna</div>
-              <p className="d-flow-desc">Collects, organises and processes your client’s information automatically.</p>
-            </div>
-            <div className="d-flow-arrow">→</div>
-            <div className="d-flow-step">
-              <div className="d-flow-label">Your PMS + AI</div>
-              <p className="d-flow-desc">Creates matters and lets you work with your firm’s data in plain English.</p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <FlowBanner />
 
       {/* HOW IT WORKS */}
       <section className="d-how">
