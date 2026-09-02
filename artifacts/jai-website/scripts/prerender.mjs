@@ -8,9 +8,10 @@ const distDir = path.resolve(root, "dist");
 const ssrDir = path.resolve(root, "dist-ssr");
 
 const template = fs.readFileSync(path.resolve(distDir, "index.html"), "utf-8");
-const { render } = await import(path.resolve(ssrDir, "entry-server.js"));
+const { render, routes } = await import(path.resolve(ssrDir, "entry-server.js"));
 
-const { routes } = await import(path.resolve(ssrDir, "entry-server.js"));
+const SITE = "https://jdotai.com";
+const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
 // Prerender every known route, including one page per published article.
 const pages = Object.keys(routes).map((url) => ({
@@ -20,7 +21,40 @@ const pages = Object.keys(routes).map((url) => ({
 
 for (const page of pages) {
   const { html, title, description } = render(page.url);
-  const canonical = `https://jdotai.com${page.url === "/" ? "" : page.url}`;
+  const meta = routes[page.url];
+  const canonical = `${SITE}${page.url === "/" ? "" : page.url}`;
+
+  // FIX 5 + 6: structured data emitted at build time, not in useEffect.
+  const blocks = [];
+  if (meta?.article) {
+    blocks.push({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: meta.article.headline,
+      description: meta.description,
+      datePublished: meta.article.datePublished,
+      dateModified: meta.article.datePublished,
+      articleSection: meta.article.section,
+      author: { "@type": "Person", name: "Jai Dhingra", url: "https://www.linkedin.com/in/jai-dhingra/" },
+      publisher: { "@type": "Organization", name: "j.ai", url: SITE },
+      mainEntityOfPage: canonical,
+      image: `${SITE}/og-image.png`,
+    });
+  }
+  if (meta?.faq?.length) {
+    blocks.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: meta.faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+  const ld = blocks
+    .map((b) => `  <script type="application/ld+json">${JSON.stringify(b)}</script>`)
+    .join("\n");
 
   const out = template
     .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
@@ -49,8 +83,12 @@ for (const page of pages) {
       `<meta name="twitter:description" content="${description}" />`
     )
     .replace(
+      /<meta property="og:type" content=".*?" \/>/,
+      `<meta property="og:type" content="${meta?.article ? "article" : "website"}" />`
+    )
+    .replace(
       "</head>",
-      `  <link rel="canonical" href="${canonical}" />\n  </head>`
+      `  <link rel="canonical" href="${canonical}" />\n${ld ? ld + "\n" : ""}  </head>`
     )
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
@@ -59,6 +97,22 @@ for (const page of pages) {
   fs.writeFileSync(outPath, out);
 }
 
+// FIX 3: build sitemap.xml from the same route table that drives prerendering.
+const urls = Object.keys(routes).sort((a, b) => a.length - b.length || a.localeCompare(b));
+const priority = (u) => (u === "/" ? "1.0" : u === "/donna" ? "0.9" : u === "/blog" ? "0.8" : "0.7");
+const sitemap =
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  urls
+    .map(
+      (u) =>
+        `  <url>\n    <loc>${esc(SITE + (u === "/" ? "/" : u))}</loc>\n` +
+        `    <changefreq>weekly</changefreq>\n    <priority>${priority(u)}</priority>\n  </url>`
+    )
+    .join("\n") +
+  "\n</urlset>\n";
+fs.writeFileSync(path.resolve(distDir, "sitemap.xml"), sitemap);
+
 fs.rmSync(ssrDir, { recursive: true, force: true });
 
-console.log(`Prerendered ${pages.length} route(s): ${pages.map((p) => p.url).join(", ")}`);
+console.log(`Prerendered ${pages.length} route(s); sitemap: ${urls.length} URLs`);

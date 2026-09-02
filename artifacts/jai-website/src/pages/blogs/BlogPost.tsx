@@ -124,29 +124,6 @@ export default function BlogPost() {
   const post = POSTS.find((p) => p.slug === slug);
   const content = CONTENT[slug];
 
-  useEffect(() => {
-    if (!post) return;
-    document.title = post.titleTag || `${post.title} | j.ai`;
-    const m = document.querySelector('meta[name="description"]');
-    if (m) m.setAttribute("content", post.excerpt);
-
-    const ld = document.createElement("script");
-    ld.type = "application/ld+json";
-    ld.setAttribute("data-article-schema", "true");
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: post.title,
-      description: post.excerpt,
-      datePublished: post.date,
-      dateModified: post.date,
-      author: { "@type": "Person", name: "Jai Dhingra", url: LINKEDIN },
-      publisher: { "@type": "Organization", name: "j.ai", url: "https://jdotai.com" },
-      mainEntityOfPage: `https://jdotai.com/blog/${post.slug}`,
-    });
-    document.head.appendChild(ld);
-    return () => { ld.remove(); };
-  }, [post]);
 
   // Related: same category first, then fill from the rest.
   const related = useMemo(() => {

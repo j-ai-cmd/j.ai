@@ -6,11 +6,21 @@ import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blogs/index";
 import BlogPost from "@/pages/blogs/BlogPost";
 import { POSTS } from "@/pages/blogs/posts";
+import { FAQS } from "@/pages/Legal";
 
 type RouteMeta = {
   Component: React.ComponentType;
   title: string;
   description: string;
+  /** Set on article routes so prerender can emit Article JSON-LD + og:type. */
+  article?: {
+    slug: string;
+    headline: string;
+    datePublished: string;
+    section: string;
+  };
+  /** Set on pages whose visible FAQ copy should be mirrored as FAQPage JSON-LD. */
+  faq?: { q: string; a: string }[];
 };
 
 const staticRoutes: Record<string, RouteMeta> = {
@@ -20,17 +30,12 @@ const staticRoutes: Record<string, RouteMeta> = {
     description:
       "j.ai works with founders to find where AI fits their business, build what actually helps, and make sure it sticks.",
   },
-  "/legal": {
-    Component: Legal,
-    title: "j.ai - AI agents for law firms",
-    description:
-      "AI agents that reactivate past clients, brief you before meetings, catch unbilled time, and flag cross-sell gaps — built into how your firm already works.",
-  },
   "/donna": {
     Component: Legal,
     title: "donna - AI intake and PMS connector for law firms | j.ai",
     description:
       "donna connects your practice management system to your AI assistant and collects exactly what your firm needs at intake. Built by j.ai.",
+    faq: FAQS,
   },
   "/blog": {
     Component: BlogIndex,
@@ -48,6 +53,12 @@ const postRoutes: Record<string, RouteMeta> = Object.fromEntries(
       Component: BlogPost,
       title: p.titleTag || `${p.title} | j.ai`,
       description: p.excerpt,
+      article: {
+        slug: p.slug,
+        headline: p.title,
+        datePublished: p.date,
+        section: p.category,
+      },
     },
   ])
 );
@@ -73,7 +84,6 @@ export function render(url: string) {
     <Router hook={staticLocationHook(url)}>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/legal" component={Legal} />
         <Route path="/donna" component={Legal} />
         <Route path="/blog" component={BlogIndex} />
         <Route path="/blog/:slug" component={BlogPost} />

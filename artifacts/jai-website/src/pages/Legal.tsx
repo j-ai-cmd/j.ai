@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
-const FAQS = [
+export const FAQS = [
   { q: "What practice management systems does donna connect to?", a: "Clio, Smokeball, Actionstep, myCase, and LEAP. We’re actively expanding the list — if yours isn’t there yet, get in touch." },
   { q: "How long does it take to get set up?", a: "You are live in 2 weeks." },
   { q: "Do my clients need to create an account?", a: "No. Clients receive a link to the intake form. They fill it in at their own pace, and their progress saves as they go." },
@@ -143,7 +143,7 @@ export default function Legal() {
         <div className="wrap">
           <div className="hero-grid">
             <div>
-              <Reveal><div className="donna-logo">donna</div></Reveal>
+              <Reveal><h1 className="donna-logo">donna</h1></Reveal>
               <div className="hero-num-list">
                 <Reveal className="hero-num-item">
                   <b>1.</b>
