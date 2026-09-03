@@ -33,6 +33,13 @@ function renderContent(md: string) {
     const line = raw.trim();
     if (!line) return;
 
+    if (line.startsWith("### ")) {
+      flush();
+      const text = line.slice(4);
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      out.push(<h3 key={i} id={id}>{inline(text, i)}</h3>);
+      return;
+    }
     if (line.startsWith("## ")) {
       flush();
       const text = line.slice(3);
@@ -85,7 +92,7 @@ function Chrome({ children, menu, setMenu }: { children: React.ReactNode; menu: 
           <div className="nav">
             <Link href="/">Home</Link>
             <Link href="/donna">Legal</Link>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blogs">Blogs</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span /><span /><span /></button>
         </div>
@@ -93,7 +100,7 @@ function Chrome({ children, menu, setMenu }: { children: React.ReactNode; menu: 
       <MobileSheet open={menu} onClose={() => setMenu(false)} dark links={[
         { label: "Home", href: "/" },
         { label: "Legal", href: "/donna" },
-        { label: "Blog", href: "/blog" },
+        { label: "Blogs", href: "/blogs" },
       ]} />
       {children}
       <footer className="h-footer">
@@ -140,7 +147,7 @@ export default function BlogPost() {
           <div className="wrap">
             <h1>Post not found.</h1>
             <p className="blog-lede">That article doesn’t exist, or the address has changed.</p>
-            <Link href="/blog" className="btn btn-line" style={{ marginTop: 32, display: "inline-block" }}>← Back to blogs</Link>
+            <Link href="/blogs" className="btn btn-line" style={{ marginTop: 32, display: "inline-block" }}>← Back to blogs</Link>
           </div>
         </section>
       </Chrome>
@@ -154,7 +161,7 @@ export default function BlogPost() {
           <nav className="blog-crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/blog">Blogs</Link>
+            <Link href="/blogs">Blogs</Link>
             <span aria-hidden="true">/</span>
             <span>{post.category}</span>
           </nav>
@@ -180,7 +187,7 @@ export default function BlogPost() {
               <h2 id="related-heading">Keep reading</h2>
               <div className="blog-related-grid">
                 {related.map(r => (
-                  <Link key={r.slug} href={`/blog/${r.slug}`} className="blog-related-card">
+                  <Link key={r.slug} href={`/blogs/${r.slug}`} className="blog-related-card">
                     <span className="blog-cat">{r.category}</span>
                     <span className="blog-related-title">{r.title}</span>
                     <span className="blog-read">{r.readTime}</span>

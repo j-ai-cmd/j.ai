@@ -18,6 +18,77 @@ const AI_BLOCKS = [
   { label: "Kimi", note: "Self-hosted" },
 ];
 
+function VideoPlayer({ src, demo }: { src: string; demo: "intake" | "mcp" }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+
+  const revealControls = () => {
+    setShowControls(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setShowControls(false), 2500);
+  };
+
+  const togglePlay = () => {
+    const v = ref.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  };
+
+  const toggleMute = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  };
+
+  const toggleFullscreen = () => {
+    const el = wrapRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) document.exitFullscreen();
+    else el.requestFullscreen();
+  };
+
+  return (
+    <div ref={wrapRef} className="d-vid-wrap" onMouseMove={revealControls} onMouseEnter={revealControls} onMouseLeave={() => { if (timerRef.current) clearTimeout(timerRef.current); setShowControls(false); }} onTouchStart={revealControls}>
+      <video
+        ref={ref}
+        src={src}
+        playsInline
+        preload="metadata"
+        className="d-vid-player"
+        onClick={togglePlay}
+        onPlay={() => {
+          if (isPostHogEnabled) {
+            posthog.capture("demo_video_played", { demo });
+          }
+        }}
+      />
+      <button className="d-vid-play-center" onClick={togglePlay} aria-label={playing ? "Pause" : "Play"} style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}>
+        {playing
+          ? <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          : <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        }
+      </button>
+      <div className="d-vid-controls" style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}>
+        <button className="d-vid-btn" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"}>
+          {muted
+            ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54,8.46a5,5,0,0,1,0,7.07"/><path d="M19.07,4.93a10,10,0,0,1,0,14.14"/></svg>
+          }
+        </button>
+        <button className="d-vid-btn" onClick={toggleFullscreen} aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Legal() {
   const [menu, setMenu] = useState(false);
   const [sent, setSent] = useState(false);
@@ -58,7 +129,7 @@ export default function Legal() {
           <div className="nav">
             <Link href="/">Home</Link>
             <span className="live" aria-current="page">Legal</span>
-            <Link href="/blog">Blogs</Link>
+            <Link href="/blogs">Blogs</Link>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
@@ -66,7 +137,7 @@ export default function Legal() {
       <MobileSheet open={menu} onClose={() => setMenu(false)} links={[
         { label: "Home", href: "/" },
         { label: "Legal", href: "/donna" },
-        { label: "Blogs", href: "/blog" },
+        { label: "Blogs", href: "/blogs" },
       ]} />
 
       {/* HERO */}
@@ -86,7 +157,7 @@ export default function Legal() {
                 </Reveal>
               </div>
               <Reveal className="go">
-                <a href="#donna" className="btn btn-solid">See how it works</a>
+                <a href="#donna" className="btn btn-solid">See the demo</a>
                 <a href="#contact" className="btn btn-line">Get donna for your firm →</a>
               </Reveal>
             </div>
@@ -110,6 +181,27 @@ export default function Legal() {
         </div>
       </section>
 
+
+      {/* VIDEO SECTION */}
+      <section className="d-videos">
+        <div className="wrap">
+          <Reveal><h2 className="d-vid-heading">See <span style={{ color: "var(--accent)" }}>donna</span> in action.</h2></Reveal>
+          <div className="d-vid-grid">
+            <Reveal>
+              <div className="d-vid-item">
+                <p className="d-vid-label">donna Intake</p>
+                <VideoPlayer src="/videos/donna-intake.mp4" demo="intake" />
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="d-vid-item">
+                <p className="d-vid-label">donna MCP</p>
+                <VideoPlayer src="/videos/donna-mcp.mp4" demo="mcp" />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       <FlowBanner />
 

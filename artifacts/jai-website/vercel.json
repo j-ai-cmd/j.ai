@@ -10,6 +10,76 @@
       "source": "/legal",
       "destination": "/donna",
       "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/blogs",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blogs/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/blog/why-ai-implementation-fails-law-firms",
+      "destination": "/blogs/why-ai-implementation-fails-small-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/why-ai-implementation-fails-law-firms",
+      "destination": "/blogs/why-ai-implementation-fails-small-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-without-it-team-law-firm",
+      "destination": "/blogs/ai-small-law-firms-without-it-team",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/ai-without-it-team-law-firm",
+      "destination": "/blogs/ai-small-law-firms-without-it-team",
+      "permanent": true
+    },
+    {
+      "source": "/blog/biggest-ai-mistake-small-law-firms-2026",
+      "destination": "/blogs/biggest-ai-mistake-small-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/biggest-ai-mistake-small-law-firms-2026",
+      "destination": "/blogs/biggest-ai-mistake-small-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/blog/automate-conflict-intake-matter-creation",
+      "destination": "/blogs/automate-conflict-checks-intake-matter-creation",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/automate-conflict-intake-matter-creation",
+      "destination": "/blogs/automate-conflict-checks-intake-matter-creation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/future-ai-small-law-firms",
+      "destination": "/blogs/future-law-firms-ai",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/future-ai-small-law-firms",
+      "destination": "/blogs/future-law-firms-ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-save-hours-estate-planning",
+      "destination": "/blogs/save-hours-estate-planning-ai",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/ai-save-hours-estate-planning",
+      "destination": "/blogs/save-hours-estate-planning-ai",
+      "permanent": true
     }
   ]
 }

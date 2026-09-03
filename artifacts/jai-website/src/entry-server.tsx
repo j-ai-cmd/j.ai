@@ -37,9 +37,9 @@ const staticRoutes: Record<string, RouteMeta> = {
       "donna connects your practice management system to your AI assistant and collects exactly what your firm needs at intake. Built by j.ai.",
     faq: FAQS,
   },
-  "/blog": {
+  "/blogs": {
     Component: BlogIndex,
-    title: "Blog - AI implementation for law firms | j.ai",
+    title: "Blogs - AI implementation for law firms | j.ai",
     description:
       "Practical writing on AI implementation, workflow automation and client intake for solo and small law firms.",
   },
@@ -48,7 +48,7 @@ const staticRoutes: Record<string, RouteMeta> = {
 // One prerenderable route per published article.
 const postRoutes: Record<string, RouteMeta> = Object.fromEntries(
   POSTS.map((p) => [
-    `/blog/${p.slug}`,
+    `/blogs/${p.slug}`,
     {
       Component: BlogPost,
       title: p.titleTag || `${p.title} | j.ai`,
@@ -85,8 +85,8 @@ export function render(url: string) {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/donna" component={Legal} />
-        <Route path="/blog" component={BlogIndex} />
-        <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/blogs" component={BlogIndex} />
+        <Route path="/blogs/:slug" component={BlogPost} />
         <Route component={NotFound} />
       </Switch>
     </Router>

@@ -99,7 +99,7 @@ for (const page of pages) {
 
 // FIX 3: build sitemap.xml from the same route table that drives prerendering.
 const urls = Object.keys(routes).sort((a, b) => a.length - b.length || a.localeCompare(b));
-const priority = (u) => (u === "/" ? "1.0" : u === "/donna" ? "0.9" : u === "/blog" ? "0.8" : "0.7");
+const priority = (u) => (u === "/" ? "1.0" : u === "/donna" ? "0.9" : u === "/blogs" ? "0.8" : "0.7");
 const sitemap =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

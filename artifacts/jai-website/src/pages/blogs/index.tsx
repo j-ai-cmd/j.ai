@@ -19,7 +19,7 @@ export default function BlogIndex() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   useEffect(() => {
-    document.title = "Blog — AI implementation for law firms | j.ai";
+    document.title = "Blogs — AI implementation for law firms | j.ai";
     const m = document.querySelector('meta[name="description"]');
     if (m) m.setAttribute("content", "Practical writing on AI implementation, workflow automation and client intake for solo and small law firms.");
   }, []);
@@ -42,7 +42,7 @@ export default function BlogIndex() {
           <div className="nav">
             <Link href="/">Home</Link>
             <Link href="/donna">Legal</Link>
-            <span className="live" aria-current="page">Blog</span>
+            <span className="live" aria-current="page">Blogs</span>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span /><span /><span /></button>
         </div>
@@ -50,7 +50,7 @@ export default function BlogIndex() {
       <MobileSheet open={menu} onClose={() => setMenu(false)} dark links={[
         { label: "Home", href: "/" },
         { label: "Legal", href: "/donna" },
-        { label: "Blog", href: "/blog" },
+        { label: "Blogs", href: "/blogs" },
       ]} />
 
       <section className="blog-hero">
@@ -82,7 +82,7 @@ export default function BlogIndex() {
           ) : (
             <div className="blog-grid">
               {visible.map((p) => (
-                <Link key={p.slug} href={`/blog/${p.slug}`} className="blog-card">
+                <Link key={p.slug} href={`/blogs/${p.slug}`} className="blog-card">
                   <div className="blog-card-top">
                     <span className="blog-cat">{p.category}</span>
                     <span className="blog-read">{p.readTime}</span>
