@@ -52,6 +52,10 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .h-mast.h-mast--dark .nav a,.h-mast.h-mast--dark .nav button,.h-mast.h-mast--dark .nav span{color:rgba(242,234,217,0.65)}
 .h-mast.h-mast--dark .nav .live,.h-mast.h-mast--dark .nav a:hover,.h-mast.h-mast--dark .nav button:hover{color:var(--paper-on-dark)}
 .h-mast.h-mast--dark .hamb span{background:var(--paper-on-dark)}
+.nav-cta{background:var(--accent);color:var(--paper)!important;padding:7px 16px;border-radius:6px;font-weight:600;text-decoration:none;font-size:13px;font-family:var(--fm);letter-spacing:.01em;border:none;cursor:pointer;transition:background .15s,opacity .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--accent-deep);color:var(--paper)!important}
+.h-mast.h-mast--dark .nav-cta{background:var(--paper-on-dark);color:var(--accent)!important}
+.h-mast.h-mast--dark .nav-cta:hover{background:var(--paper);color:var(--accent)!important}
 .h-mast .in{max-width:var(--maxw);margin:0 auto;padding:0 26px;display:flex;align-items:center;justify-content:space-between}
 .h-mast .wm{font-size:22px;color:var(--accent)}
 .h-mast .wm i{color:var(--accent)!important}

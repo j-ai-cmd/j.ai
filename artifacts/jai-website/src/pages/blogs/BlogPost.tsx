@@ -93,6 +93,7 @@ function Chrome({ children, menu, setMenu }: { children: React.ReactNode; menu: 
             <Link href="/">Home</Link>
             <Link href="/donna">Legal</Link>
             <Link href="/blogs">Blogs</Link>
+            <a href="/donna#contact" className="nav-cta">Contact us</a>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span /><span /><span /></button>
         </div>

@@ -43,6 +43,7 @@ export default function BlogIndex() {
             <Link href="/">Home</Link>
             <Link href="/donna">Legal</Link>
             <span className="live" aria-current="page">Blogs</span>
+            <a href="/donna#contact" className="nav-cta">Contact us</a>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span /><span /><span /></button>
         </div>

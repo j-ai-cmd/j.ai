@@ -130,6 +130,7 @@ export default function Legal() {
             <Link href="/">Home</Link>
             <span className="live" aria-current="page">Legal</span>
             <Link href="/blogs">Blogs</Link>
+            <a href="#contact" className="nav-cta">Contact us</a>
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
