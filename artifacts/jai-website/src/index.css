@@ -45,7 +45,13 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .wm i{color:var(--accent);font-style:normal}
 
 /* ═══ MASTHEAD ═══ */
-.h-mast{background:var(--paper);border-bottom:1px solid rgba(122,46,59,0.15);padding:22px 0}
+.h-mast{background:var(--paper);border-bottom:none;padding:22px 0}
+.h-mast.h-mast--dark{background:var(--deep)}
+.h-mast.h-mast--dark .wm{color:var(--paper-on-dark)}
+.h-mast.h-mast--dark .wm i{color:var(--paper-on-dark)!important}
+.h-mast.h-mast--dark .nav a,.h-mast.h-mast--dark .nav button,.h-mast.h-mast--dark .nav span{color:rgba(242,234,217,0.65)}
+.h-mast.h-mast--dark .nav .live,.h-mast.h-mast--dark .nav a:hover,.h-mast.h-mast--dark .nav button:hover{color:var(--paper-on-dark)}
+.h-mast.h-mast--dark .hamb span{background:var(--paper-on-dark)}
 .h-mast .in{max-width:var(--maxw);margin:0 auto;padding:0 26px;display:flex;align-items:center;justify-content:space-between}
 .h-mast .wm{font-size:22px;color:var(--accent)}
 .h-mast .wm i{color:var(--accent)!important}

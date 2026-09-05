@@ -123,7 +123,7 @@ export default function Legal() {
   return (
     <div>
       {/* MASTHEAD */}
-      <div className="h-mast">
+      <div className="h-mast h-mast--dark">
         <div className="in">
           <Wordmark />
           <div className="nav">
