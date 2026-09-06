@@ -30,7 +30,7 @@ a{color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
 section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
-.btn{display:inline-block;font-family:var(--fb);font-weight:600;font-size:15px;padding:15px 30px;border-radius:2px;text-decoration:none;cursor:pointer;transition:background .18s var(--ease-out),color .18s var(--ease-out),border-color .18s var(--ease-out);border:1px solid transparent}
+.btn{display:inline-flex;align-items:center;font-family:var(--fm);font-weight:600;font-size:14px;padding:11px 26px;border-radius:6px;text-decoration:none;cursor:pointer;transition:background .18s var(--ease-out),color .18s var(--ease-out),border-color .18s var(--ease-out);border:1px solid transparent;line-height:1;letter-spacing:.02em;white-space:nowrap}
 .btn-solid{background:var(--accent);color:var(--paper)}
 .btn-solid:hover{background:var(--accent-deep)}
 .btn-line{border-color:currentColor}
@@ -295,7 +295,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   .donna-logo{font-size:clamp(48px,12vw,80px)}
   /* hero CTA buttons stack full-width */
   .d-hero .go{flex-direction:column;align-items:stretch;gap:10px}
-  .d-hero .go .btn{text-align:center;display:block;padding:16px 24px}
+  .d-hero .go .btn{text-align:center;display:flex;justify-content:center;padding:11px 26px}
   /* hero PMS/AI blocks: allow wrapping */
   .hero-block-row{flex-wrap:wrap;gap:8px}
   .hero-block{font-size:13px;padding:8px 12px}
@@ -350,7 +350,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .nf-help a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:640px){
   .nf-links{flex-direction:column;align-items:stretch}
-  .nf-links .btn{text-align:center;display:block;padding:16px 24px}
+  .nf-links .btn{text-align:center;display:flex;justify-content:center;padding:11px 26px}
 }
 
 /* ═══ BLOG — FILTERS ═══ */
