@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN } from "@/components/shared";
 import FlowBanner from "@/components/FlowBanner";
-import { RevealHeading, NavLinks, NavCta, GlareCta, FooterEmail, SlideToContact } from "@/components/interactive";
+import { RevealHeading, NavLinks, NavCta, GlareCta, FooterEmail } from "@/components/interactive";
 import { TiltCard } from "@/components/amicro/tilt-card";
 import BasicAccordion from "@/components/smoothui/basic-accordion";
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
@@ -298,7 +298,6 @@ export default function Legal() {
       <section className="cta-banner">
         <div className="wrap">
           <RevealHeading text="Stop doing work that shouldn’t need you." />
-          <Reveal className="cta-go"><SlideToContact href="#contact" /></Reveal>
         </div>
       </section>
 

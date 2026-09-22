@@ -3,13 +3,10 @@
 // Those folders hold the libraries' own code; this file only feeds them props.
 import React from "react";
 import { ArrowRight, Link as LinkIcon, Send } from "lucide-react";
-import { FocusBlur } from "@/components/amicro/focus-blur";
-import { MagneticButton } from "@/components/amicro/magnetic-button";
+import { Link } from "wouter";
 import { TextReveal } from "@/components/amicro/text-reveal";
 import { AnimatedButton } from "@/components/amicro/animated-button";
 import type { ButtonConfig } from "@/components/amicro/buttons-data";
-import ButtonCopy from "@/components/smoothui/button-copy";
-import { SlideConfirm } from "@/components/bencho/slide-confirm";
 import { EMAIL } from "@/components/shared";
 
 const go = (href: string) => {
@@ -25,26 +22,27 @@ export function RevealHeading({ as: Tag = "h2", text, className }: { as?: "h1" |
   );
 }
 
-// Masthead links: hovering one blurs the rest (Amicro Focus Blur).
+// Masthead links, plain as before.
 export function NavLinks({ current }: { current: "/" | "/donna" | "/blogs" }) {
   const items = [
     { label: "Home", href: "/" },
     { label: "Legal", href: "/donna" },
     { label: "Blogs", href: "/blogs" },
-  ];
+  ] as const;
   return (
-    <div className="amc-nav" data-current={current}>
-      <FocusBlur items={items} showBrackets={false} blurAmount={2} opacityAmount={0.45} className="amc-nav-links" />
-    </div>
+    <>
+      {items.map(i => i.href === current
+        ? <span key={i.href} className="live" aria-current="page">{i.label}</span>
+        : <Link key={i.href} href={i.href}>{i.label}</Link>)}
+    </>
   );
 }
 
-// "Contact us" pulls toward the cursor (Amicro Magnetic Button).
+// "Contact us" uses the same Amicro Glare Shine button as "See donna".
+const CONTACT: ButtonConfig = { id: "31", label: "Contact us", icon1: ArrowRight, interactionType: "glare" };
 export function NavCta({ href = "/donna#contact" }: { href?: string }) {
   return (
-    <MagneticButton className="nav-cta" range={70} strength={0.3} onClick={() => go(href)}>
-      Contact us
-    </MagneticButton>
+    <AnimatedButton config={CONTACT} layoutMode="list" theme="dark" className="amc-solid amc-nav-cta" onClick={() => go(href)} />
   );
 }
 
@@ -75,25 +73,8 @@ export function ShareButton({ title }: { title: string }) {
   return <AnimatedButton config={SHARE} layoutMode="list" theme="light" className="amc-share" onClick={share} />;
 }
 
-// Footer email with a copy button (SmoothUI Button Copy).
+// Footer email, plain as before.
 export function FooterEmail() {
-  return (
-    <span className="amc-email">
-      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      <ButtonCopy className="amc-copy" onCopy={() => navigator.clipboard.writeText(EMAIL)} />
-    </span>
-  );
+  return <a href={`mailto:${EMAIL}`}>{EMAIL}</a>;
 }
 
-// Slide to open the contact form (Bencho Slide to confirm).
-export function SlideToContact({ href = "/donna#contact" }: { href?: string }) {
-  return (
-    <div className="bch-slide">
-      <SlideConfirm
-        width={300}
-        label="Slide to talk to us"
-        onConfirm={() => window.setTimeout(() => go(href), 650)}
-      />
-    </div>
-  );
-}

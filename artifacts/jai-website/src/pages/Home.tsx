@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Reveal, Wordmark, MobileSheet, LINKEDIN } from "@/components/shared";
-import { RevealHeading, NavLinks, NavCta, GlareCta, FooterEmail, SlideToContact } from "@/components/interactive";
+import { RevealHeading, NavLinks, NavCta, GlareCta, FooterEmail } from "@/components/interactive";
 import { TiltCard } from "@/components/amicro/tilt-card";
 import { Spotlight } from "@/components/amicro/spotlight";
 
@@ -118,7 +118,6 @@ export default function Home() {
       <section className="cta-banner">
         <div className="wrap">
           <RevealHeading text="Stop doing work that shouldn’t need you." />
-          <Reveal className="cta-go"><SlideToContact /></Reveal>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import AnimatedStepper from "@/components/smoothui/animated-stepper";
+import React, { useEffect, useState } from "react";
+import HoverExpand from "@/components/smoothui/hover-expand";
 
 type Stage = { label: string; summary: string };
 
@@ -19,37 +19,37 @@ const STAGES: Stage[] = [
 ];
 
 export default function FlowBanner() {
-  // The stepper drives which stage is lit; donna starts lit, as before.
+  // donna opens first; hover (or tap, or arrow keys) opens the others.
   const [active, setActive] = useState(1);
+  // Panels stack vertically on narrow screens, where rotated labels don't fit.
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 720px)");
+    setNarrow(mq.matches);
+    const on = (e: MediaQueryListEvent) => setNarrow(e.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
 
   return (
     <section className="fb-sec" id="donna">
       <div className="wrap">
-        <h2 className="fb-title">How it moves.</h2>
-
-        <div className="fb-banner">
-          <div className="fb-stepper">
-            <AnimatedStepper
-              steps={STAGES.map(s => ({ label: s.label }))}
-              currentStep={active}
-              onStepChange={setActive}
-              allowClickNavigation
-            />
-          </div>
-          <ol className="fb-rail">
-            {STAGES.map((s, i) => (
-              <li
-                className={`fb-stage${i === active ? " is-key" : ""}`}
-                key={s.label}
-                onMouseEnter={() => setActive(i)}
-              >
-                <span className="fb-n">STAGE {String(i + 1).padStart(2, "0")}</span>
-                <span className="fb-label">{s.label}</span>
-                <span className="fb-summary">{s.summary}</span>
-              </li>
-            ))}
-          </ol>
+        <div className="fb-head">
+          <h2 className="fb-title">How it moves.</h2>
+          <p className="fb-hint">
+            <span className="fb-hint-n">{String(active + 1).padStart(2, "0")}</span> / 03
+          </p>
         </div>
+
+        <HoverExpand
+          className="fb-expand"
+          orientation={narrow ? "vertical" : "horizontal"}
+          items={STAGES.map((s, i) => ({ id: `stage-${i}`, title: s.label, description: s.summary }))}
+          activeIndex={active}
+          onActiveIndexChange={setActive}
+          expandedFlex={3}
+          collapsedFlex={1}
+        />
       </div>
     </section>
   );

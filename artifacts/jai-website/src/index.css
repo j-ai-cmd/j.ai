@@ -452,7 +452,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .dark { --amber: oklch(0.8 0.15 75); --amber-fg: oklch(0.2 0 0); --amber-hover: oklch(0.85 0.14 72); --blue: oklch(0.66 0.18 256); --blue-fg: #fff; --blue-hover: oklch(0.72 0.16 256); --green: oklch(0.73 0.16 152); --green-fg: oklch(0.2 0 0); --green-hover: oklch(0.79 0.15 152); --smooth-50: oklch(0.2 0 0); --smooth-100: oklch(0.235 0 0); --smooth-200: oklch(0.275 0 0); --smooth-300: oklch(0.315 0 0); --smooth-400: oklch(0.36 0 0); --smooth-500: oklch(0.41 0 0); --smooth-600: oklch(0.47 0 0); --smooth-700: oklch(0.55 0 0); --smooth-800: oklch(0.66 0 0); --smooth-900: oklch(0.74 0 0); --smooth-950: oklch(0.85 0 0); --smooth-1000: oklch(0.96 0 0);
 }
 
-
 /* ═══════════════════════════════════════════════════════════════
    THIRD-PARTY COMPONENTS — theme only
    Amicro, SmoothUI and Bencho ship their own code (components/amicro,
@@ -480,21 +479,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .amc-reveal > div { padding: 0 !important; }
 .h-gap h2 .amc-reveal, .h-how h2 .amc-reveal { color: inherit; }
 
-/* Amicro Focus Blur — masthead links */
-.amc-nav .amc-nav-links { padding: 0; gap: 26px; flex-wrap: nowrap; }
-.h-mast .nav .amc-nav a { font-size: 13px; font-weight: 400; }
-.amc-nav { --color-blue-500: var(--accent); }
-.h-mast--dark .amc-nav { --color-blue-500: var(--paper-on-dark); }
-/* FocusBlur sets an inline colour, so the current-page state needs !important */
-.amc-nav[data-current="/"] a[href="/"],
-.amc-nav[data-current="/donna"] a[href="/donna"],
-.amc-nav[data-current="/blogs"] a[href="/blogs"] { color: var(--accent) !important; }
-.h-mast--dark .amc-nav[data-current="/donna"] a[href="/donna"] { color: var(--paper-on-dark) !important; }
-
-/* Amicro Magnetic Button as the nav CTA — keep the pill */
-.h-mast .nav button.nav-cta { height: auto; border-radius: 6px; box-shadow: none; }
-.h-mast .nav .nav-cta span { color: inherit; }
-
 /* Amicro AnimatedButton (glare) as the solid CTA */
 .amc-solid { background: var(--accent) !important; color: var(--paper) !important; border-radius: 6px !important; height: 44px !important; font-family: var(--fm); }
 .amc-solid:hover { background: var(--accent-deep) !important; }
@@ -506,12 +490,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 /* Amicro Share morph */
 .amc-share { height: 30px !important; color: var(--ink) !important; font-family: var(--fm); margin-left: auto; }
 .amc-share svg { color: var(--ink) !important; }
-
-/* SmoothUI Button Copy next to the footer email */
-.amc-email { display: inline-flex; align-items: center; gap: 8px; }
-.amc-email > div { display: inline-flex; }
-.h-footer .amc-copy { min-height: 32px; min-width: 32px; padding: 7px; background: transparent; border-color: var(--line-dark); color: var(--paper); opacity: .7; }
-.h-footer .amc-copy:hover { opacity: 1; }
 
 /* Amicro Tilt Card around the step cards */
 .amc-tilt { aspect-ratio: auto; max-width: none; height: 100%; cursor: default; }
@@ -542,13 +520,6 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 @media (max-width: 640px) { .sui-faq button { padding: 20px 0; } .sui-faq button h3 { font-size: 17px; } .sui-faq .ans { font-size: 15px; } }
 .faq-list:has(.sui-faq) { border-top: 1px solid var(--line-dark); }
 
-/* SmoothUI Animated Stepper on the flow banner */
-.fb-stepper { padding: clamp(20px,2.6vw,28px) clamp(20px,2.4vw,32px) 0; }
-.fb-stepper [role="tablist"] + div:empty, .fb-stepper [role="tabpanel"] { display: none; }
-.fb-stepper .text-muted-foreground { color: var(--muted); }
-.fb-stepper p, .fb-stepper span { font-family: var(--fm); }
-.fb-stage { cursor: default; }
-
 /* SmoothUI Animated Tabs + Animated Input on the blog index */
 .blog-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 30px 18px; margin-bottom: 36px; }
 .blog-tabs { flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; padding: 4px; background: var(--paper-2); }
@@ -560,16 +531,40 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 .blog-search input { background: var(--paper); border-color: var(--line); border-radius: 6px; font-family: var(--fm); font-size: 14px; padding: 11px 12px; color: var(--ink); }
 .blog-search label { background: var(--paper); font-family: var(--fm); font-size: 13px; }
 
-/* Bencho Slide to confirm on the accent CTA banner. Its tokens, defined on its own root. */
-.cta-go { display: flex; justify-content: center; margin-top: 40px; }
-.bch-slide {
-  --font-ui: var(--fm);
-  --card: var(--paper);
-  --fill-slab: var(--paper);
-  --ink: var(--deep);
-  --ink-rgb: 20, 17, 16;
-  --fill-on: var(--deep);
-  --fill-on-rgb: 20, 17, 16;
-  --pane-edge: rgba(20,17,16,.14);
+/* Sticky masthead on every page */
+.h-mast { position: sticky; top: 0; z-index: 60; }
+.h-mast:not(.h-mast--dark) { background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.h-mast .nav .amc-nav-cta { height: 38px !important; }
+.h-mast .nav .amc-nav-cta span { color: var(--paper) !important; }
+
+/* SmoothUI Hover Expand — "How it moves" */
+.fb-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 30px; }
+.fb-head .fb-title { margin-bottom: 0; }
+.fb-hint { font-family: var(--fm); font-size: 13px; letter-spacing: .08em; color: var(--muted-on-dark); font-variant-numeric: tabular-nums; }
+.fb-hint-n { color: var(--accent-on-dark); font-weight: 600; }
+.fb-expand { counter-reset: fb; gap: 10px; height: 340px; }
+.fb-expand > button { counter-increment: fb; border-radius: 6px; border: 1px solid var(--line-dark); background: var(--deep-2); cursor: pointer; }
+.fb-expand > button[aria-pressed="true"] { background: var(--paper); border-color: var(--paper); }
+.fb-expand > button:nth-child(2)[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+.fb-expand > button > div[aria-hidden="true"] { display: none; } /* image scrim; there are no images */
+.fb-expand > button::before { content: "STAGE 0" counter(fb); position: absolute; top: 22px; left: 24px; font-family: var(--fm); font-size: 11px; font-weight: 600; letter-spacing: .12em; color: var(--faint-on-dark); z-index: 1; }
+.fb-expand > button > div { padding: 24px; }
+.fb-expand p:first-child { font-family: var(--fd); font-weight: 600; font-size: clamp(22px, 2.4vw, 32px); letter-spacing: -0.015em; line-height: 1.05; color: var(--paper-on-dark); }
+.fb-expand p + p { font-family: var(--fb); font-size: 16px; line-height: 1.6; max-width: 34ch; margin-top: 12px; color: var(--muted-on-dark); }
+.fb-expand > button[aria-pressed="true"]::before { color: var(--accent); }
+.fb-expand > button[aria-pressed="true"] p:first-child { color: var(--accent); font-size: clamp(30px, 3.6vw, 48px); }
+.fb-expand > button[aria-pressed="true"] p + p { color: var(--ink-soft); }
+.fb-expand > button:nth-child(2)[aria-pressed="true"]::before,
+.fb-expand > button:nth-child(2)[aria-pressed="true"] p:first-child { color: var(--paper); }
+.fb-expand > button:nth-child(2)[aria-pressed="true"] p + p { color: rgba(242,234,217,.82); }
+/* collapsed panels: keep the title upright instead of the rotated label */
+.fb-expand > button > div:not([aria-hidden]) { transform: none !important; }
+.fb-expand > button > div > div { white-space: normal !important; }
+.fb-expand > button[aria-pressed="false"] p:first-child { font-size: 20px; }
+.fb-expand > button[aria-pressed="false"]:hover { border-color: rgba(239,233,220,.3); }
+.fb-expand > button:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 3px; }
+@media (max-width: 720px) {
+  .fb-expand { height: 480px; }
+  .fb-expand p:first-child { font-size: 20px; }
+  .fb-expand > button[aria-pressed="true"] p:first-child { font-size: 28px; }
 }
-@media (max-width: 480px) { .bch-slide .sld { max-width: calc(100vw - 28px); } }

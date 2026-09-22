@@ -42,19 +42,6 @@ export default function BlogIndex() {
     );
   }, [cat, q]);
 
-  // ⌘K / Ctrl+K or "/" jumps to search.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const typing = (e.target as HTMLElement)?.closest("input, textarea, select");
-      if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") || (e.key === "/" && !typing)) {
-        e.preventDefault();
-        document.querySelector<HTMLInputElement>(".blog-search input")?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
   return (
     <div className="blog-root">
       <div className="h-mast">
@@ -94,7 +81,7 @@ export default function BlogIndex() {
             />
             <AnimatedInput
               className="blog-search"
-              label="Search posts  ⌘K"
+              label="Search posts"
               placeholder="Intake, Clio, automation…"
               value={q}
               onChange={setQ}
