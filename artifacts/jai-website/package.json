@@ -11,7 +11,12 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "posthog-js": "^1.407.2"
+    "clsx": "catalog:",
+    "framer-motion": "catalog:",
+    "lucide-react": "catalog:",
+    "motion": "^12.43.0",
+    "posthog-js": "^1.407.2",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@tailwindcss/vite": "catalog:",

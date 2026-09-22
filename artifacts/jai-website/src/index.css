@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "./components/bencho/slide-confirm.css";
+
+@custom-variant dark (&:is(.dark *));
 @layer base {
   html { scroll-behavior: smooth; }
 }
@@ -18,6 +21,27 @@
   --paper-wash:rgba(242,234,217,0.45);
   --ease-out:cubic-bezier(.2,.6,.2,1);
   --maxw:1140px;
+  --amber: oklch(0.77 0.16 75);
+  --amber-fg: oklch(0.22 0 0);
+  --amber-hover: oklch(0.71 0.17 70);
+  --blue: oklch(0.62 0.19 256);
+  --blue-fg: #fff;
+  --blue-hover: oklch(0.56 0.2 256);
+  --green: oklch(0.7 0.17 152);
+  --green-fg: #fff;
+  --green-hover: oklch(0.64 0.18 152);
+  --smooth-50: oklch(0.99 0 0);
+  --smooth-100: oklch(0.972 0 0);
+  --smooth-200: oklch(0.945 0 0);
+  --smooth-300: oklch(0.91 0 0);
+  --smooth-400: oklch(0.865 0 0);
+  --smooth-500: oklch(0.81 0 0);
+  --smooth-600: oklch(0.74 0 0);
+  --smooth-700: oklch(0.66 0 0);
+  --smooth-800: oklch(0.56 0 0);
+  --smooth-900: oklch(0.47 0 0);
+  --smooth-950: oklch(0.36 0 0);
+  --smooth-1000: oklch(0.22 0 0);
 }
 *{box-sizing:border-box}
 html,body{margin:0;overflow-x:clip}
@@ -421,3 +445,131 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
   }
 @media(prefers-reduced-motion:reduce){
     }
+
+@theme inline { --color-brand: var(--brand, oklch(0.72 0.2 352.53)); --color-brand-light: var(--brand-light, oklch(0.78 0.15 352.53)); --color-brand-lighter: var(--brand-lighter, oklch(0.85 0.1 352.53)); --color-brand-secondary: var(--brand-secondary, oklch(0.66 0.21 354.31)); --color-amber: var(--amber); --color-amber-fg: var(--amber-fg); --color-amber-hover: var(--amber-hover); --color-blue: var(--blue); --color-blue-fg: var(--blue-fg); --color-blue-hover: var(--blue-hover); --color-green: var(--green); --color-green-fg: var(--green-fg); --color-green-hover: var(--green-hover); --color-smooth-50: var(--smooth-50); --color-smooth-100: var(--smooth-100); --color-smooth-200: var(--smooth-200); --color-smooth-300: var(--smooth-300); --color-smooth-400: var(--smooth-400); --color-smooth-500: var(--smooth-500); --color-smooth-600: var(--smooth-600); --color-smooth-700: var(--smooth-700); --color-smooth-800: var(--smooth-800); --color-smooth-900: var(--smooth-900); --color-smooth-950: var(--smooth-950); --color-smooth-1000: var(--smooth-1000);
+}
+
+.dark { --amber: oklch(0.8 0.15 75); --amber-fg: oklch(0.2 0 0); --amber-hover: oklch(0.85 0.14 72); --blue: oklch(0.66 0.18 256); --blue-fg: #fff; --blue-hover: oklch(0.72 0.16 256); --green: oklch(0.73 0.16 152); --green-fg: oklch(0.2 0 0); --green-hover: oklch(0.79 0.15 152); --smooth-50: oklch(0.2 0 0); --smooth-100: oklch(0.235 0 0); --smooth-200: oklch(0.275 0 0); --smooth-300: oklch(0.315 0 0); --smooth-400: oklch(0.36 0 0); --smooth-500: oklch(0.41 0 0); --smooth-600: oklch(0.47 0 0); --smooth-700: oklch(0.55 0 0); --smooth-800: oklch(0.66 0 0); --smooth-900: oklch(0.74 0 0); --smooth-950: oklch(0.85 0 0); --smooth-1000: oklch(0.96 0 0);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   THIRD-PARTY COMPONENTS — theme only
+   Amicro, SmoothUI and Bencho ship their own code (components/amicro,
+   components/smoothui, components/bencho). Nothing below changes how they
+   behave; it maps their colour tokens to this palette and keeps the site's
+   existing layout where a component brings its own box styles. Plain
+   (unlayered) rules here win over Tailwind utilities by cascade layer.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* shadcn/SmoothUI tokens, pointed at the site palette */
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-muted: var(--paper-2);
+  --color-muted-foreground: var(--muted);
+  --color-border: var(--line);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--paper);
+  --color-ring: var(--accent);
+}
+:root { --brand: var(--accent); }
+
+/* Amicro Text Reveal inside headings: inherit the heading, no extra gap */
+.amc-reveal { display: block; }
+.amc-reveal > div { padding: 0 !important; }
+.h-gap h2 .amc-reveal, .h-how h2 .amc-reveal { color: inherit; }
+
+/* Amicro Focus Blur — masthead links */
+.amc-nav .amc-nav-links { padding: 0; gap: 26px; flex-wrap: nowrap; }
+.h-mast .nav .amc-nav a { font-size: 13px; font-weight: 400; }
+.amc-nav { --color-blue-500: var(--accent); }
+.h-mast--dark .amc-nav { --color-blue-500: var(--paper-on-dark); }
+/* FocusBlur sets an inline colour, so the current-page state needs !important */
+.amc-nav[data-current="/"] a[href="/"],
+.amc-nav[data-current="/donna"] a[href="/donna"],
+.amc-nav[data-current="/blogs"] a[href="/blogs"] { color: var(--accent) !important; }
+.h-mast--dark .amc-nav[data-current="/donna"] a[href="/donna"] { color: var(--paper-on-dark) !important; }
+
+/* Amicro Magnetic Button as the nav CTA — keep the pill */
+.h-mast .nav button.nav-cta { height: auto; border-radius: 6px; box-shadow: none; }
+.h-mast .nav .nav-cta span { color: inherit; }
+
+/* Amicro AnimatedButton (glare) as the solid CTA */
+.amc-solid { background: var(--accent) !important; color: var(--paper) !important; border-radius: 6px !important; height: 44px !important; font-family: var(--fm); }
+.amc-solid:hover { background: var(--accent-deep) !important; }
+.amc-solid svg { color: var(--paper) !important; }
+.amc-solid .absolute { left: 0; } /* start the sweep off the button's left edge */
+.amc-solid span { font-size: 14px !important; font-weight: 600 !important; letter-spacing: .02em; }
+.amc-solid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Amicro Share morph */
+.amc-share { height: 30px !important; color: var(--ink) !important; font-family: var(--fm); margin-left: auto; }
+.amc-share svg { color: var(--ink) !important; }
+
+/* SmoothUI Button Copy next to the footer email */
+.amc-email { display: inline-flex; align-items: center; gap: 8px; }
+.amc-email > div { display: inline-flex; }
+.h-footer .amc-copy { min-height: 32px; min-width: 32px; padding: 7px; background: transparent; border-color: var(--line-dark); color: var(--paper); opacity: .7; }
+.h-footer .amc-copy:hover { opacity: 1; }
+
+/* Amicro Tilt Card around the step cards */
+.amc-tilt { aspect-ratio: auto; max-width: none; height: 100%; cursor: default; }
+.amc-tilt > div { border-radius: 0; border: 0; box-shadow: none; display: block; }
+.amc-tilt > div > div { display: block !important; text-align: left; }
+.steps4 .amc-tilt > div { border: 1px solid var(--line); border-radius: 6px; }
+
+/* Amicro Spotlight — offer rows and blog cards keep their own boxes */
+.amc-spot { background: none; border: 0; border-radius: 0; padding: 0; overflow: visible; }
+.amc-spot + .amc-spot .row { border-top: 0; }
+.blog-card-link { display: block; text-decoration: none; color: inherit; }
+.blog-card-link .blog-card, .blog-card-link .blog-related-card { background: none; border-radius: 0; height: 100%; }
+.blog-card-link:hover .blog-card, .blog-card-link:hover .blog-related-card { background: var(--paper-2); border-color: rgba(43,39,36,.3); }
+.blog-related-card > .relative { display: flex; flex-direction: column; gap: 10px; }
+
+/* Amicro Progress Indicator on articles */
+.amc-progress { background: var(--accent); }
+
+/* SmoothUI Basic Accordion as the FAQ (dark section) */
+.sui-faq { border: 0; border-radius: 0; background: none; }
+.sui-faq > div { border-color: var(--line-dark) !important; border-bottom: 1px solid var(--line-dark); }
+.sui-faq button { background: none; padding: 24px 0; gap: 20px; color: var(--paper-on-dark); }
+.sui-faq button:hover { background: none; }
+.sui-faq button h3 { font-family: var(--fd); font-weight: 600; font-size: clamp(17px,2vw,22px); line-height: 1.3; color: var(--paper-on-dark); }
+.sui-faq button svg { color: var(--accent-on-dark); }
+.sui-faq [role="region"] > div { background: none; border: 0; padding: 0; }
+.sui-faq .ans { padding: 0 0 26px; color: var(--muted-on-dark); font-size: 16px; line-height: 1.75; max-width: 64ch; }
+@media (max-width: 640px) { .sui-faq button { padding: 20px 0; } .sui-faq button h3 { font-size: 17px; } .sui-faq .ans { font-size: 15px; } }
+.faq-list:has(.sui-faq) { border-top: 1px solid var(--line-dark); }
+
+/* SmoothUI Animated Stepper on the flow banner */
+.fb-stepper { padding: clamp(20px,2.6vw,28px) clamp(20px,2.4vw,32px) 0; }
+.fb-stepper [role="tablist"] + div:empty, .fb-stepper [role="tabpanel"] { display: none; }
+.fb-stepper .text-muted-foreground { color: var(--muted); }
+.fb-stepper p, .fb-stepper span { font-family: var(--fm); }
+.fb-stage { cursor: default; }
+
+/* SmoothUI Animated Tabs + Animated Input on the blog index */
+.blog-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 30px 18px; margin-bottom: 36px; }
+.blog-tabs { flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; padding: 4px; background: var(--paper-2); }
+.blog-tabs button { font-family: var(--fm); font-size: 13px; border-radius: 6px; }
+.blog-tabs button span.absolute { background: var(--accent); border-color: var(--accent); border-radius: 6px; box-shadow: none; }
+.blog-tabs button[aria-selected="true"] { color: var(--paper); }
+.blog-search { width: min(100%, 300px); }
+@media (max-width: 640px) { .blog-search { width: 100%; } }
+.blog-search input { background: var(--paper); border-color: var(--line); border-radius: 6px; font-family: var(--fm); font-size: 14px; padding: 11px 12px; color: var(--ink); }
+.blog-search label { background: var(--paper); font-family: var(--fm); font-size: 13px; }
+
+/* Bencho Slide to confirm on the accent CTA banner. Its tokens, defined on its own root. */
+.cta-go { display: flex; justify-content: center; margin-top: 40px; }
+.bch-slide {
+  --font-ui: var(--fm);
+  --card: var(--paper);
+  --fill-slab: var(--paper);
+  --ink: var(--deep);
+  --ink-rgb: 20, 17, 16;
+  --fill-on: var(--deep);
+  --fill-on-rgb: 20, 17, 16;
+  --pane-edge: rgba(20,17,16,.14);
+}
+@media (max-width: 480px) { .bch-slide .sld { max-width: calc(100vw - 28px); } }
