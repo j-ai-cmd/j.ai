@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "wouter";
-import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN, EMAIL } from "@/components/shared";
+import { Reveal, Wordmark, MobileSheet, WEBHOOK_URL, LINKEDIN } from "@/components/shared";
 import FlowBanner from "@/components/FlowBanner";
+import { RevealHeading, NavLinks, NavCta, GlareCta, FooterEmail } from "@/components/interactive";
+import { TiltCard } from "@/components/amicro/tilt-card";
+import BasicAccordion from "@/components/smoothui/basic-accordion";
 import posthog, { isPostHogEnabled } from "@/lib/posthog";
 
 export const FAQS = [
@@ -95,7 +97,12 @@ export default function Legal() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", firm: "", pms: "", area: "" });
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    // Honour /donna#contact links from other pages instead of always resetting to the top.
+    const target = window.location.hash && document.querySelector(window.location.hash);
+    if (target) target.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -127,10 +134,8 @@ export default function Legal() {
         <div className="in">
           <Wordmark />
           <div className="nav">
-            <Link href="/">Home</Link>
-            <span className="live" aria-current="page">Legal</span>
-            <Link href="/blogs">Blogs</Link>
-            <a href="#contact" className="nav-cta">Contact us</a>
+            <NavLinks current="/donna" />
+            <NavCta href="#contact" />
           </div>
           <button className="hamb" onClick={() => setMenu(true)} aria-label="Open menu"><span/><span/><span/></button>
         </div>
@@ -158,7 +163,7 @@ export default function Legal() {
                 </Reveal>
               </div>
               <Reveal className="go">
-                <a href="#donna" className="btn btn-solid">See the demo</a>
+                <GlareCta href="#videos" label="See the video" />
                 <a href="#contact" className="btn btn-line">Get donna for your firm →</a>
               </Reveal>
             </div>
@@ -184,7 +189,7 @@ export default function Legal() {
 
 
       {/* VIDEO SECTION */}
-      <section className="d-videos">
+      <section className="d-videos" id="videos">
         <div className="wrap">
           <Reveal><h2 className="d-vid-heading">See <span style={{ color: "var(--accent)" }}>donna</span> in action.</h2></Reveal>
           <div className="d-vid-grid">
@@ -209,24 +214,24 @@ export default function Legal() {
       {/* HOW IT WORKS */}
       <section className="d-how">
         <div className="wrap">
-          <Reveal as="h2">Custom-built for your firm.</Reveal>
+          <RevealHeading text="Custom-built for your firm." />
           <Reveal className="steps4">
-            <div className="s">
+            <TiltCard maxTilt={6} className="amc-tilt" cardClassName="s">
               <h4>Custom intake form</h4>
               <p>We build the intake form custom for you - estate planning, family law, conveyancing. Fields, pages, logic, brand assets, all yours.</p>
-            </div>
-            <div className="s">
+            </TiltCard>
+            <TiltCard maxTilt={6} className="amc-tilt" cardClassName="s">
               <h4>Clients complete it themselves</h4>
               <p>A clean, mobile-friendly form your clients finish in minutes. Submissions tracked in real time on a dashboard.</p>
-            </div>
-            <div className="s">
+            </TiltCard>
+            <TiltCard maxTilt={6} className="amc-tilt" cardClassName="s">
               <h4>Syncs with your legal software</h4>
               <p>Donna smartly syncs all form submissions to your legal software, creating a matter, contacts, documents etc.</p>
-            </div>
-            <div className="s">
+            </TiltCard>
+            <TiltCard maxTilt={6} className="amc-tilt" cardClassName="s">
               <h4>MCP connector</h4>
               <p>Donna MCP connects your legal software with your AI. So you can talk to your software inside Claude or ChatGPT.</p>
-            </div>
+            </TiltCard>
           </Reveal>
         </div>
       </section>
@@ -234,14 +239,12 @@ export default function Legal() {
       {/* FAQ */}
       <section className="d-faq">
         <div className="wrap">
-          <Reveal as="h2">Frequently asked questions.</Reveal>
+          <RevealHeading text="Frequently asked questions." />
           <Reveal className="faq-list">
-            {FAQS.map((f, i) => (
-              <details key={i} className="faq-item">
-                <summary>{f.q}<span className="pl">+</span></summary>
-                <div className="ans">{f.a}</div>
-              </details>
-            ))}
+            <BasicAccordion
+              className="sui-faq"
+              items={FAQS.map((f, i) => ({ id: i, title: f.q, content: <div className="ans">{f.a}</div> }))}
+            />
           </Reveal>
         </div>
       </section>
@@ -294,7 +297,7 @@ export default function Legal() {
       {/* CTA BANNER */}
       <section className="cta-banner">
         <div className="wrap">
-          <Reveal as="h2">Stop doing work that shouldn’t need you.</Reveal>
+          <RevealHeading text="Stop doing work that shouldn’t need you." />
         </div>
       </section>
 
@@ -306,7 +309,7 @@ export default function Legal() {
             <div className="tag">AI implementation for legal firms</div>
           </div>
           <div className="r">
-            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <FooterEmail />
             <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="li-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
             <span className="cp">© 2026 j.ai - Jai Dhingra</span>
           </div>
