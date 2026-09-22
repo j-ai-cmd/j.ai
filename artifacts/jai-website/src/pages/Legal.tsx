@@ -163,7 +163,7 @@ export default function Legal() {
                 </Reveal>
               </div>
               <Reveal className="go">
-                <GlareCta href="#donna" label="See the demo" />
+                <GlareCta href="#videos" label="See the video" />
                 <a href="#contact" className="btn btn-line">Get donna for your firm →</a>
               </Reveal>
             </div>
@@ -189,7 +189,7 @@ export default function Legal() {
 
 
       {/* VIDEO SECTION */}
-      <section className="d-videos">
+      <section className="d-videos" id="videos">
         <div className="wrap">
           <Reveal><h2 className="d-vid-heading">See <span style={{ color: "var(--accent)" }}>donna</span> in action.</h2></Reveal>
           <div className="d-vid-grid">

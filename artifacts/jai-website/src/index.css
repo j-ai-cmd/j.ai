@@ -533,6 +533,7 @@ section{padding:clamp(76px,10vw,140px) 0;position:relative}
 
 /* Sticky masthead on every page */
 .h-mast { position: sticky; top: 0; z-index: 60; }
+section[id] { scroll-margin-top: 88px; } /* anchored sections clear the sticky header */
 .h-mast:not(.h-mast--dark) { background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .h-mast .nav .amc-nav-cta { height: 38px !important; }
 .h-mast .nav .amc-nav-cta span { color: var(--paper) !important; }
