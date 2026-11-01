@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 
-export const WEBHOOK_URL = "https://hook.eu1.make.com/waciaz78ykdmfaxh4glg6vdhjjqi4jh5";
+export const WEBHOOK_URL = "/api/enquiry";
 export const LINKEDIN = "https://www.linkedin.com/in/jai-dhingra/";
 export const EMAIL = "jai@jdotai.com";
 
